@@ -1,7 +1,12 @@
 package org.codeforafrica.storycheck;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -11,11 +16,16 @@ import com.mingle.sweetpick.DimEffect;
 import com.mingle.sweetpick.SweetSheet;
 import com.mingle.sweetpick.ViewPagerDelegate;
 
-public class MainActivity extends AppCompatActivity {
+import org.codeforafrica.storycheck.view.AvenirEditTextView;
+import org.codeforafrica.storycheck.view.AvenirMaterialTextField;
+
+public class MainActivity extends AppCompatActivity{
 
     private SweetSheet mReportCategoriesSheet;
     private RelativeLayout rl;
-
+    private AvenirEditTextView editTitle;
+    private RelativeLayout categoryPicker;
+    private AvenirMaterialTextField editTitleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,19 +34,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         rl = (RelativeLayout) findViewById(R.id.rl);
-        setupViewpager();
+        editTitle = (AvenirEditTextView) findViewById(R.id.edit_title);
+        categoryPicker = (RelativeLayout) findViewById(R.id.category);
 
-        findViewById(R.id.category).setOnClickListener(new View.OnClickListener() {
+        editTitleView = (AvenirMaterialTextField) findViewById(R.id.edit_title_view);
+
+        setupViewpager();
+        categoryPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mReportCategoriesSheet.toggle();
+                int count = editTitle.getText().toString().length();
+                if (count > 0) {
+                    mReportCategoriesSheet.toggle();
+                } else {
+                    editTitleView.expand();
+                    editTitleView.getImage().setColorFilter(Color.RED);
+                }
             }
         });
 
     }
 
     private void setupViewpager() {
-
 
         mReportCategoriesSheet = new SweetSheet(rl);
 
@@ -55,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     @Override
     public void onBackPressed() {
 
@@ -68,6 +85,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
 
 }

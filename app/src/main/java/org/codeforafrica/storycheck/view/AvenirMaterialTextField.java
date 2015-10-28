@@ -99,7 +99,7 @@ public class AvenirMaterialTextField extends FrameLayout {
         if (editText == null)
             return;
 
-        //editText.setTypeface(App.getInstance().getTypeface());
+        editText.setTypeface(App.getInstance().getTypeface());
 
         addView(LayoutInflater.from(getContext()).inflate(com.github.florent37.materialtextfield.R.layout.mtf_layout, this, false));
 
@@ -108,7 +108,7 @@ public class AvenirMaterialTextField extends FrameLayout {
         editTextLayout.addView(editText);
 
         label = (TextView) findViewById(com.github.florent37.materialtextfield.R.id.mtf_label);
-        //label.setTypeface(App.getInstance().getTypeface());
+        label.setTypeface(App.getInstance().getTypeface());
         ViewHelper.setPivotX(label, 0);
         ViewHelper.setPivotY(label, 0);
 

@@ -12,10 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:mtf_image="@drawable/ic_create_black_24dp"
-        android:id="@+id/view">
+        android:id="@+id/edit_title_view">
 
         <org.codeforafrica.storycheck.view.AvenirEditTextView
-            android:id="@+id/title"
+            android:id="@+id/edit_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/title_hint"
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:layout_below="@+id/view"
+        android:layout_below="@+id/edit_title_view"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
@@ -58,6 +58,5 @@
             android:textColor="@color/white"
             android:gravity="center_vertical"/>
     </RelativeLayout>
-
 
 </RelativeLayout>
