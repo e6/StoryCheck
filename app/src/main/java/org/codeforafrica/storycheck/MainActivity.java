@@ -26,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
         rl = (RelativeLayout) findViewById(R.id.rl);
         setupViewpager();
 
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.category).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mReportCategoriesSheet.toggle();
             }
         });
-        
+
     }
 
     private void setupViewpager() {
