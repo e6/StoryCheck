@@ -1,19 +1,67 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#ff8b90af"
-                android:id="@+id/rl"
-                tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:id="@+id/rl"
+    tools:context=".MainActivity"
+    android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/button"
-        android:layout_width="48dp"
-        android:layout_marginTop="100dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_centerHorizontal="true"
-        android:layout_height="48dp"/>
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mtf_image="@drawable/ic_create_black_24dp"
+        android:id="@+id/view">
 
+        <org.codeforafrica.storycheck.view.AvenirEditTextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title_hint"
+            android:textColor="#333"
+            android:textColorHint="#666"
+            android:textSize="25sp"/>
+
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:id="@+id/category"
+        android:layout_below="@+id/view"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+
+
+        <ImageView
+            android:id="@+id/button"
+            android:layout_width="48dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <org.codeforafrica.storycheck.view.AvenirTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/choose_category"
+            android:id="@+id/textView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/button"
+            android:layout_toStartOf="@+id/button"
+            android:layout_alignParentTop="true"
+            android:layout_alignBottom="@+id/button"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"/>
+    </RelativeLayout>
 
 
 </RelativeLayout>

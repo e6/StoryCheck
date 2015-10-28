@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 mReportCategoriesSheet.toggle();
             }
         });
-
+        
     }
 
     private void setupViewpager() {
