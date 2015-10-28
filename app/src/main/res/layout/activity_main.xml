@@ -8,7 +8,7 @@
     tools:context=".MainActivity"
     android:padding="10dp">
 
-    <com.github.florent37.materialtextfield.MaterialTextField
+    <org.codeforafrica.storycheck.view.AvenirMaterialTextField
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:mtf_image="@drawable/ic_create_black_24dp"
@@ -23,7 +23,7 @@
             android:textColorHint="#666"
             android:textSize="25sp"/>
 
-    </com.github.florent37.materialtextfield.MaterialTextField>
+    </org.codeforafrica.storycheck.view.AvenirMaterialTextField>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
+import org.codeforafrica.storycheck.App;
+
 /**
  * Created by nick on 28/10/15.
  */
@@ -25,6 +27,10 @@ public class AvenirEditTextView extends EditText {
     }
 
     private void init() {
-        // set your input filter here
+        if (isInEditMode()){
+            return;
+        }
+
+        setTypeface(App.getInstance().getTypeface());
     }
 }
