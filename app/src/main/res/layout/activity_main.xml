@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:mtf_image="@drawable/ic_create_black_24dp"
-        android:id="@+id/edit_title_view">
+        android:id="@+id/edit_title_view"
+        >
 
         <org.codeforafrica.storycheck.view.AvenirEditTextView
             android:id="@+id/edit_title"
@@ -41,7 +42,8 @@
             android:layout_height="24dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:tint="@color/colorPrimaryDark"/>
 
         <org.codeforafrica.storycheck.view.AvenirTextView
             android:layout_width="wrap_content"

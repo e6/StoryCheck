@@ -38,8 +38,10 @@ public class MainActivity extends AppCompatActivity{
         categoryPicker = (RelativeLayout) findViewById(R.id.category);
 
         editTitleView = (AvenirMaterialTextField) findViewById(R.id.edit_title_view);
-
+        editTitleView.getImage().setColorFilter(getResources().getColor(R.color.colorPrimaryDark));
+        
         setupViewpager();
+
         categoryPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +51,26 @@ public class MainActivity extends AppCompatActivity{
                 } else {
                     editTitleView.expand();
                     editTitleView.getImage().setColorFilter(Color.RED);
+                }
+            }
+        });
+
+        editTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int count = editTitle.getText().toString().length();
+                if (count > 0) {
+                    editTitleView.getImage().setColorFilter(getResources().getColor(R.color.colorPrimaryDark));
                 }
             }
         });
