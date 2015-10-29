@@ -3,4 +3,21 @@
     <string name="title_hint">What is the headline of your story?</string>
     <string name="choose_category">Choose category</string>
     <string name="minimum_chars">Minimum characters required: </string>
+
+    <!-- categories -->
+    <string name="accidents">Accidents</string>
+    <string name="biography">Biography</string>
+    <string name="budget_adoption">Budget</string>
+    <string name="court">Courts - Civil Action</string>
+    <string name="court_verdict">Courts - Verdict Stories</string>
+    <string name="crime">Crime</string>
+    <string name="disasters">Disasters</string>
+    <string name="features">Features</string>
+    <string name="fires">Fires</string>
+    <string name="interviews">Interviews</string>
+    <string name="meetings">Meetings</string>
+    <string name="conferences">News Conferences</string>
+    <string name="obituaries">Obituaries</string>
+    <string name="profile">Profile</string>
+    <string name="speeches">Speeches</string>
 </resources>
