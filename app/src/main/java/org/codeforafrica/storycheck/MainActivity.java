@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity{
         categoryPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                
                 int count = editTitle.getText().toString().length();
                 if (count > 0) {
                     mReportCategoriesSheet.toggle();
