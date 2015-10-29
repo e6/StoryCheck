@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">StoryCheck</string>
     <string name="title_hint">What is the headline of your story?</string>
-    <string name="choose_category">Choose category</string>
+    <string name="choose_category">Choose story type</string>
     <string name="minimum_chars">Minimum characters required: </string>
 
     <!-- categories -->

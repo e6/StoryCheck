@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'aar-link-sources'
 
 android {
     compileSdkVersion 23
@@ -25,4 +26,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.github.zzz40500:AndroidSweetSheet:1.1.0'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
+    compile ('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.8.3@aar'){
+        transitive=true
+    }
+    aarLinkSources 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.8.3:sources@jar'
+
 }
