@@ -1,9 +1,7 @@
 package org.codeforafrica.storycheck;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,17 +13,17 @@ import com.mingle.entity.MenuEntity;
 import com.mingle.sweetpick.DimEffect;
 import com.mingle.sweetpick.SweetSheet;
 import com.mingle.sweetpick.ViewPagerDelegate;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
+import org.codeforafrica.storycheck.MaterialEditTextExtend.MinLengthValidator;
 import org.codeforafrica.storycheck.view.AvenirEditTextView;
-import org.codeforafrica.storycheck.view.AvenirMaterialTextField;
 
 public class MainActivity extends AppCompatActivity{
 
     private SweetSheet mReportCategoriesSheet;
     private RelativeLayout rl;
-    private AvenirEditTextView editTitle;
+    private MaterialEditText editTitle;
     private RelativeLayout categoryPicker;
-    private AvenirMaterialTextField editTitleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,23 +32,20 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         rl = (RelativeLayout) findViewById(R.id.rl);
-        editTitle = (AvenirEditTextView) findViewById(R.id.edit_title);
+        editTitle = (MaterialEditText) findViewById(R.id.edit_title);
         categoryPicker = (RelativeLayout) findViewById(R.id.category);
 
-        editTitleView = (AvenirMaterialTextField) findViewById(R.id.edit_title_view);
-        editTitleView.getImage().setColorFilter(getResources().getColor(R.color.colorPrimaryDark));
-        
         setupViewpager();
 
         categoryPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int count = editTitle.getText().toString().length();
                 if (count > 0) {
                     mReportCategoriesSheet.toggle();
                 } else {
-                    editTitleView.expand();
-                    editTitleView.getImage().setColorFilter(Color.RED);
+                    editTitle.validate();
                 }
             }
         });
@@ -70,7 +65,8 @@ public class MainActivity extends AppCompatActivity{
             public void afterTextChanged(Editable s) {
                 int count = editTitle.getText().toString().length();
                 if (count > 0) {
-                    editTitleView.getImage().setColorFilter(getResources().getColor(R.color.colorPrimaryDark));
+                    editTitle.validate();
+
                 }
             }
         });

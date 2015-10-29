@@ -3,35 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorAccent"
     android:id="@+id/rl"
     tools:context=".MainActivity"
     android:padding="10dp">
-
-    <org.codeforafrica.storycheck.view.AvenirMaterialTextField
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"></LinearLayout>
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/edit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mtf_image="@drawable/ic_create_black_24dp"
-        android:id="@+id/edit_title_view"
-        >
-
-        <org.codeforafrica.storycheck.view.AvenirEditTextView
-            android:id="@+id/edit_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/title_hint"
-            android:textColor="#333"
-            android:textColorHint="#666"
-            android:textSize="25sp"/>
-
-    </org.codeforafrica.storycheck.view.AvenirMaterialTextField>
+        android:hint="Material Design Icon"
+        app:met_iconLeft="@drawable/ic_create_black_24dp"
+        app:met_iconPadding="0dp"/>
 
     <RelativeLayout
         android:id="@+id/category"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:layout_below="@+id/edit_title_view"
+        android:layout_below="@+id/edit_title"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
@@ -48,7 +41,6 @@
         <org.codeforafrica.storycheck.view.AvenirTextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/choose_category"
             android:id="@+id/textView"
             android:layout_alignParentLeft="true"
@@ -57,8 +49,9 @@
             android:layout_toStartOf="@+id/button"
             android:layout_alignParentTop="true"
             android:padding="5dp"
-            android:textColor="@color/white"
-            android:gravity="center_vertical"/>
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="center_vertical"
+            android:textSize="25sp"/>
     </RelativeLayout>
 
 </RelativeLayout>
