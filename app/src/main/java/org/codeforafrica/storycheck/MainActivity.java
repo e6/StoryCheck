@@ -40,37 +40,14 @@ public class MainActivity extends AppCompatActivity{
         categoryPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
-                int count = editTitle.getText().toString().length();
-                if (count > 0) {
+
+                editTitle.addValidator(new MinLengthValidator(5));
+
+                if (editTitle.validate()) {
                     mReportCategoriesSheet.toggle();
-                } else {
-                    editTitle.validate();
                 }
             }
         });
-
-        editTitle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                int count = editTitle.getText().toString().length();
-                if (count > 0) {
-                    editTitle.validate();
-
-                }
-            }
-        });
-
     }
 
     private void setupViewpager() {
@@ -88,7 +65,6 @@ public class MainActivity extends AppCompatActivity{
                 return true;
             }
         });
-
 
     }
 
