@@ -20,4 +20,34 @@
     <string name="obituaries">Obituaries</string>
     <string name="profile">Profile</string>
     <string name="speeches">Speeches</string>
+
+    <!-- recyclerview list -->
+    <string name="activity_title_demo_d">Draggable</string>
+    <string name="activity_title_demo_d_grid">Draggable (Grid Layout)</string>
+    <string name="activity_title_demo_d_on_longpress">Drag on Long Press</string>
+    <string name="activity_title_demo_s">Swipeable</string>
+    <string name="activity_title_demo_s_on_longpress">Swipe on Long Press</string>
+    <string name="activity_title_demo_us">Button under swipeable item</string>
+    <string name="activity_title_demo_e">Expandable</string>
+    <string name="activity_title_demo_ds">Draggable + Swipeable</string>
+    <string name="activity_title_demo_eds">Expandable + Draggable + Swipeable</string>
+    <string name="activity_title_demo_d_with_section">Draggable with Section</string>
+    <string name="activity_title_demo_ed_with_section">Expandable + Draggable with Section</string>
+    <string name="activity_title_demo_e_add_remove">Expandable (Add/Remove items)</string>
+    <string name="activity_title_demo_e_already_expanded">Expandable (Groups already expanded)</string>
+    <string name="activity_title_demo_s_vertical">Swipeable (Vertical)</string>
+    <string name="activity_title_demo_s_viewpager">Swipeable with ViewPager</string>
+    <string name="activity_title_demo_s_legacy">Swipeable (Legacy)</string>
+
+    <string name="snack_bar_text_item_removed">1 item removed</string>
+    <string name="snack_bar_text_group_item_removed">1 group item removed</string>
+    <string name="snack_bar_text_child_item_removed">1 child item removed</string>
+    <string name="snack_bar_text_button_clicked">Button clicked! (position = %1$d)</string>
+    <string name="snack_bar_action_undo">UNDO</string>
+
+    <string name="dialog_message_item_pinned">Item pinned! (position = %1$d)</string>
+    <string name="dialog_message_group_item_pinned">Group item pinned! (group = %1$d)</string>
+    <string name="dialog_message_child_item_pinned">Child item pinned! (group = %1$d, child = %2$d)</string>
+    <string name="path_expand_less">M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z</string>
+
 </resources>
