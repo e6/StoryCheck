@@ -14,8 +14,8 @@ public class MinLengthValidator extends METValidator {
         super(errorMessage);
     }
 
-    public MinLengthValidator(int i) {
-        super(String.valueOf(i));
+    public MinLengthValidator(String errorMessage, int i) {
+        super(errorMessage);
 
         minLength = i;
     }

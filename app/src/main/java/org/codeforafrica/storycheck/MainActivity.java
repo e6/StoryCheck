@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                editTitle.addValidator(new MinLengthValidator(5));
+                editTitle.addValidator(new MinLengthValidator(getResources().getString(R.string.minimum_chars) + 5, 5));
 
                 if (editTitle.validate()) {
                     mReportCategoriesSheet.toggle();
