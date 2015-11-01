@@ -57,9 +57,10 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/container"
+        android:id="@+id/questions_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/category"/>
+        android:layout_below="@+id/category"
+        android:visibility="gone"/>
 
 </RelativeLayout>

@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements ExpandableItemPin
     private RelativeLayout rl;
     private MaterialEditText editTitle;
     private RelativeLayout categoryPicker;
+    private RelativeLayout questionsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements ExpandableItemPin
         rl = (RelativeLayout) findViewById(R.id.rl);
         editTitle = (MaterialEditText) findViewById(R.id.edit_title);
         categoryPicker = (RelativeLayout) findViewById(R.id.category);
+        questionsList = (RelativeLayout) findViewById(R.id.questions_list);
 
         setupViewpager();
 
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements ExpandableItemPin
             @Override
             public boolean onItemClick(int position, MenuEntity menuEntity1) {
 
-                Toast.makeText(MainActivity.this, menuEntity1.title + "  " + position, Toast.LENGTH_SHORT).show();
+                questionsList.setVisibility(View.VISIBLE);
                 return true;
             }
         });
