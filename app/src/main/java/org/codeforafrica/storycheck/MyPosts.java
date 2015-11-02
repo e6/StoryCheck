@@ -71,7 +71,9 @@ public class MyPosts extends AppCompatActivity {
             }
         });
 
+
         init();
+
     }
 
 
