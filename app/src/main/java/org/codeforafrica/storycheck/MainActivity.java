@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ import org.codeforafrica.storycheck.recyclerview.data.AbstractExpandableDataProv
 import org.codeforafrica.storycheck.recyclerview.RecyclerListViewFragment;
 import org.codeforafrica.storycheck.recyclerview.fragment.ExampleExpandableDataProviderFragment;
 import org.codeforafrica.storycheck.recyclerview.fragment.ExpandableItemPinnedMessageDialogFragment;
+import org.codeforafrica.storycheck.view.AvenirTextView;
+
 import android.support.design.widget.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements ExpandableItemPinnedMessageDialogFragment.EventListener {
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements ExpandableItemPin
     private MaterialEditText editTitle;
     private RelativeLayout categoryPicker;
     private RelativeLayout questionsList;
+    private AvenirTextView categoryName;
+    private ImageView categoryThumb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements ExpandableItemPin
         editTitle = (MaterialEditText) findViewById(R.id.edit_title);
         categoryPicker = (RelativeLayout) findViewById(R.id.category);
         questionsList = (RelativeLayout) findViewById(R.id.questions_list);
+        categoryName = (AvenirTextView) findViewById(R.id.categoryName);
+        categoryThumb = (ImageView) findViewById(R.id.categoryThumb);
 
         setupViewpager();
 
@@ -66,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements ExpandableItemPin
                     .add(new ExampleExpandableDataProviderFragment(), FRAGMENT_TAG_DATA_PROVIDER)
                     .commit();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new RecyclerListViewFragment(), FRAGMENT_LIST_VIEW)
+                    .add(R.id.questions_list, new RecyclerListViewFragment(), FRAGMENT_LIST_VIEW)
                     .commit();
         }
     }
@@ -83,6 +90,9 @@ public class MainActivity extends AppCompatActivity implements ExpandableItemPin
             public boolean onItemClick(int position, MenuEntity menuEntity1) {
 
                 questionsList.setVisibility(View.VISIBLE);
+                categoryName.setText(menuEntity1.title);
+                categoryThumb.setImageDrawable(menuEntity1.icon);
+
                 return true;
             }
         });
