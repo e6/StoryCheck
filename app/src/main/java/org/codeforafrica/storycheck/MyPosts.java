@@ -1,7 +1,9 @@
 package org.codeforafrica.storycheck;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +27,6 @@ public class MyPosts extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.current_posts);
-
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xdd000000));
 
         final InboxBackgroundScrollView inboxBackgroundScrollView = (InboxBackgroundScrollView) findViewById(R.id.scroll);
         inboxLayoutListView = (InboxLayoutListView) findViewById(R.id.inboxlayout);
@@ -68,6 +68,13 @@ public class MyPosts extends AppCompatActivity {
                 LayoutInflater inflater = MyPosts.this.getLayoutInflater();
                 View view = inflater.inflate(R.layout.item, null);
                 return view;
+            }
+        });
+        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(MyPosts.this, MainActivity.class);
+                startActivity(i);
             }
         });
 

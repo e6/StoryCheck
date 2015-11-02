@@ -11,4 +11,5 @@
     <dimen name="list_group_item_with_add_remove_buttons_height">108dp</dimen>
 
     <dimen name="keyline_1">16dp</dimen>
+    <dimen name="raiseFab">5dp</dimen>
 </resources>

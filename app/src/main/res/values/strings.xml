@@ -50,4 +50,5 @@
     <string name="dialog_message_child_item_pinned">Child item pinned! (group = %1$d, child = %2$d)</string>
     <string name="path_expand_less">M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z</string>
 
+    <string name="uploaded">Uploaded</string>
 </resources>

@@ -1,6 +1,7 @@
 package org.codeforafrica.storycheck;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -9,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
 import com.mingle.entity.MenuEntity;
@@ -19,13 +19,11 @@ import com.mingle.sweetpick.ViewPagerDelegate;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.codeforafrica.storycheck.MaterialEditTextExtend.MinLengthValidator;
-import org.codeforafrica.storycheck.recyclerview.data.AbstractExpandableDataProvider;
 import org.codeforafrica.storycheck.recyclerview.RecyclerListViewFragment;
+import org.codeforafrica.storycheck.recyclerview.data.AbstractExpandableDataProvider;
 import org.codeforafrica.storycheck.recyclerview.fragment.ExampleExpandableDataProviderFragment;
 import org.codeforafrica.storycheck.recyclerview.fragment.ExpandableItemPinnedMessageDialogFragment;
 import org.codeforafrica.storycheck.view.AvenirTextView;
-
-import android.support.design.widget.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements ExpandableItemPinnedMessageDialogFragment.EventListener {
     private static final String FRAGMENT_TAG_DATA_PROVIDER = "data provider";
@@ -76,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements ExpandableItemPin
                     .add(R.id.questions_list, new RecyclerListViewFragment(), FRAGMENT_LIST_VIEW)
                     .commit();
         }
+
+
+        //show animation while uploading
+        
     }
 
     private void setupViewpager() {
