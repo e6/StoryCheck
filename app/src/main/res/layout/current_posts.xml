@@ -81,7 +81,7 @@
         </com.zzt.inbox.widget.InboxLayoutListView>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/myFAB"
+            android:id="@+id/addFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add_white_24dp"

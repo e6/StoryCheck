@@ -11,9 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.github.jorgecastilloprz.FABProgressCircle;
 import com.github.jorgecastilloprz.listeners.FABProgressListener;
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
@@ -80,6 +83,23 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
         categoryName = (AvenirTextView) findViewById(R.id.categoryName);
         categoryThumb = (ImageView) findViewById(R.id.categoryThumb);
 
+        //showcase
+        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+        lps.setMargins(margin, margin, margin, margin);
+
+        ViewTarget target = new ViewTarget(R.id.uploadFab, this);
+        ShowcaseView sv = new ShowcaseView.Builder(this)
+                .setTarget(target)
+                .setContentTitle(R.string.upload_post)
+                .setContentText(R.string.upload_post_description)
+                .setStyle(R.style.CustomShowcaseTheme2)
+                .build();
+        sv.setButtonPosition(lps);
+        sv.setButtonText(getResources().getString(android.R.string.ok));
+
         setupViewpager();
 
         categoryPicker.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +122,7 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
                     .add(R.id.questions_list, new RecyclerListViewFragment(), FRAGMENT_LIST_VIEW)
                     .commit();
         }
+
 
 
         //show animation while uploading

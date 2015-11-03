@@ -53,6 +53,10 @@
     <string name="uploaded">Uploaded</string>
 
     <string name="create_post">Create Post</string>
+    <string name="create_post_description">Use the add button to start a new checklist</string>
+    <string name="upload_post">Upload post</string>
+    <string name="upload_post_description">Use this button to start upload of your created post</string>
+
     <string name="my_posts">My Posts</string>
 
     <!-- Tour activity -->
