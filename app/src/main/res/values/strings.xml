@@ -55,4 +55,16 @@
     <string name="create_post">Create Post</string>
     <string name="my_posts">My Posts</string>
 
+    <!-- Tour activity -->
+    <string name="button_product_tour">product tour</string>
+
+    <string name="welcom_head_01">Story Checklist</string>
+    <string name="welcom_content_01">Capture all the necessary parts of your story</string>
+    <string name="welcom_head_02">Synchronize to server</string>
+    <string name="welcom_content_02">Send your completed stories to the newsroom</string>
+    <string name="welcom_head_03">Work offline</string>
+    <string name="welcom_content_03">Create stories without internet connection and upload later</string>
+    <string name="welcom_head_04">Media rich stories</string>
+    <string name="welcom_content_04">Add pictures, video and audio</string>
+
 </resources>

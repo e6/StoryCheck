@@ -19,6 +19,8 @@ import com.zzt.inbox.widget.InboxBackgroundScrollView;
 import com.zzt.inbox.widget.InboxLayoutBase;
 import com.zzt.inbox.widget.InboxLayoutListView;
 
+import org.codeforafrica.storycheck.intro.TourActivity;
+
 
 /**
  * Created by zzt on 2015/1/19.
@@ -30,6 +32,8 @@ public class MyPostsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.current_posts);
+
+        startTour();
 
         //set up toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -97,6 +101,10 @@ public class MyPostsActivity extends AppCompatActivity {
 
         init();
 
+    }
+
+    public void startTour(){
+        startActivity(new Intent(MyPostsActivity.this, TourActivity.class));
     }
 
 
