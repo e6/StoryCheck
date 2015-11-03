@@ -50,6 +50,8 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
 
         //set up toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_back));
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();

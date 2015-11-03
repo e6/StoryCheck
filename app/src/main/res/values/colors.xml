@@ -4,8 +4,8 @@
     <!--Color Scheme -->
     <color name="colorPrimary">#548fa0</color>
     <color name="colorPrimaryDark">#3a5f67</color>
-    <color name="colorAccent">#bdd25e</color>
-    <color name="yellow">#e8b233</color>
+    <color name="yellow">#bdd25e</color>
+    <color name="colorAccent">#e8b233</color>
     <color name="red">#d4693e</color>
 
     <color name="dark">#373537</color>
