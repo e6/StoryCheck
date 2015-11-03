@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +19,7 @@ import android.widget.LinearLayout;
 import com.nineoldandroids.view.ViewHelper;
 
 import org.codeforafrica.storycheck.R;
+import org.codeforafrica.storycheck.view.AvenirButton;
 
 
 public class TourActivity extends AppCompatActivity {
@@ -29,8 +29,8 @@ public class TourActivity extends AppCompatActivity {
     ViewPager pager;
     PagerAdapter pagerAdapter;
     LinearLayout circles;
-    Button skip;
-    Button done;
+    AvenirButton skip;
+    AvenirButton done;
     ImageButton next;
     boolean isOpaque = true;
  
@@ -41,7 +41,7 @@ public class TourActivity extends AppCompatActivity {
         window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
  
         setContentView(R.layout.activity_tutorial);
-        skip = Button.class.cast(findViewById(R.id.skip));
+        skip = AvenirButton.class.cast(findViewById(R.id.skip));
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +57,7 @@ public class TourActivity extends AppCompatActivity {
             }
         });
  
-        done = Button.class.cast(findViewById(R.id.done));
+        done = AvenirButton.class.cast(findViewById(R.id.done));
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
