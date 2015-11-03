@@ -15,12 +15,9 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import com.nineoldandroids.view.ViewHelper;
-
 import org.codeforafrica.storycheck.R;
 import org.codeforafrica.storycheck.view.AvenirButton;
-
 
 public class TourActivity extends AppCompatActivity {
  

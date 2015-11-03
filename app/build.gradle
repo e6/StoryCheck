@@ -34,4 +34,6 @@ dependencies {
     compile 'com.android.support:design:23.1.0'
     compile 'com.wnafee:vector-compat:1.0.5'
     compile 'com.github.jorgecastilloprz:fabprogresscircle:1.01@aar'
+
+    compile 'com.github.amlcurran.showcaseview:library:5.0.0'
 }
