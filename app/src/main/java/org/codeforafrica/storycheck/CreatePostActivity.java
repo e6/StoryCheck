@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.github.jorgecastilloprz.FABProgressCircle;
+import com.github.jorgecastilloprz.listeners.FABProgressListener;
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
 import com.mingle.entity.MenuEntity;
 import com.mingle.sweetpick.DimEffect;
@@ -22,13 +24,19 @@ import com.mingle.sweetpick.ViewPagerDelegate;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.codeforafrica.storycheck.MaterialEditTextExtend.MinLengthValidator;
+import org.codeforafrica.storycheck.fabprogresscircle.executor.ThreadExecutor;
+import org.codeforafrica.storycheck.fabprogresscircle.interactor.MockAction;
+import org.codeforafrica.storycheck.fabprogresscircle.interactor.MockActionCallback;
 import org.codeforafrica.storycheck.recyclerview.RecyclerListViewFragment;
 import org.codeforafrica.storycheck.recyclerview.data.AbstractExpandableDataProvider;
 import org.codeforafrica.storycheck.recyclerview.fragment.ExampleExpandableDataProviderFragment;
 import org.codeforafrica.storycheck.recyclerview.fragment.ExpandableItemPinnedMessageDialogFragment;
 import org.codeforafrica.storycheck.view.AvenirTextView;
 
-public class CreatePostActivity extends AppCompatActivity implements ExpandableItemPinnedMessageDialogFragment.EventListener {
+public class CreatePostActivity extends AppCompatActivity implements ExpandableItemPinnedMessageDialogFragment.EventListener, MockActionCallback, FABProgressListener {
+
+    private FABProgressCircle fabProgressCircle;
+    private boolean taskRunning;
     private static final String FRAGMENT_TAG_DATA_PROVIDER = "data provider";
     private static final String FRAGMENT_LIST_VIEW = "list view";
     private static final String FRAGMENT_TAG_ITEM_PINNED_DIALOG = "item pinned dialog";
@@ -42,9 +50,13 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
     private AvenirTextView categoryName;
     private ImageView categoryThumb;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_left);
 
         setContentView(R.layout.activity_main);
 
@@ -93,6 +105,8 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
 
 
         //show animation while uploading
+        fabProgressCircle = (FABProgressCircle) findViewById(R.id.uploadFab);
+        attachListeners();
 
     }
 
@@ -123,7 +137,7 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
         if (mReportCategoriesSheet.isShow()) {
                 mReportCategoriesSheet.dismiss();
         } else {
-            super.onBackPressed();
+            closeCreateStory();
         }
 
 
@@ -136,11 +150,16 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
 
         switch (selectedItem){
             case android.R.id.home:
-                finish();
+                closeCreateStory();
                 return true;
         }
 
         return super.onOptionsItemSelected(menuItem);
+    }
+
+    public void closeCreateStory(){
+        finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
     /**
@@ -276,6 +295,37 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
     public AbstractExpandableDataProvider getDataProvider() {
         final Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_DATA_PROVIDER);
         return ((ExampleExpandableDataProviderFragment) fragment).getDataProvider();
+    }
+
+    private void attachListeners() {
+        fabProgressCircle.attachListener(this);
+
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                if (!taskRunning) {
+                    fabProgressCircle.show();
+                    runMockInteractor();
+                }
+            }
+        });
+    }
+
+    private void runMockInteractor() {
+        ThreadExecutor executor = new ThreadExecutor();
+        executor.run(new MockAction(this));
+        taskRunning = true;
+    }
+
+    @Override public void onMockActionComplete() {
+        taskRunning = false;
+        fabProgressCircle.beginFinalAnimation();
+        //fabProgressCircle.hide();
+    }
+
+    @Override public void onFABProgressAnimationEnd() {
+        Snackbar.make(fabProgressCircle, R.string.uploaded, Snackbar.LENGTH_LONG)
+                .setAction("Action", null)
+                .show();
     }
 
 }

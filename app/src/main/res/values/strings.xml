@@ -53,4 +53,6 @@
     <string name="uploaded">Uploaded</string>
 
     <string name="create_post">Create Post</string>
+    <string name="my_posts">My Posts</string>
+
 </resources>
