@@ -28,7 +28,7 @@
 
     </FrameLayout>
 
-    <TextView
+    <org.codeforafrica.storycheck.view.AvenirTextView
         android:id="@+id/heading"
         android:text="@string/welcom_head_03"
         android:layout_width="fill_parent"
@@ -39,7 +39,7 @@
         android:gravity="bottom|center_horizontal"
         android:textAppearance="@style/WelcomeHeadingAppearance" />
 
-    <TextView
+    <org.codeforafrica.storycheck.view.AvenirTextView
         android:id="@+id/content"
         android:text="@string/welcom_content_03"
         android:layout_width="fill_parent"
