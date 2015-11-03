@@ -25,7 +25,7 @@ import org.codeforafrica.storycheck.recyclerview.fragment.ExampleExpandableDataP
 import org.codeforafrica.storycheck.recyclerview.fragment.ExpandableItemPinnedMessageDialogFragment;
 import org.codeforafrica.storycheck.view.AvenirTextView;
 
-public class MainActivity extends AppCompatActivity implements ExpandableItemPinnedMessageDialogFragment.EventListener {
+public class CreatePostActivity extends AppCompatActivity implements ExpandableItemPinnedMessageDialogFragment.EventListener {
     private static final String FRAGMENT_TAG_DATA_PROVIDER = "data provider";
     private static final String FRAGMENT_LIST_VIEW = "list view";
     private static final String FRAGMENT_TAG_ITEM_PINNED_DIALOG = "item pinned dialog";
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements ExpandableItemPin
 
 
         //show animation while uploading
-        
+
     }
 
     private void setupViewpager() {

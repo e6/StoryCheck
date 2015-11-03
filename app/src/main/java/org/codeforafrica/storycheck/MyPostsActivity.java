@@ -20,7 +20,7 @@ import com.zzt.inbox.widget.InboxLayoutListView;
 /**
  * Created by zzt on 2015/1/19.
  */
-public class MyPosts extends AppCompatActivity {
+public class MyPostsActivity extends AppCompatActivity {
     InboxLayoutListView inboxLayoutListView;
 
     @Override
@@ -65,7 +65,7 @@ public class MyPosts extends AppCompatActivity {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                LayoutInflater inflater = MyPosts.this.getLayoutInflater();
+                LayoutInflater inflater = MyPostsActivity.this.getLayoutInflater();
                 View view = inflater.inflate(R.layout.item, null);
                 return view;
             }
@@ -73,7 +73,7 @@ public class MyPosts extends AppCompatActivity {
         FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(MyPosts.this, MainActivity.class);
+                Intent i = new Intent(MyPostsActivity.this, CreatePostActivity.class);
                 startActivity(i);
             }
         });

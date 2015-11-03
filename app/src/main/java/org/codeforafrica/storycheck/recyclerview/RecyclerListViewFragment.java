@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.codeforafrica.storycheck.MainActivity;
+import org.codeforafrica.storycheck.CreatePostActivity;
 import org.codeforafrica.storycheck.R;
 import org.codeforafrica.storycheck.recyclerview.data.AbstractExpandableDataProvider;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
@@ -82,22 +82,22 @@ public class RecyclerListViewFragment extends Fragment
         myItemAdapter.setEventListener(new MyExpandableDraggableSwipeableItemAdapter.EventListener() {
             @Override
             public void onGroupItemRemoved(int groupPosition) {
-                ((MainActivity) getActivity()).onGroupItemRemoved(groupPosition);
+                ((CreatePostActivity) getActivity()).onGroupItemRemoved(groupPosition);
             }
 
             @Override
             public void onChildItemRemoved(int groupPosition, int childPosition) {
-                ((MainActivity) getActivity()).onChildItemRemoved(groupPosition, childPosition);
+                ((CreatePostActivity) getActivity()).onChildItemRemoved(groupPosition, childPosition);
             }
 
             @Override
             public void onGroupItemPinned(int groupPosition) {
-                ((MainActivity) getActivity()).onGroupItemPinned(groupPosition);
+                ((CreatePostActivity) getActivity()).onGroupItemPinned(groupPosition);
             }
 
             @Override
             public void onChildItemPinned(int groupPosition, int childPosition) {
-                ((MainActivity) getActivity()).onChildItemPinned(groupPosition, childPosition);
+                ((CreatePostActivity) getActivity()).onChildItemPinned(groupPosition, childPosition);
             }
 
             @Override
@@ -226,9 +226,9 @@ public class RecyclerListViewFragment extends Fragment
         final int childPosition = RecyclerViewExpandableItemManager.getPackedPositionChild(expandablePosition);
 
         if (childPosition == RecyclerView.NO_POSITION) {
-            ((MainActivity) getActivity()).onGroupItemClicked(groupPosition);
+            ((CreatePostActivity) getActivity()).onGroupItemClicked(groupPosition);
         } else {
-            ((MainActivity) getActivity()).onChildItemClicked(groupPosition, childPosition);
+            ((CreatePostActivity) getActivity()).onChildItemClicked(groupPosition, childPosition);
         }
     }
 
@@ -237,7 +237,7 @@ public class RecyclerListViewFragment extends Fragment
     }
 
     public AbstractExpandableDataProvider getDataProvider() {
-        return ((MainActivity) getActivity()).getDataProvider();
+        return ((CreatePostActivity) getActivity()).getDataProvider();
     }
 
     public void notifyGroupItemRestored(int groupPosition) {
