@@ -6,7 +6,7 @@
     android:id="@+id/rl"
     tools:context=".MainActivity">
 <include
-    android:id="@+id/toolbar"
+    android:id="@+id/toolbar_layout"
     layout="@layout/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:hint="@string/title_hint"
         app:met_iconLeft="@drawable/ic_create_black_24dp"
         app:met_iconPadding="0dp"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_below="@+id/toolbar_layout"/>
 
     <RelativeLayout
         android:id="@+id/category"
