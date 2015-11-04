@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -56,7 +55,7 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
     private AvenirTextView categoryName;
     private ImageView categoryThumb;
     private ShowcaseView sv;
-
+    private AvenirTextView toolbarTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +67,8 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
 
         //set up toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+        toolbarTitle = (AvenirTextView) toolbar.findViewById(R.id.toolbar_title);
+
         toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_back));
         setSupportActionBar(toolbar);
 
@@ -76,8 +76,8 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
 
         if(actionBar !=null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(getResources().getString(R.string.create_post));
         }
+        toolbarTitle.setText(getResources().getString(R.string.create_post));
 
         rl = (RelativeLayout) findViewById(R.id.rl);
         editTitle = (MaterialEditText) findViewById(R.id.edit_title);

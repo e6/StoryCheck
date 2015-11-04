@@ -11,5 +11,21 @@
         android:background="@color/colorPrimary"
         app:contentInsetEnd="0dp"
         app:contentInsetStart="0dp"
-        ></android.support.v7.widget.Toolbar>
+        >
+        <org.codeforafrica.storycheck.view.AvenirTextView
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:textColor="@color/colorAccent"
+            android:singleLine="true"
+            android:id="@+id/toolbar_title"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="fill_parent"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:freezesText="true"
+            />
+
+    </android.support.v7.widget.Toolbar>
 </LinearLayout>

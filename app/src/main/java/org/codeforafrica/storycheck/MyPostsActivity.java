@@ -34,7 +34,8 @@ public class MyPostsActivity extends AppCompatActivity {
     LinearLayout postsList;
     FloatingActionButton addFab;
     private ShowcaseView sv;
-
+    private AvenirTextView toolbarTitle;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,8 @@ public class MyPostsActivity extends AppCompatActivity {
 
         //set up toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+        toolbarTitle = (AvenirTextView) toolbar.findViewById(R.id.toolbar_title);
+
         toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_launcher));
         setSupportActionBar(toolbar);
 
@@ -53,8 +55,8 @@ public class MyPostsActivity extends AppCompatActivity {
 
         if(actionBar !=null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(getResources().getString(R.string.my_posts));
         }
+        toolbarTitle.setText(getResources().getString(R.string.my_posts));
 
         //showcase
         RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -84,11 +86,11 @@ public class MyPostsActivity extends AppCompatActivity {
                 switch (state) {
                     case CANCLOSE:
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xff5e5e5e));
-                        getSupportActionBar().setTitle(getResources().getString(R.string.back));
+                        toolbarTitle.setText(getResources().getString(R.string.back));
                         break;
                     case CANNOTCLOSE:
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
-                        getSupportActionBar().setTitle(getResources().getString(R.string.my_posts));
+                        toolbarTitle.setText(getResources().getString(R.string.my_posts));
                         addFab.setVisibility(View.VISIBLE);
                         break;
                 }
@@ -203,7 +205,7 @@ public class MyPostsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 addFab.setVisibility(View.GONE);
                 inboxLayoutListView.openWithAnim(linearLayout);
-                getSupportActionBar().setTitle("Post title here");
+                toolbarTitle.setText("Post title here");
             }
         });
 
