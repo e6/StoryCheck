@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -194,15 +195,25 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
                         View alertDialogView = inflater.inflate(R.layout.checklist_item_content, null);
                         alertDialog.setView(alertDialogView);
 
+                        final EditText editContent = (EditText) alertDialogView.findViewById(R.id.editText);
+
 
                         alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                if(editContent!=null) {
+                                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(editContent.getWindowToken(), 0);
+                                }
                                 dialog.cancel();
                             }
                         });
 
                         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                if(editContent!=null) {
+                                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(editContent.getWindowToken(), 0);
+                                }
                                 dialog.cancel();
                             }
                         });
