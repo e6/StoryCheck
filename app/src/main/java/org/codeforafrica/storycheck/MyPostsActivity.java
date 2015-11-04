@@ -68,7 +68,7 @@ public class MyPostsActivity extends AppCompatActivity {
                 .setTarget(target)
                 .setContentTitle(R.string.create_post)
                 .setContentText(R.string.create_post_description)
-                .setStyle(R.style.CustomShowcaseTheme2)
+                .setStyle(R.style.CustomShowcaseTheme)
                 .build();
         sv.setButtonPosition(lps);
         sv.setButtonText(getResources().getString(android.R.string.ok));
@@ -142,7 +142,6 @@ public class MyPostsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        //super.onBackPressed();
         if(inboxLayoutListView.isShown()){
             inboxLayoutListView.closeWithAnim();
             inboxLayoutListView.setVisibility(View.INVISIBLE);
@@ -200,6 +199,7 @@ public class MyPostsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 addFab.setVisibility(View.GONE);
                 inboxLayoutListView.openWithAnim(linearLayout);
+                getSupportActionBar().setTitle("Post title here");
             }
         });
 

@@ -95,7 +95,7 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
                 .setTarget(target)
                 .setContentTitle(R.string.upload_post)
                 .setContentText(R.string.upload_post_description)
-                .setStyle(R.style.CustomShowcaseTheme2)
+                .setStyle(R.style.CustomShowcaseTheme)
                 .build();
         sv.setButtonPosition(lps);
         sv.setButtonText(getResources().getString(android.R.string.ok));
