@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
@@ -240,6 +240,9 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
             public boolean onItemClick(int position, MenuEntity menuEntity1) {
 
                 questionsList.setVisibility(View.VISIBLE);
+                //restore color if in error mode
+                categoryName.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
+
                 categoryName.setText(menuEntity1.title);
                 categoryThumb.setImageDrawable(menuEntity1.icon);
 
@@ -294,8 +297,8 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
                     sv.hide();
                 }else if (editTitle.validate()) {
 
-                    if(questionsList.getVisibility() != View.VISIBLE){
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.choose_category), Toast.LENGTH_LONG).show();
+                    if(categoryName.getText().toString().equals(getResources().getString(R.string.choose_category))){
+                        categoryName.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red));
                     }else {
                         if (!taskRunning) {
                             fabProgressCircle.show();
