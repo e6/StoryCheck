@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -30,6 +32,7 @@ import org.codeforafrica.storycheck.adapters.QuestionsListAdapter;
 import org.codeforafrica.storycheck.fabprogresscircle.executor.ThreadExecutor;
 import org.codeforafrica.storycheck.fabprogresscircle.interactor.MockAction;
 import org.codeforafrica.storycheck.fabprogresscircle.interactor.MockActionCallback;
+import org.codeforafrica.storycheck.helpers.OnSwipeTouchListener;
 import org.codeforafrica.storycheck.view.AvenirTextView;
 
 public class CreatePostActivity extends AppCompatActivity implements MockActionCallback, FABProgressListener {
@@ -80,6 +83,22 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
         categoryThumb = (ImageView) findViewById(R.id.categoryThumb);
 
         questionsList.setAdapter(new QuestionsListAdapter(getApplicationContext()));
+        //set ontouch listener
+        questionsList.setOnTouchListener(new OnSwipeTouchListener(this, questionsList) {
+
+            @Override
+            public void onSwipeRight(int pos) {
+
+                showCheckedButton(pos, true);
+
+            }
+            @Override
+            public void onSwipeLeft(int pos) {
+
+                showCheckedButton(pos, false);
+
+            }
+        });
 
         //showcase
         RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -121,6 +140,49 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
         fabProgressCircle = (FABProgressCircle) findViewById(R.id.uploadFab);
         attachListeners();
 
+    }
+
+    int position;
+    ImageView checkedButton;
+    private boolean showCheckedButton(int pos, boolean show) {
+        position = pos;
+        View child = questionsList.getChildAt(pos - questionsList.getFirstVisiblePosition());
+        if (child != null) {
+
+            checkedButton = (ImageView) child.findViewById(R.id.checked);
+            if (checkedButton != null) {
+
+                if(show) {
+                    if (checkedButton.getVisibility() == View.GONE) {
+                        Animation animation =
+                                AnimationUtils.loadAnimation(this,
+                                        R.anim.checked_slide_in_right);
+                        checkedButton.startAnimation(animation);
+                        checkedButton.setVisibility(View.VISIBLE);
+                    } else {
+                    /*
+                    Animation animation =
+                            AnimationUtils.loadAnimation(this,
+                                    R.anim.checked_slide_out_left);
+                    checkedButton.startAnimation(animation);
+                    checkedButton.setVisibility(View.GONE);
+                    */
+                    }
+                }else{
+                        if (checkedButton.getVisibility() == View.VISIBLE) {
+
+                            Animation animation =
+                                    AnimationUtils.loadAnimation(this,
+                                            R.anim.checked_slide_out_left);
+                            checkedButton.startAnimation(animation);
+                            checkedButton.setVisibility(View.GONE);
+
+                        }
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     private void setupViewpager() {
