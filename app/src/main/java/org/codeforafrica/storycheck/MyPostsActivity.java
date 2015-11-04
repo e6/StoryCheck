@@ -140,6 +140,17 @@ public class MyPostsActivity extends AppCompatActivity {
         category_drawables.recycle();
     }
 
+    @Override
+    public void onBackPressed(){
+        //super.onBackPressed();
+        if(inboxLayoutListView.isShown()){
+            inboxLayoutListView.closeWithAnim();
+            inboxLayoutListView.setVisibility(View.INVISIBLE);
+        }else{
+            super.onBackPressed();
+        }
+    }
+
     public void addPosts(int iconResource, int textResource){
         // Creating a new LinearLayout
         final LinearLayout linearLayout = new LinearLayout(this);
