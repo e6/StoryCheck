@@ -1,5 +1,6 @@
 package org.codeforafrica.storycheck;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -109,7 +111,13 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
                 editTitle.addValidator(new MinLengthValidator(getResources().getString(R.string.minimum_chars) + 5, 5));
 
                 if (editTitle.validate()) {
+                    //hide keyboard
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(editTitle.getWindowToken(), 0);
+
                     mReportCategoriesSheet.toggle();
+
+
                 }
             }
         });
