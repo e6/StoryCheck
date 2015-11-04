@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
@@ -287,14 +288,17 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
 
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
+                editTitle.addValidator(new MinLengthValidator(getResources().getString(R.string.minimum_chars) + 5, 5));
 
                 if(sv.isShown()){
                     sv.hide();
-                }else {
-                    if (!taskRunning) {
-                        fabProgressCircle.show();
-                        runMockInteractor();
-                    }
+                }else if (editTitle.validate()) {
+                    
+                        if (!taskRunning) {
+                            fabProgressCircle.show();
+                            runMockInteractor();
+                        }
+
                 }
             }
         });
