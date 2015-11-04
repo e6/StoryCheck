@@ -2,25 +2,25 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="10dp">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:id="@+id/checked"
         android:src="@drawable/ic_done"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:visibility="gone"
-        android:tint="@color/colorPrimaryLight"/>
+        android:tint="@color/red"/>
 
     <org.codeforafrica.storycheck.view.AvenirTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:textColor="@color/colorPrimaryLight"
         android:text="Swipe right to check this item"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:id="@+id/textView"
         android:layout_toEndOf="@+id/checked" />
 

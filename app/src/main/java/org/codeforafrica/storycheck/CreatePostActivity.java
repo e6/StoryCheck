@@ -1,12 +1,15 @@
 package org.codeforafrica.storycheck;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +95,7 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
                 showCheckedButton(pos, true);
 
             }
+
             @Override
             public void onSwipeLeft(int pos) {
 
@@ -179,6 +183,33 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
 
                         }
                 }
+
+                //click to edit
+                checkedButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreatePostActivity.this);
+                        LayoutInflater inflater = getLayoutInflater();
+                        View alertDialogView = inflater.inflate(R.layout.checklist_item_content, null);
+                        alertDialog.setView(alertDialogView);
+
+
+                        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        alertDialog.show();
+
+                    }
+                });
             }
             return true;
         }
