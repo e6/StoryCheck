@@ -117,7 +117,6 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
 
                     mReportCategoriesSheet.toggle();
 
-
                 }
             }
         });

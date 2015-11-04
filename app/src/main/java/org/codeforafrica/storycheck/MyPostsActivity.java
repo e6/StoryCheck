@@ -46,7 +46,7 @@ public class MyPostsActivity extends AppCompatActivity {
         //set up toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorAccent));
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_launcher));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_launcher));
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -187,7 +187,7 @@ public class MyPostsActivity extends AppCompatActivity {
 
         // Creating a new TextView
         AvenirTextView tv = new AvenirTextView(this);
-        tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.grey));
+        tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryLight));
         tv.setText("A post on " + getResources().getText(textResource));
         tv.setGravity(Gravity.LEFT);
         tv.setTextSize(23);
