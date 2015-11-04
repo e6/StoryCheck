@@ -58,6 +58,7 @@
     <string name="upload_post_description">Use this button to start upload of your created post</string>
 
     <string name="my_posts">My Posts</string>
+    <string name="back">Back</string>
 
     <!-- Tour activity -->
     <string name="button_product_tour">product tour</string>

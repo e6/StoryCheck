@@ -24,10 +24,6 @@ import com.zzt.inbox.widget.InboxLayoutListView;
 
 import org.codeforafrica.storycheck.intro.TourActivity;
 
-
-/**
- * Created by zzt on 2015/1/19.
- */
 public class MyPostsActivity extends AppCompatActivity {
     InboxLayoutListView inboxLayoutListView;
 
@@ -38,7 +34,6 @@ public class MyPostsActivity extends AppCompatActivity {
 
         //show app tour
         startTour();
-
 
         //set up toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -81,11 +76,11 @@ public class MyPostsActivity extends AppCompatActivity {
                 switch (state) {
                     case CANCLOSE:
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xff5e5e5e));
-                        getSupportActionBar().setTitle("back");
+                        getSupportActionBar().setTitle(getResources().getString(R.string.back));
                         break;
                     case CANNOTCLOSE:
-                        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xdd000000));
-                        getSupportActionBar().setTitle("InboxLayout");
+                        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+                        getSupportActionBar().setTitle(getResources().getString(R.string.my_posts));
                         break;
                 }
             }
@@ -93,7 +88,7 @@ public class MyPostsActivity extends AppCompatActivity {
         inboxLayoutListView.setAdapter(new BaseAdapter() {
             @Override
             public int getCount() {
-                return 50;
+                return 10;
             }
 
             @Override
