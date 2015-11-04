@@ -8,14 +8,11 @@ import android.widget.BaseAdapter;
 
 import org.codeforafrica.storycheck.R;
 
-/**
- * Created by nickhargreaves on 11/4/15.
- */
-public class MyPostsAdapter extends BaseAdapter{
+public class QuestionsListAdapter extends BaseAdapter{
 
     private Context mContext;
 
-    public MyPostsAdapter(Context context){
+    public QuestionsListAdapter(Context context){
         this.mContext = context;
     }
 
@@ -24,7 +21,7 @@ public class MyPostsAdapter extends BaseAdapter{
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View mView = inflater.inflate(R.layout.my_posts_list_item, parent, false);
+        View mView = inflater.inflate(R.layout.questions_list_item, parent, false);
 
         return mView;
     }

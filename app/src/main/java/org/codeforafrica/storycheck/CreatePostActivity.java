@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
@@ -25,6 +26,7 @@ import com.mingle.sweetpick.ViewPagerDelegate;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.codeforafrica.storycheck.MaterialEditTextExtend.MinLengthValidator;
+import org.codeforafrica.storycheck.adapters.QuestionsListAdapter;
 import org.codeforafrica.storycheck.fabprogresscircle.executor.ThreadExecutor;
 import org.codeforafrica.storycheck.fabprogresscircle.interactor.MockAction;
 import org.codeforafrica.storycheck.fabprogresscircle.interactor.MockActionCallback;
@@ -43,7 +45,7 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
     private RelativeLayout rl;
     private MaterialEditText editTitle;
     private RelativeLayout categoryPicker;
-    private RelativeLayout questionsList;
+    private ListView questionsList;
     private AvenirTextView categoryName;
     private ImageView categoryThumb;
     private ShowcaseView sv;
@@ -73,9 +75,11 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
         rl = (RelativeLayout) findViewById(R.id.rl);
         editTitle = (MaterialEditText) findViewById(R.id.edit_title);
         categoryPicker = (RelativeLayout) findViewById(R.id.category);
-        questionsList = (RelativeLayout) findViewById(R.id.questions_list);
+        questionsList = (ListView) findViewById(R.id.questions_list);
         categoryName = (AvenirTextView) findViewById(R.id.categoryName);
         categoryThumb = (ImageView) findViewById(R.id.categoryThumb);
+
+        questionsList.setAdapter(new QuestionsListAdapter(getApplicationContext()));
 
         //showcase
         RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
