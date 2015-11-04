@@ -73,7 +73,7 @@
     </style>
 
     <style name="CustomTitle" parent="TextAppearance.ShowcaseView.Title">
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:textColor">#e1e1e1</item>
         <item name="android:textSize">35sp</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
