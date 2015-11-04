@@ -33,6 +33,7 @@ public class MyPostsActivity extends AppCompatActivity {
     InboxBackgroundScrollView inboxBackgroundScrollView;
     LinearLayout postsList;
     FloatingActionButton addFab;
+    private ShowcaseView sv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class MyPostsActivity extends AppCompatActivity {
         lps.setMargins(margin, margin, margin, margin);
 
         ViewTarget target = new ViewTarget(R.id.addFab, this);
-        ShowcaseView sv = new ShowcaseView.Builder(this)
+        sv = new ShowcaseView.Builder(this)
                 .setTarget(target)
                 .setContentTitle(R.string.create_post)
                 .setContentText(R.string.create_post_description)
@@ -120,8 +121,12 @@ public class MyPostsActivity extends AppCompatActivity {
         addFab = (FloatingActionButton) findViewById(R.id.addFab);
         addFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(MyPostsActivity.this, CreatePostActivity.class);
-                startActivity(i);
+                if(sv.isShown()){
+                    sv.hide();
+                }else {
+                    Intent i = new Intent(MyPostsActivity.this, CreatePostActivity.class);
+                    startActivity(i);
+                }
             }
         });
 

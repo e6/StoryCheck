@@ -52,7 +52,7 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
     private RelativeLayout questionsList;
     private AvenirTextView categoryName;
     private ImageView categoryThumb;
-
+    private ShowcaseView sv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,7 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
         lps.setMargins(margin, margin, margin, margin);
 
         ViewTarget target = new ViewTarget(R.id.uploadFab, this);
-        ShowcaseView sv = new ShowcaseView.Builder(this)
+        sv = new ShowcaseView.Builder(this)
                 .setTarget(target)
                 .setContentTitle(R.string.upload_post)
                 .setContentText(R.string.upload_post_description)
@@ -323,9 +323,14 @@ public class CreatePostActivity extends AppCompatActivity implements ExpandableI
 
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                if (!taskRunning) {
-                    fabProgressCircle.show();
-                    runMockInteractor();
+
+                if(sv.isShown()){
+                    sv.hide();
+                }else {
+                    if (!taskRunning) {
+                        fabProgressCircle.show();
+                        runMockInteractor();
+                    }
                 }
             }
         });
