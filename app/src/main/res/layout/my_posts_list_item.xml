@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/tuijian"
+        android:background="@drawable/card_avatar_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/keyline_1"
+            android:layout_marginBottom="@dimen/keyline_1"
+            android:layout_marginLeft="@dimen/keyline_1"
+            android:text="blabla"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@drawable/ic_order_account_recommend_enable"
+            android:drawablePadding="@dimen/keyline_1"/>
+        <ImageView
+            android:id="@+id/subway_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_account_child"
+            android:layout_gravity="center_vertical"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:baselineAlignBottom="@id/subway_new"
+            android:src="@drawable/ic_global_arrow_right_2px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="@dimen/keyline_1"/>
+    </LinearLayout>
+</LinearLayout>

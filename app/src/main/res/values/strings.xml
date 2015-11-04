@@ -21,6 +21,39 @@
     <string name="profile">Profile</string>
     <string name="speeches">Speeches</string>
 
+    <array name="category_drawables">
+        <item>@mipmap/ic_accident</item>
+        <item>@mipmap/ic_biography</item>
+        <item>@mipmap/ic_budget</item>
+        <item>@mipmap/ic_court</item>
+        <item>@mipmap/ic_verdict</item>
+        <item>@mipmap/ic_crime</item>
+        <item>@mipmap/ic_disaster</item>
+        <item>@mipmap/ic_featured</item>
+        <item>@mipmap/ic_fire</item>
+        <item>@mipmap/ic_interview</item>
+        <item>@mipmap/ic_conference</item>
+        <item>@mipmap/ic_obituary</item>
+        <item>@mipmap/ic_biography</item>
+        <item>@mipmap/ic_speech</item>
+    </array>
+    <array name="category_strings">
+        <item>@string/accidents</item>
+        <item>@string/biography</item>
+        <item>@string/budget_adoption</item>
+        <item>@string/court</item>
+        <item>@string/court_verdict</item>
+        <item>@string/crime</item>
+        <item>@string/disasters</item>
+        <item>@string/features</item>
+        <item>@string/fires</item>
+        <item>@string/interviews</item>
+        <item>@string/conferences</item>
+        <item>@string/obituaries</item>
+        <item>@string/biography</item>
+        <item>@string/speeches</item>
+    </array>
+
     <!-- recyclerview list -->
     <string name="activity_title_demo_d">Draggable</string>
     <string name="activity_title_demo_d_grid">Draggable (Grid Layout)</string>

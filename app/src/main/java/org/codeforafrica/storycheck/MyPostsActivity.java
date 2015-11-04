@@ -1,6 +1,7 @@
 package org.codeforafrica.storycheck;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,10 +9,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -23,9 +26,12 @@ import com.zzt.inbox.widget.InboxLayoutBase;
 import com.zzt.inbox.widget.InboxLayoutListView;
 
 import org.codeforafrica.storycheck.intro.TourActivity;
+import org.codeforafrica.storycheck.view.AvenirTextView;
 
 public class MyPostsActivity extends AppCompatActivity {
     InboxLayoutListView inboxLayoutListView;
+    InboxBackgroundScrollView inboxBackgroundScrollView;
+    LinearLayout postsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +72,8 @@ public class MyPostsActivity extends AppCompatActivity {
         sv.setButtonPosition(lps);
         sv.setButtonText(getResources().getString(android.R.string.ok));
 
-        final InboxBackgroundScrollView inboxBackgroundScrollView = (InboxBackgroundScrollView) findViewById(R.id.scroll);
+        //inbox layout list
+        inboxBackgroundScrollView = (InboxBackgroundScrollView) findViewById(R.id.scroll);
         inboxLayoutListView = (InboxLayoutListView) findViewById(R.id.inboxlayout);
         inboxLayoutListView.setBackgroundScrollView(inboxBackgroundScrollView);//绑定scrollview
         inboxLayoutListView.setCloseDistance(50);
@@ -116,65 +123,80 @@ public class MyPostsActivity extends AppCompatActivity {
             }
         });
 
+        //posts list
+        postsList = (LinearLayout)findViewById(R.id.postsList);
 
-        init();
+        //add some post items
+        //TODO: use list with adapter
+        TypedArray category_drawables = getResources().obtainTypedArray(R.array.category_drawables);
+        TypedArray category_strings = getResources().obtainTypedArray(R.array.category_strings);
 
+        for(int i = 0; i<14; i++){
+            addPosts(category_drawables.getResourceId(i, -1), category_strings.getResourceId(i, -1));
+        }
+
+        category_drawables.recycle();
     }
+
+    public void addPosts(int iconResource, int textResource){
+        // Creating a new LinearLayout
+        final LinearLayout linearLayout = new LinearLayout(this);
+
+        // Setting the orientation to vertical
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        // Defining the LinearLayout layout parameters to fill the parent.
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llp.setMargins(0, 0, 0, 3);
+        linearLayout.setLayoutParams(llp);
+
+        linearLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        linearLayout.setPadding(10, 30, 10, 30);
+        linearLayout.setVerticalGravity(Gravity.CENTER_VERTICAL);
+
+        // Defining the layout parameters
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(10, 0, 0, 0);
+
+        //Create an icon view
+        ImageView iV = new ImageView(this);
+        iV.setImageDrawable(getResources().getDrawable(iconResource));
+        iV.setLayoutParams(new LinearLayout.LayoutParams(35, 35));
+        //iV.setPadding(5, 5, 5, 5);
+        linearLayout.addView(iV);
+
+        // Creating a new TextView
+        AvenirTextView tv = new AvenirTextView(this);
+        tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.grey));
+        tv.setText("A post on " + getResources().getText(textResource));
+        tv.setGravity(Gravity.LEFT);
+        tv.setTextSize(23);
+
+        // Setting the parameters on the TextView
+        tv.setLayoutParams(lp);
+
+        // Adding the TextView to the LinearLayout as a child
+        linearLayout.addView(tv);
+
+        //add click listener
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inboxLayoutListView.openWithAnim(linearLayout);
+            }
+        });
+
+        postsList.addView(linearLayout);
+    }
+
 
     public void startTour(){
         startActivity(new Intent(MyPostsActivity.this, TourActivity.class));
     }
 
-
-    private void init() {
-        final LinearLayout dingdan = (LinearLayout) findViewById(R.id.ding_dan);
-        dingdan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                inboxLayoutListView.openWithAnim(dingdan);
-            }
-        });
-
-        final LinearLayout yuding = (LinearLayout) findViewById(R.id.yuding);
-        yuding.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                inboxLayoutListView.openWithAnim(yuding);
-            }
-        });
-
-        final LinearLayout tuijian = (LinearLayout) findViewById(R.id.tuijian);
-        tuijian.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                inboxLayoutListView.openWithAnim(tuijian);
-            }
-        });
-
-        final LinearLayout member = (LinearLayout) findViewById(R.id.member);
-        member.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                inboxLayoutListView.openWithAnim(member);
-            }
-        });
-
-        final LinearLayout choujiang = (LinearLayout) findViewById(R.id.choujiang);
-        choujiang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                inboxLayoutListView.openWithAnim(choujiang);
-            }
-        });
-
-        final LinearLayout diyongquan = (LinearLayout) findViewById(R.id.diyongquan);
-        diyongquan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                inboxLayoutListView.openWithAnim(diyongquan);//bottom item set true
-            }
-        });
-    }
 }
 
 
