@@ -56,7 +56,6 @@ public class MyPostsActivity extends AppCompatActivity {
             actionBar.setTitle(getResources().getString(R.string.my_posts));
         }
 
-
         //showcase
         RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
