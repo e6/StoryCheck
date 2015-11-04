@@ -32,6 +32,7 @@ public class MyPostsActivity extends AppCompatActivity {
     InboxLayoutListView inboxLayoutListView;
     InboxBackgroundScrollView inboxBackgroundScrollView;
     LinearLayout postsList;
+    FloatingActionButton addFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,7 @@ public class MyPostsActivity extends AppCompatActivity {
                     case CANNOTCLOSE:
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
                         getSupportActionBar().setTitle(getResources().getString(R.string.my_posts));
+                        addFab.setVisibility(View.VISIBLE);
                         break;
                 }
             }
@@ -115,8 +117,8 @@ public class MyPostsActivity extends AppCompatActivity {
                 return view;
             }
         });
-        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.addFab);
-        myFab.setOnClickListener(new View.OnClickListener() {
+        addFab = (FloatingActionButton) findViewById(R.id.addFab);
+        addFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(MyPostsActivity.this, CreatePostActivity.class);
                 startActivity(i);
@@ -185,6 +187,7 @@ public class MyPostsActivity extends AppCompatActivity {
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                addFab.setVisibility(View.GONE);
                 inboxLayoutListView.openWithAnim(linearLayout);
             }
         });
