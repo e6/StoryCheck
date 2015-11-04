@@ -293,11 +293,15 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
                 if(sv.isShown()){
                     sv.hide();
                 }else if (editTitle.validate()) {
-                    
+
+                    if(questionsList.getVisibility() != View.VISIBLE){
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.choose_category), Toast.LENGTH_LONG).show();
+                    }else {
                         if (!taskRunning) {
                             fabProgressCircle.show();
                             runMockInteractor();
                         }
+                    }
 
                 }
             }
