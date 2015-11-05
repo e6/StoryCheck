@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -42,7 +43,7 @@ public class MyPostsActivity extends AppCompatActivity {
         setContentView(R.layout.current_posts);
 
         //show app tour
-        startTour();
+        //startTour();
 
         //set up toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -57,23 +58,6 @@ public class MyPostsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         toolbarTitle.setText(getResources().getString(R.string.my_posts));
-
-        //showcase
-        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
-        lps.setMargins(margin, margin, margin, margin);
-
-        ViewTarget target = new ViewTarget(R.id.addFab, this);
-        sv = new ShowcaseView.Builder(this)
-                .setTarget(target)
-                .setContentTitle(R.string.create_post)
-                .setContentText(R.string.create_post_description)
-                .setStyle(R.style.CustomShowcaseTheme)
-                .build();
-        sv.setButtonPosition(lps);
-        sv.setButtonText(getResources().getString(android.R.string.ok));
 
         //inbox layout list
         inboxBackgroundScrollView = (InboxBackgroundScrollView) findViewById(R.id.scroll);
@@ -144,6 +128,39 @@ public class MyPostsActivity extends AppCompatActivity {
         }
 
         category_drawables.recycle();
+        category_strings.recycle();
+
+        //showcase view
+        showCase();
+    }
+
+    /**
+     * function to display showcase view after delay
+     */
+    public void showCase(){
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+                lps.setMargins(margin, margin, margin, margin);
+
+
+                ViewTarget target = new ViewTarget(R.id.addFab, MyPostsActivity.this);
+                sv = new ShowcaseView.Builder(MyPostsActivity.this)
+                        .setTarget(target)
+                        .setContentTitle(R.string.create_post)
+                        .setContentText(R.string.create_post_description)
+                        .setStyle(R.style.CustomShowcaseTheme)
+                        .build();
+                sv.setButtonPosition(lps);
+                sv.setButtonText(getResources().getString(android.R.string.ok));
+            }
+        }, 500);
+
     }
 
     @Override

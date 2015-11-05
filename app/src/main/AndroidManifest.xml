@@ -11,9 +11,9 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
 
-        <activity android:name=".intro.TourActivity"/>
+        <activity android:name=".MyPostsActivity"/>
 
-        <activity android:name=".MyPostsActivity">
+        <activity android:name=".intro.TourActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

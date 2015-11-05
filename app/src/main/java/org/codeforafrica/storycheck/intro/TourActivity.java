@@ -1,5 +1,6 @@
 package org.codeforafrica.storycheck.intro;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,7 +16,10 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import com.nineoldandroids.view.ViewHelper;
+
+import org.codeforafrica.storycheck.MyPostsActivity;
 import org.codeforafrica.storycheck.R;
 import org.codeforafrica.storycheck.view.AvenirButton;
 
@@ -147,6 +151,7 @@ public class TourActivity extends AppCompatActivity {
     }
  
     private void endTutorial(){
+        startActivity(new Intent(TourActivity.this, MyPostsActivity.class));
         finish();
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
     }

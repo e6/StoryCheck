@@ -3,6 +3,7 @@ package org.codeforafrica.storycheck;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -106,22 +107,6 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
             }
         });
 
-        //showcase
-        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
-        lps.setMargins(margin, margin, margin, margin);
-
-        ViewTarget target = new ViewTarget(R.id.uploadFab, this);
-        sv = new ShowcaseView.Builder(this)
-                .setTarget(target)
-                .setContentTitle(R.string.upload_post)
-                .setContentText(R.string.upload_post_description)
-                .setStyle(R.style.CustomShowcaseTheme)
-                .build();
-        sv.setButtonPosition(lps);
-        sv.setButtonText(getResources().getString(android.R.string.ok));
 
         setupViewpager();
 
@@ -145,6 +130,37 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
         //show animation while uploading
         fabProgressCircle = (FABProgressCircle) findViewById(R.id.uploadFab);
         attachListeners();
+
+        //showcase
+        showCase();
+    }
+
+    /**
+     * function to display showcase view after delay
+     */
+    public void showCase(){
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+                lps.setMargins(margin, margin, margin, margin);
+
+
+                ViewTarget target = new ViewTarget(R.id.uploadFab, CreatePostActivity.this);
+                sv = new ShowcaseView.Builder(CreatePostActivity.this)
+                        .setTarget(target)
+                        .setContentTitle(R.string.upload_post)
+                        .setContentText(R.string.upload_post_description)
+                        .setStyle(R.style.CustomShowcaseTheme)
+                        .build();
+                sv.setButtonPosition(lps);
+                sv.setButtonText(getResources().getString(android.R.string.ok));
+            }
+        }, 1000);
 
     }
 
