@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--Color Scheme -->
+    <color name="white">#ffffff</color>
+    <color name="grey">#abb8c2</color>
+
+    <color name="colorPrimary">#5b7c7d</color>
+    <color name="colorPrimaryLight">#72b8c9</color>
+    <color name="colorPrimaryExciting">#00bcd4</color>
+    <color name="colorPrimaryDark">#373537</color>
+    <color name="colorAccent">#e7b681</color>
+    <color name="red">#fe5e31</color>
+    <color name="orange">#fe9001</color>
+
+    <!-- Exciting Color Scheme
+    <color name="tw_green">#4a913c</color>
+    <color name="red">#fa3e3e</color>
+    <color name="grey">#abb8c2</color>
+    <color name="yellow">#ffcc4d</color>
     <color name="colorPrimaryLight">#548fa0</color>
     <color name="colorPrimary">#3a5f67</color>
-    <color name="yellow">#bdd25e</color>
-    <color name="colorAccent">#e8b233</color>
-    <color name="red">#d4693e</color>
-
+    <color name="colorAccent">#d4693e</color>
     <color name="colorPrimaryDark">#373537</color>
-    <color name="white">#ffffff</color>
-    <color name="grey">#bababa</color>
-
+    -->
 
     <!-- recycler view -->
     <color name="bg_item_normal_state">#fff0f0f0</color>

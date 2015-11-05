@@ -49,8 +49,8 @@
 
     <!--showcase style -->
     <style name="CustomShowcaseTheme" parent="ShowcaseView.Light">
-        <item name="sv_backgroundColor">#d73a5f67</item>
-        <item name="sv_showcaseColor">#bdd25e</item>
+        <item name="sv_backgroundColor">#e83c7381</item>
+        <item name="sv_showcaseColor">#abb8c2</item>
         <item name="sv_buttonText">Hide</item>
         <item name="sv_tintButtonColor">@color/red</item>
         <item name="sv_titleTextAppearance">@style/CustomTitle</item>
