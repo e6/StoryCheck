@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -17,16 +16,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.zzt.inbox.interfaces.OnDragStateChangeListener;
 import com.zzt.inbox.widget.InboxBackgroundScrollView;
 import com.zzt.inbox.widget.InboxLayoutBase;
 import com.zzt.inbox.widget.InboxLayoutListView;
 
-import org.codeforafrica.storycheck.intro.TourActivity;
 import org.codeforafrica.storycheck.view.AvenirTextView;
 
 public class MyPostsActivity extends AppCompatActivity {
@@ -34,7 +29,6 @@ public class MyPostsActivity extends AppCompatActivity {
     InboxBackgroundScrollView inboxBackgroundScrollView;
     LinearLayout postsList;
     FloatingActionButton addFab;
-    private ShowcaseView sv;
     private AvenirTextView toolbarTitle;
     
     @Override
@@ -106,12 +100,10 @@ public class MyPostsActivity extends AppCompatActivity {
         addFab = (FloatingActionButton) findViewById(R.id.addFab);
         addFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(sv.isShown()){
-                    sv.hide();
-                }else {
+
                     Intent i = new Intent(MyPostsActivity.this, CreatePostActivity.class);
                     startActivity(i);
-                }
+
             }
         });
 
@@ -129,38 +121,6 @@ public class MyPostsActivity extends AppCompatActivity {
 
         category_drawables.recycle();
         category_strings.recycle();
-
-        //showcase view
-        showCase();
-    }
-
-    /**
-     * function to display showcase view after delay
-     */
-    public void showCase(){
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-                int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
-                lps.setMargins(margin, margin, margin, margin);
-
-
-                ViewTarget target = new ViewTarget(R.id.addFab, MyPostsActivity.this);
-                sv = new ShowcaseView.Builder(MyPostsActivity.this)
-                        .setTarget(target)
-                        .setContentTitle(R.string.create_post)
-                        .setContentText(R.string.create_post_description)
-                        .setStyle(R.style.CustomShowcaseTheme)
-                        .build();
-                sv.setButtonPosition(lps);
-                sv.setButtonText(getResources().getString(android.R.string.ok));
-            }
-        }, 500);
-
     }
 
     @Override
@@ -227,11 +187,6 @@ public class MyPostsActivity extends AppCompatActivity {
         });
 
         postsList.addView(linearLayout);
-    }
-
-
-    public void startTour(){
-        startActivity(new Intent(MyPostsActivity.this, TourActivity.class));
     }
 
 }

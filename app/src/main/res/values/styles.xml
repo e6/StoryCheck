@@ -47,51 +47,6 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <!--showcase style -->
-    <style name="CustomShowcaseTheme" parent="ShowcaseView.Light">
-        <item name="sv_backgroundColor">#e83c7381</item>
-        <item name="sv_showcaseColor">#abb8c2</item>
-        <item name="sv_buttonText">Hide</item>
-        <item name="sv_tintButtonColor">@color/red</item>
-        <item name="sv_titleTextAppearance">@style/CustomTitle</item>
-        <item name="sv_detailTextAppearance">@style/CustomSubTitle</item>
-    </style>
-
-    <style name="CustomShowcaseTheme2" parent="ShowcaseView">
-        <item name="sv_backgroundColor">#e51249d9</item>
-        <item name="sv_showcaseColor">#25467A</item>
-        <item name="sv_buttonText">Close</item>
-        <item name="sv_titleTextAppearance">@style/CustomTitle2</item>
-        <item name="sv_detailTextAppearance">@style/CustomText2</item>
-    </style>
-
-    <style name="CustomShowcaseTheme3" parent="ShowcaseView">
-        <item name="sv_backgroundColor">#330066FF</item>
-        <item name="sv_showcaseColor">#00801A</item>
-        <item name="sv_buttonText">Close</item>
-        <item name="sv_titleTextAppearance">@style/CustomTitle</item>
-    </style>
-
-    <style name="CustomTitle" parent="TextAppearance.ShowcaseView.Title">
-        <item name="android:textColor">#e1e1e1</item>
-        <item name="android:textSize">35sp</item>
-        <item name="android:fontFamily">sans-serif</item>
-    </style>
-
-    <style name="CustomSubTitle" parent="TextAppearance.ShowcaseView.Title">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">25sp</item>
-        <item name="android:fontFamily">sans-serif</item>
-    </style>
-
-    <style name="CustomTitle2" parent="TextAppearance.ShowcaseView.Title.Light">
-        <item name="android:textColor">#deffffff</item>
-    </style>
-
-    <style name="CustomText2" parent="TextAppearance.ShowcaseView.Detail.Light">
-        <item name="android:textColor">#8affffff</item>
-    </style>
-
     <style name="ListItemBigtext">
         <item name="android:textColor">#25467A</item>
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
