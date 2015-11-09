@@ -9,34 +9,34 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static String TABLE_CHECKLISTS = "table_checklists";
-    private static String TABLE_QUESTIONS = "table_questions";
-    private static String TABLE_STORIES = "table_stories";
-    private static String TABLE_ANSWERS = "table_answers";
+    private static final String TABLE_CHECKLISTS = "table_checklists";
+    private static final String TABLE_QUESTIONS = "table_questions";
+    private static final String TABLE_STORIES = "table_stories";
+    private static final String TABLE_ANSWERS = "table_answers";
 
-    private static String DATABASE_NAME = "storycheck";
-    private static int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "storycheck";
+    private static final int DATABASE_VERSION = 1;
 
     //column names
 
     //checklist[categories]
-    private static String COLUMN_CHECKLIST_ID = "checklist_id";
-    private static String COLUMN_CHECKLIST_TITLE = "checklist_title";
+    private static final String COLUMN_CHECKLIST_ID = "checklist_id";
+    private static final String COLUMN_CHECKLIST_TITLE = "checklist_title";
 
     //questions
-    private static String COLUMN_QUESTION_ID = "question_id";
-    private static String COLUMN_QUESTION_TEXT = "question_text";
-    private static String COLUMN_QUESTION_CHECKLIST = "question_checklist";
+    private static final String COLUMN_QUESTION_ID = "question_id";
+    private static final String COLUMN_QUESTION_TEXT = "question_text";
+    private static final String COLUMN_QUESTION_CHECKLIST = "question_checklist";
 
     //stories
-    private static String COLUMN_STORY_ID = "story_id";
-    private static String COLUMN_STORY_TITLE = "story_title";
-    private static String COLUMN_STORY_CHECKLIST = "story_checklist";
+    private static final String COLUMN_STORY_ID = "story_id";
+    private static final String COLUMN_STORY_TITLE = "story_title";
+    private static final String COLUMN_STORY_CHECKLIST = "story_checklist";
 
     //answers
-    private static String COLUMN_ANSWERS_ID = "answers_id";
-    private static String COLUMN_ANSWERS_STORY = "answers_story";
-    private static String COLUMN_ANSWERS_NOTES = "answers_notes";
+    private static final String COLUMN_ANSWER_ID = "answer_id";
+    private static final String COLUMN_ANSWER_STORY = "answer_story";
+    private static final String COLUMN_ANSWER_NOTES = "answer_notes";
 
     //table creation strings
     private static final String TABLE_CHECKLISTS_CREATE = "create table "
@@ -57,10 +57,10 @@ public class DBHelper extends SQLiteOpenHelper {
             + COLUMN_STORY_CHECKLIST + " text not null);";
 
     private static final String TABLE_ANSWERS_CREATE = "create table "
-            + TABLE_ANSWERS + "(" + COLUMN_ANSWERS_ID
+            + TABLE_ANSWERS + "(" + COLUMN_ANSWER_ID
             + " integer primary key autoincrement, "
-            + COLUMN_ANSWERS_STORY + " text, "
-            + COLUMN_ANSWERS_NOTES + " text not null);";
+            + COLUMN_ANSWER_STORY + " text, "
+            + COLUMN_ANSWER_NOTES + " text not null);";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
