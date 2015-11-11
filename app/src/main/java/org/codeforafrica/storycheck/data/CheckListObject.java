@@ -1,6 +1,8 @@
 package org.codeforafrica.storycheck.data;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 /**
  * Created by nickhargreaves on 11/11/15.
@@ -47,7 +49,24 @@ public class CheckListObject {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    /**
+     * Database operations
+     */
+
+    /**
+     * function to add new checklist to database
+     * @return int id of inserted checklist
+     */
+    public long commit(){
+
+        DBHelper dbHelper = new DBHelper(mContext);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelper.COLUMN_CHECKLIST_TITLE, title);
+        contentValues.put(DBHelper.COLUMN_CHECKLIST_COUNT, count);
+        contentValues.put(DBHelper.COLUMN_CHECKLIST_REMOTE_ID, remote_id);
+
+        return db.insert(DBHelper.TABLE_CHECKLISTS, null, contentValues);
     }
 }

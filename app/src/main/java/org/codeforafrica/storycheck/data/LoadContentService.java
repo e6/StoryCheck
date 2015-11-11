@@ -58,12 +58,18 @@ public class LoadContentService extends Service {
                                 JSONObject thisChecklist = checklistsArray.getJSONObject(j);
 
                                 String checkListName = thisChecklist.getString("name");
-                                String checkListId = thisChecklist.getString("id");
+                                String checkListRemoteId = thisChecklist.getString("id");
                                 JSONArray thisChecklistItems = thisChecklist.getJSONArray("items");
                                 int checkListCount = thisChecklistItems.length();
 
-                                //each checklist add to checklists table
+                                //add checklist to db
+                                CheckListObject checkListObject = new CheckListObject(getApplicationContext());
+                                checkListObject.setTitle(checkListName);
+                                checkListObject.setCount(checkListCount);
+                                checkListObject.setRemote_id(checkListRemoteId);
+                                long checkListId = checkListObject.commit();
 
+                                //each checklist add to checklists table
 
                                 //each question of each checklist add to questions table
 

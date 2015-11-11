@@ -9,58 +9,58 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String TABLE_CHECKLISTS = "table_checklists";
-    private static final String TABLE_QUESTIONS = "table_questions";
-    private static final String TABLE_STORIES = "table_stories";
-    private static final String TABLE_ANSWERS = "table_answers";
+    public static final String TABLE_CHECKLISTS = "table_checklists";
+    public static final String TABLE_QUESTIONS = "table_questions";
+    public static final String TABLE_STORIES = "table_stories";
+    public static final String TABLE_ANSWERS = "table_answers";
 
-    private static final String DATABASE_NAME = "storycheck";
-    private static final int DATABASE_VERSION = 2;
+    public static final String DATABASE_NAME = "storycheck";
+    public static final int DATABASE_VERSION = 2;
 
     //column names
 
     //checklist[categories]
-    private static final String COLUMN_CHECKLIST_ID = "checklist_id";
-    private static final String COLUMN_CHECKLIST_TITLE = "checklist_title";
-    private static final String COLUMN_CHECKLIST_COUNT = "checklist_count";
-    private static final String COLUMN_CHECKLIST_REMOTE_ID = "checklist_remote_id";
+    public static final String COLUMN_CHECKLIST_ID = "checklist_id";
+    public static final String COLUMN_CHECKLIST_TITLE = "checklist_title";
+    public static final String COLUMN_CHECKLIST_COUNT = "checklist_count";
+    public static final String COLUMN_CHECKLIST_REMOTE_ID = "checklist_remote_id";
 
     //questions
-    private static final String COLUMN_QUESTION_ID = "question_id";
-    private static final String COLUMN_QUESTION_TEXT = "question_text";
-    private static final String COLUMN_QUESTION_CHECKLIST = "question_checklist";
+    public static final String COLUMN_QUESTION_ID = "question_id";
+    public static final String COLUMN_QUESTION_TEXT = "question_text";
+    public static final String COLUMN_QUESTION_CHECKLIST = "question_checklist";
 
     //stories
-    private static final String COLUMN_STORY_ID = "story_id";
-    private static final String COLUMN_STORY_TITLE = "story_title";
-    private static final String COLUMN_STORY_CHECKLIST = "story_checklist";
+    public static final String COLUMN_STORY_ID = "story_id";
+    public static final String COLUMN_STORY_TITLE = "story_title";
+    public static final String COLUMN_STORY_CHECKLIST = "story_checklist";
 
     //answers
-    private static final String COLUMN_ANSWER_ID = "answer_id";
-    private static final String COLUMN_ANSWER_STORY = "answer_story";
-    private static final String COLUMN_ANSWER_NOTES = "answer_notes";
+    public static final String COLUMN_ANSWER_ID = "answer_id";
+    public static final String COLUMN_ANSWER_STORY = "answer_story";
+    public static final String COLUMN_ANSWER_NOTES = "answer_notes";
 
     //table creation strings
-    private static final String TABLE_CHECKLISTS_CREATE = "create table "
+    public static final String TABLE_CHECKLISTS_CREATE = "create table "
             + TABLE_CHECKLISTS + "(" + COLUMN_CHECKLIST_ID
             + " integer primary key autoincrement, "
             + COLUMN_CHECKLIST_COUNT + " text not null, "
             + COLUMN_CHECKLIST_REMOTE_ID + " text not null, "
             + COLUMN_CHECKLIST_TITLE + " text not null);";
 
-    private static final String TABLE_QUESTIONS_CREATE = "create table "
+    public static final String TABLE_QUESTIONS_CREATE = "create table "
             + TABLE_QUESTIONS + "(" + COLUMN_QUESTION_ID
             + " integer primary key autoincrement, "
             + COLUMN_QUESTION_TEXT + " text, "
             + COLUMN_QUESTION_CHECKLIST + " text not null);";
 
-    private static final String TABLE_STORIES_CREATE = "create table "
+    public static final String TABLE_STORIES_CREATE = "create table "
             + TABLE_STORIES + "(" + COLUMN_STORY_ID
             + " integer primary key autoincrement, "
             + COLUMN_STORY_TITLE + " text, "
             + COLUMN_STORY_CHECKLIST + " text not null);";
 
-    private static final String TABLE_ANSWERS_CREATE = "create table "
+    public static final String TABLE_ANSWERS_CREATE = "create table "
             + TABLE_ANSWERS + "(" + COLUMN_ANSWER_ID
             + " integer primary key autoincrement, "
             + COLUMN_ANSWER_STORY + " text, "
