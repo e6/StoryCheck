@@ -29,6 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_QUESTION_ID = "question_id";
     public static final String COLUMN_QUESTION_TEXT = "question_text";
     public static final String COLUMN_QUESTION_CHECKLIST = "question_checklist";
+    public static final String COLUMN_QUESTION_REMOTE_ID = "question_remote_id";
 
     //stories
     public static final String COLUMN_STORY_ID = "story_id";

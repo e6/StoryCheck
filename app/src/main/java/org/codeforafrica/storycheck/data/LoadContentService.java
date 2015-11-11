@@ -57,22 +57,28 @@ public class LoadContentService extends Service {
                             for(int j = 0; j < checklistsArray.length(); j++){
                                 JSONObject thisChecklist = checklistsArray.getJSONObject(j);
 
-                                String checkListName = thisChecklist.getString("name");
-                                String checkListRemoteId = thisChecklist.getString("id");
                                 JSONArray thisChecklistItems = thisChecklist.getJSONArray("items");
                                 int checkListCount = thisChecklistItems.length();
 
                                 //add checklist to db
                                 CheckListObject checkListObject = new CheckListObject(getApplicationContext());
-                                checkListObject.setTitle(checkListName);
+                                checkListObject.setTitle(thisChecklist.getString("name"));
                                 checkListObject.setCount(checkListCount);
-                                checkListObject.setRemote_id(checkListRemoteId);
+                                checkListObject.setRemote_id(thisChecklist.getString("id"));
+
+                                //commit and return id
                                 long checkListId = checkListObject.commit();
 
-                                //each checklist add to checklists table
+                                //add each checklist item
+                                for(int k = 0; k<thisChecklistItems.length(); k++){
+                                    JSONObject thisItem = thisChecklistItems.getJSONObject(k);
 
-                                //each question of each checklist add to questions table
-
+                                    QuestionObject questionObject = new QuestionObject(getApplicationContext());
+                                    questionObject.setRemote_id(thisItem.getString("id"));
+                                    questionObject.setText(thisItem.getString("text"));
+                                    questionObject.setCheckListId(checkListId);
+                                    questionObject.commit();
+                                }
 
                             }
                             //when done

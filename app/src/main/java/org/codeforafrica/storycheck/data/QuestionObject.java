@@ -8,11 +8,11 @@ import android.database.sqlite.SQLiteStatement;
 /**
  * Created by nickhargreaves on 11/11/15.
  */
-public class CheckListObject {
-    
-    private String title;
+public class QuestionObject {
+
+    private String text;
     private String remote_id;
-    private int count;
+    private long checkListId;
     private String id;
 
     private Context mContext;
@@ -20,19 +20,27 @@ public class CheckListObject {
     private DBHelper dbHelper;
     private SQLiteDatabase db;
 
-    public CheckListObject(Context ctx){
+    public QuestionObject(Context ctx){
         this.mContext = ctx;
         dbHelper = new DBHelper(mContext);
         db = dbHelper.getWritableDatabase();
 
     }
 
-    public String getTitle() {
-        return title;
+    public String getText() {
+        return text;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public long getCheckListId() {
+        return checkListId;
+    }
+
+    public void setCheckListId(long checkListId) {
+        this.checkListId = checkListId;
     }
 
     public String getRemote_id() {
@@ -43,14 +51,6 @@ public class CheckListObject {
         this.remote_id = remote_id;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
     public String getId() {
         return id;
     }
@@ -58,8 +58,8 @@ public class CheckListObject {
     //Database operations//
 
     /**
-     * function to add new checklist to database
-     * @return int id of inserted checklist
+     * function to add new question to database
+     * @return int id of inserted question
      */
     public long commit(){
 
@@ -80,30 +80,30 @@ public class CheckListObject {
     }
 
     /**
-     * Update Checklist details
+     * Update question details
      */
     public void update(){
 
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(DBHelper.COLUMN_CHECKLIST_TITLE, title);
-        contentValues.put(DBHelper.COLUMN_CHECKLIST_COUNT, count);
+        contentValues.put(DBHelper.COLUMN_QUESTION_TEXT, text);
+        contentValues.put(DBHelper.COLUMN_QUESTION_CHECKLIST, checkListId);
 
-        db.update(DBHelper.TABLE_CHECKLISTS, contentValues, DBHelper.COLUMN_CHECKLIST_REMOTE_ID + "=" + remote_id, null);
+        db.update(DBHelper.TABLE_QUESTIONS, contentValues, DBHelper.COLUMN_QUESTION_REMOTE_ID + "=" + remote_id, null);
 
     }
 
     /**
-     * insert new checklist
+     * insert new question
      * @return
      */
     public long insertNew(){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DBHelper.COLUMN_CHECKLIST_TITLE, title);
-        contentValues.put(DBHelper.COLUMN_CHECKLIST_COUNT, count);
-        contentValues.put(DBHelper.COLUMN_CHECKLIST_REMOTE_ID, remote_id);
+        contentValues.put(DBHelper.COLUMN_QUESTION_TEXT, text);
+        contentValues.put(DBHelper.COLUMN_QUESTION_CHECKLIST, checkListId);
+        contentValues.put(DBHelper.COLUMN_QUESTION_REMOTE_ID, remote_id);
 
-        return db.insert(DBHelper.TABLE_CHECKLISTS, null, contentValues);
+        return db.insert(DBHelper.TABLE_QUESTIONS, null, contentValues);
     }
 
     /**
@@ -111,10 +111,11 @@ public class CheckListObject {
      * @return long
      */
     public long isAdded(){
-        String select_string =  "select count(*) from "+DBHelper.TABLE_CHECKLISTS+" where " +DBHelper.COLUMN_CHECKLIST_REMOTE_ID+ "='" + remote_id + "'; ";
+        String select_string =  "select count(*) from "+DBHelper.TABLE_QUESTIONS+" where " +DBHelper.COLUMN_QUESTION_REMOTE_ID+ "='" + remote_id + "'; ";
 
         SQLiteStatement s = db.compileStatement(select_string );
 
         return s.simpleQueryForLong();
     }
+
 }
