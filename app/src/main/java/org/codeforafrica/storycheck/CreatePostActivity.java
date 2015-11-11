@@ -2,6 +2,8 @@ package org.codeforafrica.storycheck;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -30,11 +32,16 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.codeforafrica.storycheck.MaterialEditTextExtend.MinLengthValidator;
 import org.codeforafrica.storycheck.adapters.QuestionsListAdapter;
+import org.codeforafrica.storycheck.data.CheckListObject;
+import org.codeforafrica.storycheck.data.DBHelper;
 import org.codeforafrica.storycheck.fabprogresscircle.executor.ThreadExecutor;
 import org.codeforafrica.storycheck.fabprogresscircle.interactor.MockAction;
 import org.codeforafrica.storycheck.fabprogresscircle.interactor.MockActionCallback;
 import org.codeforafrica.storycheck.helpers.OnSwipeTouchListener;
 import org.codeforafrica.storycheck.view.AvenirTextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreatePostActivity extends AppCompatActivity implements MockActionCallback, FABProgressListener {
 
@@ -212,7 +219,7 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
 
         mReportCategoriesSheet = new SweetSheet(rl);
 
-        mReportCategoriesSheet.setMenuList(R.menu.menu_sweet);
+        mReportCategoriesSheet.setMenuList(questionsListMenu());
         mReportCategoriesSheet.setDelegate(new ViewPagerDelegate());
         mReportCategoriesSheet.setBackgroundEffect(new DimEffect(0.5f));
         mReportCategoriesSheet.setOnMenuItemClickListener(new SweetSheet.OnMenuItemClickListener() {
@@ -230,6 +237,47 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
             }
         });
 
+    }
+
+    public List<MenuEntity> questionsListMenu(){
+        List<MenuEntity> menuEntities = new ArrayList<>();
+
+        //get all checklists from db
+        List<CheckListObject> checkLists= checkLists();
+
+        for(CheckListObject checkListObject_: checkLists){
+
+            MenuEntity menuEntity = new MenuEntity();
+            menuEntity.title = checkListObject_.getTitle();
+            menuEntity.icon = getResources().getDrawable(R.drawable.ic_done);
+            menuEntities.add(menuEntity);
+        }
+
+        return menuEntities;
+    }
+
+    public List<CheckListObject> checkLists(){
+
+        List<CheckListObject> checkListObjects = new ArrayList<>();
+
+        String queryString = "SELECT * FROM " + DBHelper.TABLE_CHECKLISTS;
+
+        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, new String[]{});
+
+        while (cursor.moveToNext()) {
+
+            CheckListObject checkList = new CheckListObject();
+            checkList.setTitle(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_CHECKLIST_TITLE)));
+            checkListObjects.add(checkList);
+
+        }
+
+        cursor.close();
+
+        return checkListObjects;
     }
 
     @Override

@@ -38,6 +38,7 @@ public class LoadContentService extends Service {
      * @return void
      */
     public void requestContent(){
+
         // Tag used to cancel the request
         String tag_json_obj = "retrieve_checklists";
 
@@ -51,6 +52,7 @@ public class LoadContentService extends Service {
                     public void onResponse(JSONObject response) {
 
                         try {
+
                             JSONArray checklistsArray = response.getJSONArray("checklists");
 
                             //loop through array and load to db
@@ -78,6 +80,7 @@ public class LoadContentService extends Service {
                                     questionObject.setText(thisItem.getString("text"));
                                     questionObject.setCheckListId(checkListId);
                                     questionObject.commit();
+
                                 }
 
                             }

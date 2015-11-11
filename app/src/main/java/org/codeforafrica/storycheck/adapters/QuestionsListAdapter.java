@@ -23,6 +23,9 @@ public class QuestionsListAdapter extends BaseAdapter{
 
         View mView = inflater.inflate(R.layout.questions_list_item, parent, false);
 
+        //get all questions
+
+
         return mView;
     }
 

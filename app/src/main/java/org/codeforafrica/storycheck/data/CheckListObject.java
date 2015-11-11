@@ -4,10 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+import android.util.Log;
 
-/**
- * Created by nickhargreaves on 11/11/15.
- */
 public class CheckListObject {
     
     private String title;
@@ -24,6 +22,10 @@ public class CheckListObject {
         this.mContext = ctx;
         dbHelper = new DBHelper(mContext);
         db = dbHelper.getWritableDatabase();
+
+    }
+
+    public CheckListObject(){
 
     }
 
@@ -67,10 +69,12 @@ public class CheckListObject {
 
         if(insertId > 0){
             //update
+            Log.d("insert log", "update" + insertId);
             update();
         }else{
             //insert
             insertId = insertNew();
+            Log.d("insert log", "insert" + insertId);
         }
 
         db.close();
