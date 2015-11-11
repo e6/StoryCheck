@@ -22,6 +22,7 @@ import com.zzt.inbox.widget.InboxBackgroundScrollView;
 import com.zzt.inbox.widget.InboxLayoutBase;
 import com.zzt.inbox.widget.InboxLayoutListView;
 
+import org.codeforafrica.storycheck.data.LoadContentService;
 import org.codeforafrica.storycheck.view.AvenirTextView;
 
 public class MyPostsActivity extends AppCompatActivity {
@@ -121,6 +122,8 @@ public class MyPostsActivity extends AppCompatActivity {
 
         category_drawables.recycle();
         category_strings.recycle();
+
+        startService(new Intent(MyPostsActivity.this, LoadContentService.class));
     }
 
     @Override
