@@ -128,7 +128,7 @@ public class MyPostsActivity extends AppCompatActivity {
         category_strings.recycle();
     }
 
-    public void addPosts(int iconResource, String storyTitle, final long story_id){
+    public void addPosts(int iconResource, final String storyTitle, final long story_id){
         // Creating a new LinearLayout
         final LinearLayout linearLayout = new LinearLayout(this);
 
@@ -182,7 +182,7 @@ public class MyPostsActivity extends AppCompatActivity {
                 List<AnswerObject> answersList = getAnswers(story_id);
 
                 inboxLayoutListView.setAdapter(new AnswersAdapter(getApplicationContext(), answersList));
-                toolbarTitle.setText("Post title here");
+                toolbarTitle.setText(storyTitle);
             }
         });
 
