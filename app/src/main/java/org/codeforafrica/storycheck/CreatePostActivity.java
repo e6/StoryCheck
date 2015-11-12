@@ -131,95 +131,11 @@ public class CreatePostActivity extends AppCompatActivity {
 
             checkBox = (CheckBox) child.findViewById(R.id.checkBox);
             if (checkBox != null) {
-
                     checkBox.setChecked(check);
-
             }
         }
     }
 
-/*
-    int position;
-    ImageView checkedButton;
-    private boolean showCheckedButton(int pos, boolean show) {
-        position = pos;
-        View child = questionsList.getChildAt(pos - questionsList.getFirstVisiblePosition());
-      if (child != null) {
-
-            checkedButton = (ImageView) child.findViewById(R.id.checked);
-            if (checkedButton != null) {
-
-                if(show) {
-                    if (checkedButton.getVisibility() == View.GONE) {
-                        Animation animation =
-                                AnimationUtils.loadAnimation(this,
-                                        R.anim.checked_slide_in_right);
-                        checkedButton.startAnimation(animation);
-                        checkedButton.setVisibility(View.VISIBLE);
-                    } else {
-                    /*
-                    Animation animation =
-                            AnimationUtils.loadAnimation(this,
-                                    R.anim.checked_slide_out_left);
-                    checkedButton.startAnimation(animation);
-                    checkedButton.setVisibility(View.GONE);
-
-                    }
-                }else{
-                        if (checkedButton.getVisibility() == View.VISIBLE) {
-
-                            Animation animation =
-                                    AnimationUtils.loadAnimation(this,
-                                            R.anim.checked_slide_out_left);
-                            checkedButton.startAnimation(animation);
-                            checkedButton.setVisibility(View.GONE);
-
-                        }
-                }
-
-                //click to edit
-                checkedButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreatePostActivity.this);
-                        LayoutInflater inflater = getLayoutInflater();
-                        View alertDialogView = inflater.inflate(R.layout.checklist_item_content, null);
-                        alertDialog.setView(alertDialogView);
-
-                        final EditText editContent = (EditText) alertDialogView.findViewById(R.id.editText);
-
-
-                        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                if(editContent!=null) {
-                                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                                    imm.hideSoftInputFromWindow(editContent.getWindowToken(), 0);
-                                }
-                                dialog.cancel();
-                            }
-                        });
-
-                        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                if(editContent!=null) {
-                                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                                    imm.hideSoftInputFromWindow(editContent.getWindowToken(), 0);
-                                }
-                                dialog.cancel();
-                            }
-                        });
-                        alertDialog.show();
-
-                    }
-                });
-            }
-            return true;
-        }
-
-        return false;
-    }
-*/
     private void setupViewpager() {
 
         mReportCategoriesSheet = new SweetSheet(rl);

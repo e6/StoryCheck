@@ -52,9 +52,9 @@ public class QuestionsListAdapter extends BaseAdapter{
 
         ViewHolder holder = (ViewHolder)mView.getTag();
 
-        for(QuestionObject question:questions){
-            holder.questionText.setText(question.getText());
-        }
+        QuestionObject questionObject = questions.get(position);
+        holder.questionText.setText(questionObject.getText());
+
 
         return mView;
     }
