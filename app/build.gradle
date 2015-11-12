@@ -35,4 +35,5 @@ dependencies {
     //volley library for our network operations
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     compile 'com.github.rey5137:material:1.2.1'
+    compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
 }
