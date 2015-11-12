@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -43,12 +44,15 @@ public class CreatePostActivity extends AppCompatActivity {
     private SweetSheet mReportCategoriesSheet;
     private RelativeLayout rl;
     private MaterialEditText editTitle;
+    private MaterialEditText editDescription;
     private RelativeLayout categoryPicker;
     private ListView questionsList;
     private AvenirTextView categoryName;
     private ImageView categoryThumb;
     private AvenirTextView toolbarTitle;
     private List<CheckListObject> checkLists;
+    private String selected_checklist_id;
+    private FloatingActionButton doneButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,11 +78,12 @@ public class CreatePostActivity extends AppCompatActivity {
 
         rl = (RelativeLayout) findViewById(R.id.rl);
         editTitle = (MaterialEditText) findViewById(R.id.edit_title);
+        editDescription = (MaterialEditText) findViewById(R.id.edit_description);
         categoryPicker = (RelativeLayout) findViewById(R.id.category);
         questionsList = (ListView) findViewById(R.id.questions_list);
         categoryName = (AvenirTextView) findViewById(R.id.categoryName);
         categoryThumb = (ImageView) findViewById(R.id.categoryThumb);
-
+        doneButton = (FloatingActionButton)findViewById(R.id.done_button);
         //set ontouch listener
         questionsList.setOnTouchListener(new OnSwipeTouchListener(this, questionsList) {
 
@@ -169,12 +174,15 @@ public class CreatePostActivity extends AppCompatActivity {
     public void setUpCheckListQuestions(int checklist){
 
         //First get db id of the selected checklist
-        String id = checkLists.get(checklist).getId();
+        selected_checklist_id = checkLists.get(checklist).getId();
 
         //Then use the id to load adapter
-        questionsList.setAdapter(new QuestionsListAdapter(getApplicationContext(), id));
+        questionsList.setAdapter(new QuestionsListAdapter(getApplicationContext(), selected_checklist_id));
 
         questionsList.setVisibility(View.VISIBLE);
+
+        //show done button
+        doneButton.setVisibility(View.VISIBLE);
     }
 
     public List<MenuEntity> questionsListMenu(){
@@ -255,7 +263,7 @@ public class CreatePostActivity extends AppCompatActivity {
     //upload
     private void attachListeners() {
 
-        findViewById(R.id.done_button).setOnClickListener(new View.OnClickListener() {
+        doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editTitle.addValidator(new MinLengthValidator(getResources().getString(R.string.minimum_chars) + 5, 5));
@@ -279,15 +287,21 @@ public class CreatePostActivity extends AppCompatActivity {
         //save checklist to database
 
         //what title
+        String title = editTitle.getText().toString().trim();
 
         //what description?
+        String description = editDescription.getText().toString().trim();
 
-        //which checklist
+        //which checklist: selected_checklist_id
 
         //what answers
 
+        //save
+
+        //toast
 
         //what's pending
+
     }
 
 }
