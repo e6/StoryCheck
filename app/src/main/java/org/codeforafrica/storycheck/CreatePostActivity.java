@@ -146,6 +146,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
     int position;
     CheckBox checkBox;
+
     private void checkButton(int pos, boolean check){
         position = pos;
         View child = questionsList.getChildAt(pos - questionsList.getFirstVisiblePosition());

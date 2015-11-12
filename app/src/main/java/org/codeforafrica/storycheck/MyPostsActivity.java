@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.github.lzyzsd.circleprogress.CircleProgress;
 import com.zzt.inbox.interfaces.OnDragStateChangeListener;
 import com.zzt.inbox.widget.InboxBackgroundScrollView;
 import com.zzt.inbox.widget.InboxLayoutBase;
@@ -121,14 +122,14 @@ public class MyPostsActivity extends AppCompatActivity {
 
             Log.d("story: ", thisStory.getTitle() + ":" + thisStory.getDescription());
 
-            addPosts(category_drawables.getResourceId(i, -1), thisStory.getTitle(), thisStory.getId());
+            addPosts(category_drawables.getResourceId(i, -1), thisStory.getTitle(), thisStory.getId(), thisStory.getChecklist_count(), thisStory.getChecklist_count_filled());
         }
 
         category_drawables.recycle();
         category_strings.recycle();
     }
 
-    public void addPosts(int iconResource, final String storyTitle, final long story_id){
+    public void addPosts(int iconResource, final String storyTitle, final long story_id, int checkListCount, int checkListCountFilled){
         // Creating a new LinearLayout
         final LinearLayout linearLayout = new LinearLayout(this);
 
@@ -170,6 +171,15 @@ public class MyPostsActivity extends AppCompatActivity {
 
         // Adding the TextView to the LinearLayout as a child
         linearLayout.addView(tv);
+
+        //create circle progress bar
+        CircleProgress circleProgress = new CircleProgress(this);
+        circleProgress.setLayoutParams(new LinearLayout.LayoutParams(55,55));
+        circleProgress.setMax(checkListCount);
+        circleProgress.setProgress(checkListCountFilled);
+        circleProgress.setSuffixText("/" + checkListCount);
+
+        linearLayout.addView(circleProgress);
 
         //add click listener
         linearLayout.setOnClickListener(new View.OnClickListener() {

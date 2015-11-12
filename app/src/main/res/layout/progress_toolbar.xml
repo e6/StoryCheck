@@ -44,6 +44,7 @@
             custom:circle_progress="20"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
+            custom:circle_finished_color="@color/orange"
             android:visibility="gone"/>
 
         </RelativeLayout>
