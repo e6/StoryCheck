@@ -339,7 +339,7 @@ public class CreatePostActivity extends AppCompatActivity {
         newStoryObject.setChecklist_count_filled(totalFilled);
         newStoryObject.commit();
 
-        String count = " : " + totalFilled + " / " + storyObject.getChecklist_count();
+        String count = "Saved with : " + totalFilled + " / " + storyObject.getChecklist_count() + " filled!";
 
         //toast
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.filled) + count, Toast.LENGTH_LONG).show();
