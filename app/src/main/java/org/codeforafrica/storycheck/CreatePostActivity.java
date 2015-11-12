@@ -20,6 +20,7 @@ import com.mingle.sweetpick.DimEffect;
 import com.mingle.sweetpick.SweetSheet;
 import com.mingle.sweetpick.ViewPagerDelegate;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.rey.material.widget.CheckBox;
 
 import org.codeforafrica.storycheck.MaterialEditTextExtend.MinLengthValidator;
 import org.codeforafrica.storycheck.adapters.QuestionsListAdapter;
@@ -84,14 +85,14 @@ public class CreatePostActivity extends AppCompatActivity {
             @Override
             public void onSwipeRight(int pos) {
 
-                showCheckedButton(pos, true);
+                checkButton(pos, true);
 
             }
 
             @Override
             public void onSwipeLeft(int pos) {
 
-                showCheckedButton(pos, false);
+                checkButton(pos, false);
 
             }
         });
@@ -122,11 +123,28 @@ public class CreatePostActivity extends AppCompatActivity {
     }
 
     int position;
+    CheckBox checkBox;
+    private void checkButton(int pos, boolean check){
+        position = pos;
+        View child = questionsList.getChildAt(pos - questionsList.getFirstVisiblePosition());
+        if (child != null) {
+
+            checkBox = (CheckBox) child.findViewById(R.id.checkBox);
+            if (checkBox != null) {
+
+                    checkBox.setChecked(check);
+
+            }
+        }
+    }
+
+/*
+    int position;
     ImageView checkedButton;
     private boolean showCheckedButton(int pos, boolean show) {
         position = pos;
         View child = questionsList.getChildAt(pos - questionsList.getFirstVisiblePosition());
-/*        if (child != null) {
+      if (child != null) {
 
             checkedButton = (ImageView) child.findViewById(R.id.checked);
             if (checkedButton != null) {
@@ -198,10 +216,10 @@ public class CreatePostActivity extends AppCompatActivity {
             }
             return true;
         }
-                    */
+
         return false;
     }
-
+*/
     private void setupViewpager() {
 
         mReportCategoriesSheet = new SweetSheet(rl);
