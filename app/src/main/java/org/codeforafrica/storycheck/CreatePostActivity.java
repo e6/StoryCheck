@@ -215,6 +215,8 @@ public class CreatePostActivity extends AppCompatActivity {
     public void showProgressBar(){
         progressBar.setMax(questionsList.getCount());
         progressBar.setSuffixText("/" + questionsList.getCount());
+        progressBar.setFinishedColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+
         progressBar.setVisibility(View.VISIBLE);
     }
 

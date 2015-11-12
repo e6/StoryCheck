@@ -147,6 +147,7 @@ public class MyPostsActivity extends AppCompatActivity {
         //Create an icon view
         RelativeLayout.LayoutParams ivl = new RelativeLayout.LayoutParams(35, 35);
         ivl.addRule(RelativeLayout.ALIGN_PARENT_START);
+        ivl.addRule(RelativeLayout.CENTER_VERTICAL);
 
         ImageView iV = new ImageView(this);
         iV.setImageDrawable(getResources().getDrawable(iconResource));
@@ -157,7 +158,7 @@ public class MyPostsActivity extends AppCompatActivity {
 
 
         //create circle progress bar
-        RelativeLayout.LayoutParams crl = new RelativeLayout.LayoutParams(55, 55);
+        RelativeLayout.LayoutParams crl = new RelativeLayout.LayoutParams(60, 60);
         crl.addRule(RelativeLayout.ALIGN_PARENT_END);
 
         CircleProgress circleProgress = new CircleProgress(this);
@@ -166,6 +167,8 @@ public class MyPostsActivity extends AppCompatActivity {
         circleProgress.setProgress(checkListCountFilled);
         circleProgress.setSuffixText("/" + checkListCount);
         circleProgress.setId(View.generateViewId());
+        circleProgress.setPadding(5, 5, 5, 5);
+        circleProgress.setFinishedColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
 
         relativeLayout.addView(circleProgress);
 
@@ -184,6 +187,7 @@ public class MyPostsActivity extends AppCompatActivity {
         lp.setMargins(10, 0, 0, 0);
         lp.addRule(RelativeLayout.RIGHT_OF, iV.getId());
         lp.addRule(RelativeLayout.LEFT_OF, circleProgress.getId());
+        lp.addRule(RelativeLayout.CENTER_VERTICAL);
         tv.setLayoutParams(lp);
 
         // Adding the TextView to the RelativeLayout as a child
