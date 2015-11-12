@@ -32,6 +32,10 @@ public class QuestionsListAdapter extends BaseAdapter{
         questions = getQuestions(checklist_id);
     }
 
+    public QuestionObject getQuestion(int i) {
+        return questions.get(i);
+    }
+
     static class ViewHolder{
         AvenirTextView questionText;
         CheckBox checkBox;

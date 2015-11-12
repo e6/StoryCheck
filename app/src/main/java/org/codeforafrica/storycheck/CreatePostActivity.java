@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -53,6 +54,7 @@ public class CreatePostActivity extends AppCompatActivity {
     private List<CheckListObject> checkLists;
     private String selected_checklist_id;
     private FloatingActionButton doneButton;
+    private QuestionsListAdapter currentQuestionsAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +101,18 @@ public class CreatePostActivity extends AppCompatActivity {
 
                 checkButton(pos, false);
 
+            }
+        });
+
+        questionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkBox);
+                if(!checkBox.isChecked()){
+                    checkButton(position, true);
+                }else{
+                    checkButton(position, false);
+                }
             }
         });
 
@@ -177,7 +191,8 @@ public class CreatePostActivity extends AppCompatActivity {
         selected_checklist_id = checkLists.get(checklist).getId();
 
         //Then use the id to load adapter
-        questionsList.setAdapter(new QuestionsListAdapter(getApplicationContext(), selected_checklist_id));
+        currentQuestionsAdapter = new QuestionsListAdapter(getApplicationContext(), selected_checklist_id);
+        questionsList.setAdapter(currentQuestionsAdapter);
 
         questionsList.setVisibility(View.VISIBLE);
 
@@ -274,7 +289,6 @@ public class CreatePostActivity extends AppCompatActivity {
                         categoryName.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red));
                     } else {
                         save_checkList();
-                        finish();
                     }
 
                 }
@@ -294,13 +308,24 @@ public class CreatePostActivity extends AppCompatActivity {
 
         //which checklist: selected_checklist_id
 
-        //what answers
+        //what answers: loop through checklist items and find what's checked?
+        
+        for (int i = 0; i < questionsList.getCount(); i++) {
+            View v = questionsList.getChildAt(i - questionsList.getFirstVisiblePosition());
+
+            CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
+            if(checkBox.isChecked()){
+                String question_id = currentQuestionsAdapter.getQuestion(i).getId();
+            }
+        }
 
         //save
 
         //toast
 
         //what's pending
+
+        //finish()
 
     }
 
