@@ -32,8 +32,6 @@ dependencies {
     }
     compile 'com.android.support:design:23.1.0'
     compile 'com.wnafee:vector-compat:1.0.5'
-    compile 'com.github.jorgecastilloprz:fabprogresscircle:1.01@aar'
-
     //volley library for our network operations
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
 }

@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -22,8 +21,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.github.jorgecastilloprz.FABProgressCircle;
-import com.github.jorgecastilloprz.listeners.FABProgressListener;
 import com.mingle.entity.MenuEntity;
 import com.mingle.sweetpick.DimEffect;
 import com.mingle.sweetpick.SweetSheet;
@@ -34,18 +31,14 @@ import org.codeforafrica.storycheck.MaterialEditTextExtend.MinLengthValidator;
 import org.codeforafrica.storycheck.adapters.QuestionsListAdapter;
 import org.codeforafrica.storycheck.data.CheckListObject;
 import org.codeforafrica.storycheck.data.DBHelper;
-import org.codeforafrica.storycheck.fabprogresscircle.executor.ThreadExecutor;
-import org.codeforafrica.storycheck.fabprogresscircle.interactor.MockAction;
-import org.codeforafrica.storycheck.fabprogresscircle.interactor.MockActionCallback;
 import org.codeforafrica.storycheck.helpers.OnSwipeTouchListener;
 import org.codeforafrica.storycheck.view.AvenirTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreatePostActivity extends AppCompatActivity implements MockActionCallback, FABProgressListener {
+public class CreatePostActivity extends AppCompatActivity {
 
-    private FABProgressCircle fabProgressCircle;
     private boolean taskRunning;
     private static final String FRAGMENT_TAG_DATA_PROVIDER = "data provider";
     private static final String FRAGMENT_LIST_VIEW = "list view";
@@ -130,7 +123,6 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
         });
 
         //show animation while uploading
-        fabProgressCircle = (FABProgressCircle) findViewById(R.id.uploadFab);
         attachListeners();
 
     }
@@ -249,7 +241,7 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
 
             MenuEntity menuEntity = new MenuEntity();
             menuEntity.title = checkListObject_.getTitle();
-            menuEntity.icon = getResources().getDrawable(R.drawable.ic_done);
+            menuEntity.icon = getResources().getDrawable(R.drawable.ic_launcher);
             menuEntities.add(menuEntity);
         }
 
@@ -315,7 +307,6 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
 
     //upload
     private void attachListeners() {
-        fabProgressCircle.attachListener(this);
 
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
@@ -326,33 +317,12 @@ public class CreatePostActivity extends AppCompatActivity implements MockActionC
                     if(categoryName.getText().toString().equals(getResources().getString(R.string.choose_category))){
                         categoryName.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red));
                     }else {
-                        if (!taskRunning) {
-                            fabProgressCircle.show();
-                            runMockInteractor();
-                        }
+                        finish();
                     }
 
                 }
             }
         });
-    }
-
-    private void runMockInteractor() {
-        ThreadExecutor executor = new ThreadExecutor();
-        executor.run(new MockAction(this));
-        taskRunning = true;
-    }
-
-    @Override public void onMockActionComplete() {
-        taskRunning = false;
-        fabProgressCircle.beginFinalAnimation();
-        //fabProgressCircle.hide();
-    }
-
-    @Override public void onFABProgressAnimationEnd() {
-        Snackbar.make(fabProgressCircle, R.string.uploaded, Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show();
     }
 
 }

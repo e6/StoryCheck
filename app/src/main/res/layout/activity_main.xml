@@ -72,26 +72,18 @@
         android:layout_below="@+id/category"
         android:visibility="gone"/>
 
-    <com.github.jorgecastilloprz.FABProgressCircle
-        android:id="@+id/uploadFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        >
-
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_backup_white_24dp"
+            android:src="@drawable/ic_done_white_24dp"
             app:rippleColor="@color/colorPrimary"
             app:elevation="@dimen/raiseFab"
             app:borderWidth="0dp"
             android:layout_margin="10dp"
 
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
             />
-
-    </com.github.jorgecastilloprz.FABProgressCircle>
 
 </RelativeLayout>
