@@ -2,6 +2,8 @@ package org.codeforafrica.storycheck;
 
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,8 +24,13 @@ import com.zzt.inbox.widget.InboxBackgroundScrollView;
 import com.zzt.inbox.widget.InboxLayoutBase;
 import com.zzt.inbox.widget.InboxLayoutListView;
 
+import org.codeforafrica.storycheck.data.DBHelper;
 import org.codeforafrica.storycheck.data.LoadContentService;
+import org.codeforafrica.storycheck.data.StoryObject;
 import org.codeforafrica.storycheck.view.AvenirTextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyPostsActivity extends AppCompatActivity {
     InboxLayoutListView inboxLayoutListView;
@@ -31,6 +38,7 @@ public class MyPostsActivity extends AppCompatActivity {
     LinearLayout postsList;
     FloatingActionButton addFab;
     private AvenirTextView toolbarTitle;
+    List<StoryObject> stories;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +80,8 @@ public class MyPostsActivity extends AppCompatActivity {
                 }
             }
         });
+
+
         inboxLayoutListView.setAdapter(new BaseAdapter() {
             @Override
             public int getCount() {
@@ -99,8 +109,8 @@ public class MyPostsActivity extends AppCompatActivity {
         addFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                    Intent i = new Intent(MyPostsActivity.this, CreatePostActivity.class);
-                    startActivity(i);
+                Intent i = new Intent(MyPostsActivity.this, CreatePostActivity.class);
+                startActivity(i);
 
             }
         });
@@ -108,17 +118,8 @@ public class MyPostsActivity extends AppCompatActivity {
         //posts list
         postsList = (LinearLayout)findViewById(R.id.postsList);
 
-        //add some post items
-        //TODO: use list with adapter
-        TypedArray category_drawables = getResources().obtainTypedArray(R.array.category_drawables);
-        TypedArray category_strings = getResources().obtainTypedArray(R.array.category_strings);
-
-        for(int i = 0; i<14; i++){
-            addPosts(category_drawables.getResourceId(i, -1), category_strings.getResourceId(i, -1));
-        }
-
-        category_drawables.recycle();
-        category_strings.recycle();
+        //load stories from db
+        addStories();
 
         startService(new Intent(MyPostsActivity.this, LoadContentService.class));
     }
@@ -131,6 +132,24 @@ public class MyPostsActivity extends AppCompatActivity {
         }else{
             super.onBackPressed();
         }
+    }
+
+
+    public void addStories(){
+        //get stories from db
+
+
+        //add some post items
+        //TODO: use list with adapter
+        TypedArray category_drawables = getResources().obtainTypedArray(R.array.category_drawables);
+        TypedArray category_strings = getResources().obtainTypedArray(R.array.category_strings);
+
+        for(int i = 0; i<14; i++){
+            addPosts(category_drawables.getResourceId(i, -1), category_strings.getResourceId(i, -1));
+        }
+
+        category_drawables.recycle();
+        category_strings.recycle();
     }
 
     public void addPosts(int iconResource, int textResource){
@@ -189,6 +208,53 @@ public class MyPostsActivity extends AppCompatActivity {
         postsList.addView(linearLayout);
     }
 
+    public List<StoryObject> getStories(){
+
+        List<StoryObject> storyObjects = new ArrayList<>();
+
+        String queryString = "SELECT * FROM " + DBHelper.TABLE_STORIES;
+
+        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, new String[]{});
+
+        while (cursor.moveToNext()) {
+
+            StoryObject storyObject = new StoryObject(0);
+
+            storyObject.setId(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_ID)));
+            storyObject.setTitle(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_STORY_TITLE)));
+            storyObject.setDescription(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_STORY_DESCRIPTION)));
+            storyObject.setChecklist_count(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST_COUNT)));
+            storyObject.setChecklist_count_filled(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST_COUNT_FILLED)));
+
+            storyObjects.add(storyObject);
+
+        }
+
+        cursor.close();
+
+        return storyObjects;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        //check if has posts
+        stories = getStories();
+
+        if(stories.size() < 1){
+            (findViewById(R.id.no_posts)).setVisibility(View.VISIBLE);
+            inboxBackgroundScrollView.setVisibility(View.INVISIBLE);
+
+        }else{
+            (findViewById(R.id.no_posts)).setVisibility(View.GONE);
+            inboxBackgroundScrollView.setVisibility(View.VISIBLE);
+        }
+
+    }
 }
 
 
