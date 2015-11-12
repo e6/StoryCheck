@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.github.lzyzsd.circleprogress.CircleProgress;
 import com.mingle.entity.MenuEntity;
 import com.mingle.sweetpick.DimEffect;
 import com.mingle.sweetpick.SweetSheet;
@@ -51,6 +52,8 @@ public class CreatePostActivity extends AppCompatActivity {
     private String selected_checklist_id;
     private FloatingActionButton doneButton;
     private QuestionsListAdapter currentQuestionsAdapter;
+    private CircleProgress progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +76,10 @@ public class CreatePostActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         toolbarTitle.setText(getResources().getString(R.string.create_post));
+
+        //progressbar
+        progressBar = (CircleProgress)toolbar.findViewById(R.id.circle_progress);
+        progressBar.setSuffixText("");
 
         rl = (RelativeLayout) findViewById(R.id.rl);
         editTitle = (MaterialEditText) findViewById(R.id.edit_title);
@@ -194,6 +201,15 @@ public class CreatePostActivity extends AppCompatActivity {
 
         //show done button
         doneButton.setVisibility(View.VISIBLE);
+
+        //show progress bar
+        showProgressBar();
+    }
+
+    public void showProgressBar(){
+        progressBar.setMax(questionsList.getCount());
+        progressBar.setSuffixText("/" + questionsList.getCount());
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     public List<MenuEntity> questionsListMenu(){
