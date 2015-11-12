@@ -1,5 +1,6 @@
 package org.codeforafrica.storycheck;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -307,6 +308,12 @@ public class CreatePostActivity extends AppCompatActivity {
         String description = editDescription.getText().toString().trim();
 
         //which checklist: selected_checklist_id
+
+        //save story
+        ContentValues storyValues = new ContentValues();
+        storyValues.put(DBHelper.COLUMN_STORY_CHECKLIST, selected_checklist_id);
+        storyValues.put(DBHelper.COLUMN_STORY_TITLE, title);
+        storyValues.put(DBHelper.COLUMN_STORY_DESCRIPTION, description);
 
 
         //what answers: loop through checklist items and find what's checked?

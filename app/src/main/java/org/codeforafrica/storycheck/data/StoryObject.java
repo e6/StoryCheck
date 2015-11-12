@@ -13,6 +13,9 @@ public class StoryObject {
     private String description;
     private String checklist;
     private String id;
+
+    private int checklist_count;
+    private int checklist_count_filled;
     
     private String stories_table = DBHelper.TABLE_STORIES;
 
@@ -62,6 +65,8 @@ public class StoryObject {
 
         contentValues.put(DBHelper.COLUMN_STORY_TITLE, title);
         contentValues.put(DBHelper.COLUMN_STORY_DESCRIPTION, description);
+        contentValues.put(DBHelper.COLUMN_STORY_CHECKLIST_COUNT, checklist_count);
+        contentValues.put(DBHelper.COLUMN_STORY_CHECKLIST_COUNT_FILLED, checklist_count_filled);
         //contentValues.put(DBHelper.COLUMN_STORY_CHECKLIST, checklist);
 
         return db.update(stories_table, contentValues, DBHelper.COLUMN_STORY_ID + "=" + id, null);
@@ -78,6 +83,8 @@ public class StoryObject {
         contentValues.put(DBHelper.COLUMN_STORY_TITLE, title);
         contentValues.put(DBHelper.COLUMN_STORY_DESCRIPTION, description);
         contentValues.put(DBHelper.COLUMN_STORY_CHECKLIST, checklist);
+        contentValues.put(DBHelper.COLUMN_STORY_CHECKLIST_COUNT, checklist_count);
+        contentValues.put(DBHelper.COLUMN_STORY_CHECKLIST_COUNT_FILLED, checklist_count_filled);
 
         return db.insert(stories_table, null, contentValues);
     }
@@ -114,5 +121,21 @@ public class StoryObject {
 
     public String getId() {
         return id;
+    }
+
+    public int getChecklist_count() {
+        return checklist_count;
+    }
+
+    public void setChecklist_count(int checklist_count) {
+        this.checklist_count = checklist_count;
+    }
+
+    public int getChecklist_count_filled() {
+        return checklist_count_filled;
+    }
+
+    public void setChecklist_count_filled(int checklist_count_filled) {
+        this.checklist_count_filled = checklist_count_filled;
     }
 }
