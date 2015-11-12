@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.github.lzyzsd.circleprogress.CircleProgress;
 import com.zzt.inbox.interfaces.OnDragStateChangeListener;
@@ -130,34 +131,44 @@ public class MyPostsActivity extends AppCompatActivity {
     }
 
     public void addPosts(int iconResource, final String storyTitle, final long story_id, int checkListCount, int checkListCountFilled){
-        // Creating a new LinearLayout
-        final LinearLayout linearLayout = new LinearLayout(this);
+        // Creating a new RelativeLayout
+        final RelativeLayout relativeLayout = new RelativeLayout(this);
 
-        // Setting the orientation to vertical
-        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-        // Defining the LinearLayout layout parameters to fill the parent.
-        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        // Defining the RelativeLayout layout parameters to fill the parent.
+        RelativeLayout.LayoutParams llp = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         llp.setMargins(0, 0, 0, 3);
-        linearLayout.setLayoutParams(llp);
+        relativeLayout.setLayoutParams(llp);
 
-        linearLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-        linearLayout.setPadding(10, 30, 10, 30);
-        linearLayout.setVerticalGravity(Gravity.CENTER_VERTICAL);
-
-        // Defining the layout parameters
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(10, 0, 0, 0);
+        relativeLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        relativeLayout.setPadding(10, 30, 10, 30);
+        relativeLayout.setVerticalGravity(Gravity.CENTER_VERTICAL);
 
         //Create an icon view
+        RelativeLayout.LayoutParams ivl = new RelativeLayout.LayoutParams(35, 35);
+        ivl.addRule(RelativeLayout.ALIGN_PARENT_START);
+
         ImageView iV = new ImageView(this);
         iV.setImageDrawable(getResources().getDrawable(iconResource));
-        iV.setLayoutParams(new LinearLayout.LayoutParams(35, 35));
+        iV.setLayoutParams(ivl);
+        iV.setId(View.generateViewId());
         //iV.setPadding(5, 5, 5, 5);
-        linearLayout.addView(iV);
+        relativeLayout.addView(iV);
+
+
+        //create circle progress bar
+        RelativeLayout.LayoutParams crl = new RelativeLayout.LayoutParams(55, 55);
+        crl.addRule(RelativeLayout.ALIGN_PARENT_END);
+
+        CircleProgress circleProgress = new CircleProgress(this);
+        circleProgress.setLayoutParams(crl);
+        circleProgress.setMax(checkListCount);
+        circleProgress.setProgress(checkListCountFilled);
+        circleProgress.setSuffixText("/" + checkListCount);
+        circleProgress.setId(View.generateViewId());
+
+        relativeLayout.addView(circleProgress);
+
 
         // Creating a new TextView
         AvenirTextView tv = new AvenirTextView(this);
@@ -167,26 +178,23 @@ public class MyPostsActivity extends AppCompatActivity {
         tv.setTextSize(23);
 
         // Setting the parameters on the TextView
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(10, 0, 0, 0);
+        lp.addRule(RelativeLayout.RIGHT_OF, iV.getId());
+        lp.addRule(RelativeLayout.LEFT_OF, circleProgress.getId());
         tv.setLayoutParams(lp);
 
-        // Adding the TextView to the LinearLayout as a child
-        linearLayout.addView(tv);
-
-        //create circle progress bar
-        CircleProgress circleProgress = new CircleProgress(this);
-        circleProgress.setLayoutParams(new LinearLayout.LayoutParams(55,55));
-        circleProgress.setMax(checkListCount);
-        circleProgress.setProgress(checkListCountFilled);
-        circleProgress.setSuffixText("/" + checkListCount);
-
-        linearLayout.addView(circleProgress);
+        // Adding the TextView to the RelativeLayout as a child
+        relativeLayout.addView(tv);
 
         //add click listener
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addFab.setVisibility(View.GONE);
-                inboxLayoutListView.openWithAnim(linearLayout);
+                inboxLayoutListView.openWithAnim(relativeLayout);
 
                 //get answers for this post
                 List<AnswerObject> answersList = getAnswers(story_id);
@@ -196,7 +204,7 @@ public class MyPostsActivity extends AppCompatActivity {
             }
         });
 
-        postsList.addView(linearLayout);
+        postsList.addView(relativeLayout);
     }
 
     public List<AnswerObject> getAnswers(long story_id){
