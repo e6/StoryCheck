@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -301,16 +302,11 @@ public class CreatePostActivity extends AppCompatActivity {
     public void save_checkList(){
         //save checklist to database
 
-        //what title
         String title = editTitle.getText().toString().trim();
 
-        //what description?
         String description = editDescription.getText().toString().trim();
 
-        //which checklist: selected_checklist_id
-
         //save story
-
         StoryObject storyObject = new StoryObject(getApplicationContext(), 0);
         storyObject.setTitle(title);
         storyObject.setDescription(description);
@@ -319,8 +315,9 @@ public class CreatePostActivity extends AppCompatActivity {
 
         long storyId = storyObject.commit();
 
-        //what answers: loop through checklist items and find what's checked?
+        StoryObject newStoryObject = new StoryObject(getApplicationContext(), storyId);
 
+        //what answers: loop through checklist items and find what's checked?
         int totalFilled = 0;
 
         for (int i = 0; i < questionsList.getCount(); i++) {
@@ -330,15 +327,16 @@ public class CreatePostActivity extends AppCompatActivity {
             if(checkBox.isChecked()){
                 String question_id = currentQuestionsAdapter.getQuestion(i).getId();
 
-                totalFilled++;
                 //save question
+                Log.d("answer", "answer:" + newStoryObject.saveAnswer(question_id));
+
+                totalFilled++;
 
 
             }
         }
 
         //update with total filled
-        StoryObject newStoryObject = new StoryObject(getApplicationContext(), storyId);
         newStoryObject.setChecklist_count_filled(totalFilled);
         newStoryObject.commit();
 

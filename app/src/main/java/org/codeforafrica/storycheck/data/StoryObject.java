@@ -88,6 +88,15 @@ public class StoryObject {
 
         return db.insert(stories_table, null, contentValues);
     }
+
+
+    public long saveAnswer(String question){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelper.COLUMN_ANSWER_STORY, id);
+        contentValues.put(DBHelper.COLUMN_ANSWER_QUESTION, question);
+
+        return db.insert(DBHelper.TABLE_ANSWERS, null, contentValues);
+    }
     
     //get/set attributes
     

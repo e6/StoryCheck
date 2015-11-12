@@ -15,7 +15,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_ANSWERS = "table_answers";
 
     public static final String DATABASE_NAME = "storycheck";
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 9;
 
     //column names
 
@@ -72,8 +72,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_ANSWERS_CREATE = "create table "
             + TABLE_ANSWERS + "(" + COLUMN_ANSWER_ID
             + " integer primary key autoincrement, "
-            + COLUMN_ANSWER_STORY + " text, "
-            + COLUMN_ANSWER_NOTES + " text not null);";
+            + COLUMN_ANSWER_STORY + " text not null, "
+            + COLUMN_ANSWER_QUESTION + " text not null, "
+            + COLUMN_ANSWER_NOTES + " text);";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
