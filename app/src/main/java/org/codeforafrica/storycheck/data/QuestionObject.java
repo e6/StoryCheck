@@ -27,6 +27,10 @@ public class QuestionObject {
 
     }
 
+    public QuestionObject(){
+
+    }
+
     public String getText() {
         return text;
     }
@@ -118,4 +122,7 @@ public class QuestionObject {
         return s.simpleQueryForLong();
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 }

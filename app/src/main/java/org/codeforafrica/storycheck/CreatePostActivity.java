@@ -53,6 +53,7 @@ public class CreatePostActivity extends AppCompatActivity {
     private AvenirTextView categoryName;
     private ImageView categoryThumb;
     private AvenirTextView toolbarTitle;
+    private List<CheckListObject> checkLists;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -237,7 +238,12 @@ public class CreatePostActivity extends AppCompatActivity {
      * @return void
      */
     public void setUpCheckListQuestions(int checklist){
-        questionsList.setAdapter(new QuestionsListAdapter(getApplicationContext()));
+
+        //First get db id of the selected checklist
+        String id = checkLists.get(checklist).getId();
+
+        //Then use the id to load adapter
+        questionsList.setAdapter(new QuestionsListAdapter(getApplicationContext(), id));
 
         questionsList.setVisibility(View.VISIBLE);
     }
@@ -246,7 +252,7 @@ public class CreatePostActivity extends AppCompatActivity {
         List<MenuEntity> menuEntities = new ArrayList<>();
 
         //get all checklists from db
-        List<CheckListObject> checkLists= checkLists();
+        checkLists = getCheckLists();
 
         for(CheckListObject checkListObject_: checkLists){
 
@@ -259,7 +265,7 @@ public class CreatePostActivity extends AppCompatActivity {
         return menuEntities;
     }
 
-    public List<CheckListObject> checkLists(){
+    public List<CheckListObject> getCheckLists(){
 
         List<CheckListObject> checkListObjects = new ArrayList<>();
 
@@ -274,6 +280,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
             CheckListObject checkList = new CheckListObject();
             checkList.setTitle(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_CHECKLIST_TITLE)));
+            checkList.setId(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_CHECKLIST_ID)));
             checkListObjects.add(checkList);
 
         }

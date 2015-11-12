@@ -19,9 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimaryLight"
-        android:text="Swipe right to check this item"
         android:textSize="25sp"
-        android:id="@+id/textView"
+        android:id="@+id/question_text"
         android:layout_toEndOf="@+id/checked" />
 
 </RelativeLayout>

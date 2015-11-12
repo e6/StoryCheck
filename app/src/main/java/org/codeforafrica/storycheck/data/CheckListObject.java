@@ -121,4 +121,8 @@ public class CheckListObject {
 
         return s.simpleQueryForLong();
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
