@@ -1,22 +1,16 @@
 package org.codeforafrica.storycheck;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -132,7 +126,7 @@ public class CreatePostActivity extends AppCompatActivity {
     private boolean showCheckedButton(int pos, boolean show) {
         position = pos;
         View child = questionsList.getChildAt(pos - questionsList.getFirstVisiblePosition());
-        if (child != null) {
+/*        if (child != null) {
 
             checkedButton = (ImageView) child.findViewById(R.id.checked);
             if (checkedButton != null) {
@@ -151,7 +145,7 @@ public class CreatePostActivity extends AppCompatActivity {
                                     R.anim.checked_slide_out_left);
                     checkedButton.startAnimation(animation);
                     checkedButton.setVisibility(View.GONE);
-                    */
+
                     }
                 }else{
                         if (checkedButton.getVisibility() == View.VISIBLE) {
@@ -204,6 +198,7 @@ public class CreatePostActivity extends AppCompatActivity {
             }
             return true;
         }
+                    */
         return false;
     }
 
