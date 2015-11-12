@@ -2,6 +2,7 @@ package org.codeforafrica.storycheck.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
@@ -31,6 +32,31 @@ public class QuestionObject {
 
     }
 
+    public QuestionObject(Context ctx, String _id){
+        this.mContext = ctx;
+        this.id = _id;
+        dbHelper = new DBHelper(mContext);
+        db = dbHelper.getWritableDatabase();
+
+        loadObject();
+    }
+
+    public void loadObject(){
+        String queryString = "SELECT * FROM " + DBHelper.TABLE_QUESTIONS + " WHERE " + DBHelper.COLUMN_QUESTION_ID + "=?";
+
+        Cursor cursor = db.rawQuery(queryString, new String[]{String.valueOf(id)});
+
+        while (cursor.moveToNext()) {
+
+            setText(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_QUESTION_TEXT)));
+            setCheckListId(cursor.getLong(cursor.getColumnIndex(DBHelper.COLUMN_QUESTION_CHECKLIST)));
+            setRemote_id(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_QUESTION_REMOTE_ID)));
+
+        }
+
+        cursor.close();
+
+    }
     public String getText() {
         return text;
     }

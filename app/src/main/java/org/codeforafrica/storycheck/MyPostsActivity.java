@@ -26,6 +26,7 @@ import org.codeforafrica.storycheck.adapters.AnswersAdapter;
 import org.codeforafrica.storycheck.data.AnswerObject;
 import org.codeforafrica.storycheck.data.DBHelper;
 import org.codeforafrica.storycheck.data.LoadContentService;
+import org.codeforafrica.storycheck.data.QuestionObject;
 import org.codeforafrica.storycheck.data.StoryObject;
 import org.codeforafrica.storycheck.view.AvenirTextView;
 
@@ -202,9 +203,11 @@ public class MyPostsActivity extends AppCompatActivity {
 
             AnswerObject answerObject = new AnswerObject();
 
-            answerObject.setQuestion();
+            String question_id = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ANSWER_QUESTION));
 
-            //storyObject.setId(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_ID)));
+            QuestionObject questionObject = new QuestionObject(getApplicationContext(), question_id);
+
+            answerObject.setQuestion(questionObject.getText());
 
             answerObjects.add(answerObject);
 
