@@ -83,7 +83,6 @@ public class CreatePostActivity extends AppCompatActivity {
         categoryName = (AvenirTextView) findViewById(R.id.categoryName);
         categoryThumb = (ImageView) findViewById(R.id.categoryThumb);
 
-        questionsList.setAdapter(new QuestionsListAdapter(getApplicationContext()));
         //set ontouch listener
         questionsList.setOnTouchListener(new OnSwipeTouchListener(this, questionsList) {
 
@@ -218,7 +217,8 @@ public class CreatePostActivity extends AppCompatActivity {
             @Override
             public boolean onItemClick(int position, MenuEntity menuEntity1) {
 
-                questionsList.setVisibility(View.VISIBLE);
+                setUpCheckListQuestions(position);
+
                 //restore color if in error mode
                 categoryName.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
 
@@ -229,6 +229,17 @@ public class CreatePostActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * Function to load checklist items based on selection
+     * @param checklist
+     * @return void
+     */
+    public void setUpCheckListQuestions(int checklist){
+        questionsList.setAdapter(new QuestionsListAdapter(getApplicationContext()));
+
+        questionsList.setVisibility(View.VISIBLE);
     }
 
     public List<MenuEntity> questionsListMenu(){
@@ -308,21 +319,29 @@ public class CreatePostActivity extends AppCompatActivity {
     //upload
     private void attachListeners() {
 
-        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
+        findViewById(R.id.done_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 editTitle.addValidator(new MinLengthValidator(getResources().getString(R.string.minimum_chars) + 5, 5));
 
                 if (editTitle.validate()) {
 
-                    if(categoryName.getText().toString().equals(getResources().getString(R.string.choose_category))){
+                    if (categoryName.getText().toString().equals(getResources().getString(R.string.choose_category))) {
                         categoryName.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red));
-                    }else {
+                    } else {
+                        save_checkList();
                         finish();
                     }
 
                 }
             }
         });
+    }
+
+
+    public void save_checkList(){
+        //save checklist to database
+
     }
 
 }
