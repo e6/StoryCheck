@@ -154,6 +154,11 @@ public class CreatePostActivity extends AppCompatActivity {
             checkBox = (CheckBox) child.findViewById(R.id.checkBox);
             if (checkBox != null) {
                     checkBox.setChecked(check);
+                    if(check){
+                        progressBar.setProgress(progressBar.getProgress() + 1);
+                    }else{
+                        progressBar.setProgress(progressBar.getProgress() - 1);
+                    }
             }
         }
     }
