@@ -278,6 +278,16 @@ public class CreatePostActivity extends AppCompatActivity {
     public void save_checkList(){
         //save checklist to database
 
+        //what title
+
+        //what description?
+
+        //which checklist
+
+        //what answers
+
+
+        //what's pending
     }
 
 }

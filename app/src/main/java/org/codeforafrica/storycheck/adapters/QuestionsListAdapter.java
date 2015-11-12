@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.rey.material.widget.CheckBox;
+
 import org.codeforafrica.storycheck.R;
 import org.codeforafrica.storycheck.data.DBHelper;
 import org.codeforafrica.storycheck.data.QuestionObject;
@@ -32,6 +34,7 @@ public class QuestionsListAdapter extends BaseAdapter{
 
     static class ViewHolder{
         AvenirTextView questionText;
+        CheckBox checkBox;
     }
 
     @Override
@@ -46,6 +49,7 @@ public class QuestionsListAdapter extends BaseAdapter{
             //configure viewholder
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.questionText = (AvenirTextView)mView.findViewById(R.id.question_text);
+            viewHolder.checkBox = (CheckBox)mView.findViewById(R.id.checkBox);
 
             mView.setTag(viewHolder);
         }
@@ -54,7 +58,6 @@ public class QuestionsListAdapter extends BaseAdapter{
 
         QuestionObject questionObject = questions.get(position);
         holder.questionText.setText(questionObject.getText());
-
 
         return mView;
     }
