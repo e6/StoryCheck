@@ -309,17 +309,18 @@ public class CreatePostActivity extends AppCompatActivity {
         //which checklist: selected_checklist_id
 
         //what answers: loop through checklist items and find what's checked?
-        
+
         for (int i = 0; i < questionsList.getCount(); i++) {
             View v = questionsList.getChildAt(i - questionsList.getFirstVisiblePosition());
 
             CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
             if(checkBox.isChecked()){
                 String question_id = currentQuestionsAdapter.getQuestion(i).getId();
+
+                //save
+
             }
         }
-
-        //save
 
         //toast
 
