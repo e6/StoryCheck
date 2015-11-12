@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,9 +119,6 @@ public class MyPostsActivity extends AppCompatActivity {
         //posts list
         postsList = (LinearLayout)findViewById(R.id.postsList);
 
-        //load stories from db
-        addStories();
-
         startService(new Intent(MyPostsActivity.this, LoadContentService.class));
     }
 
@@ -135,24 +133,26 @@ public class MyPostsActivity extends AppCompatActivity {
     }
 
 
-    public void addStories(){
-        //get stories from db
-
+    public void loadStories(){
 
         //add some post items
         //TODO: use list with adapter
         TypedArray category_drawables = getResources().obtainTypedArray(R.array.category_drawables);
         TypedArray category_strings = getResources().obtainTypedArray(R.array.category_strings);
 
-        for(int i = 0; i<14; i++){
-            addPosts(category_drawables.getResourceId(i, -1), category_strings.getResourceId(i, -1));
+        for(int i = 0; i<stories.size(); i++){
+            StoryObject thisStory = stories.get(i);
+
+            Log.d("story: ", thisStory.getTitle() + ":" + thisStory.getDescription());
+
+            addPosts(category_drawables.getResourceId(i, -1), thisStory.getTitle());
         }
 
         category_drawables.recycle();
         category_strings.recycle();
     }
 
-    public void addPosts(int iconResource, int textResource){
+    public void addPosts(int iconResource, String storyTitle){
         // Creating a new LinearLayout
         final LinearLayout linearLayout = new LinearLayout(this);
 
@@ -185,7 +185,7 @@ public class MyPostsActivity extends AppCompatActivity {
         // Creating a new TextView
         AvenirTextView tv = new AvenirTextView(this);
         tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryLight));
-        tv.setText("A post on " + getResources().getText(textResource));
+        tv.setText(storyTitle);
         tv.setGravity(Gravity.LEFT);
         tv.setTextSize(23);
 
@@ -212,7 +212,7 @@ public class MyPostsActivity extends AppCompatActivity {
 
         List<StoryObject> storyObjects = new ArrayList<>();
 
-        String queryString = "SELECT * FROM " + DBHelper.TABLE_STORIES;
+        String queryString = "SELECT * FROM " + DBHelper.TABLE_STORIES + " ORDER BY " + DBHelper.COLUMN_STORY_ID + " DESC";
 
         DBHelper dbHelper = new DBHelper(getApplicationContext());
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -253,6 +253,8 @@ public class MyPostsActivity extends AppCompatActivity {
             (findViewById(R.id.no_posts)).setVisibility(View.GONE);
             inboxBackgroundScrollView.setVisibility(View.VISIBLE);
         }
+
+        loadStories();
 
     }
 }

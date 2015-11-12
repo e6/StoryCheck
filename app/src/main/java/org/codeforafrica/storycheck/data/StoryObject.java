@@ -2,6 +2,7 @@ package org.codeforafrica.storycheck.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -29,6 +30,13 @@ public class StoryObject {
         dbHelper = new DBHelper(mContext);
         db = dbHelper.getWritableDatabase();
         id = _id;
+
+        if(id>0){
+            //set values from db
+
+            loadObject();
+
+        }
     }
 
     public StoryObject(long _id){
@@ -96,6 +104,26 @@ public class StoryObject {
         contentValues.put(DBHelper.COLUMN_ANSWER_QUESTION, question);
 
         return db.insert(DBHelper.TABLE_ANSWERS, null, contentValues);
+    }
+
+
+    public void loadObject(){
+        String queryString = "SELECT * FROM " + DBHelper.TABLE_STORIES + " WHERE " + DBHelper.COLUMN_STORY_ID + "=?";
+
+        Cursor cursor = db.rawQuery(queryString, new String[]{String.valueOf(id)});
+
+        while (cursor.moveToNext()) {
+
+            setTitle(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_STORY_TITLE)));
+            setDescription(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_STORY_DESCRIPTION)));
+            setChecklist(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST)));
+            setChecklist_count(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST_COUNT)));
+            setChecklist_count_filled(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST_COUNT_FILLED)));
+
+        }
+
+        cursor.close();
+
     }
     
     //get/set attributes
