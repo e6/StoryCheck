@@ -13,10 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -25,6 +22,8 @@ import com.zzt.inbox.widget.InboxBackgroundScrollView;
 import com.zzt.inbox.widget.InboxLayoutBase;
 import com.zzt.inbox.widget.InboxLayoutListView;
 
+import org.codeforafrica.storycheck.adapters.AnswersAdapter;
+import org.codeforafrica.storycheck.data.AnswerObject;
 import org.codeforafrica.storycheck.data.DBHelper;
 import org.codeforafrica.storycheck.data.LoadContentService;
 import org.codeforafrica.storycheck.data.StoryObject;
@@ -82,31 +81,6 @@ public class MyPostsActivity extends AppCompatActivity {
             }
         });
 
-
-        inboxLayoutListView.setAdapter(new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return 10;
-            }
-
-            @Override
-            public Object getItem(int position) {
-                return null;
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                LayoutInflater inflater = MyPostsActivity.this.getLayoutInflater();
-                View view = inflater.inflate(R.layout.item, null);
-                return view;
-            }
-        });
-
         addFab = (FloatingActionButton) findViewById(R.id.addFab);
         addFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -146,14 +120,14 @@ public class MyPostsActivity extends AppCompatActivity {
 
             Log.d("story: ", thisStory.getTitle() + ":" + thisStory.getDescription());
 
-            addPosts(category_drawables.getResourceId(i, -1), thisStory.getTitle());
+            addPosts(category_drawables.getResourceId(i, -1), thisStory.getTitle(), thisStory.getId());
         }
 
         category_drawables.recycle();
         category_strings.recycle();
     }
 
-    public void addPosts(int iconResource, String storyTitle){
+    public void addPosts(int iconResource, String storyTitle, final long story_id){
         // Creating a new LinearLayout
         final LinearLayout linearLayout = new LinearLayout(this);
 
@@ -202,11 +176,43 @@ public class MyPostsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 addFab.setVisibility(View.GONE);
                 inboxLayoutListView.openWithAnim(linearLayout);
+
+                //get answers for this post
+                List<AnswerObject> answersList = getAnswers(story_id);
+
+                inboxLayoutListView.setAdapter(new AnswersAdapter(getApplicationContext(), answersList));
                 toolbarTitle.setText("Post title here");
             }
         });
 
         postsList.addView(linearLayout);
+    }
+
+    public List<AnswerObject> getAnswers(long story_id){
+        List<AnswerObject> answerObjects = new ArrayList<>();
+
+        String queryString = "SELECT * FROM " + DBHelper.TABLE_ANSWERS + " WHERE " + DBHelper.COLUMN_ANSWER_STORY + "=?";
+
+        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, new String[]{String.valueOf(story_id)});
+
+        while (cursor.moveToNext()) {
+
+            AnswerObject answerObject = new AnswerObject();
+
+            answerObject.setQuestion();
+
+            //storyObject.setId(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_ID)));
+
+            answerObjects.add(answerObject);
+
+        }
+
+        cursor.close();
+
+        return answerObjects;
     }
 
     public List<StoryObject> getStories(){
@@ -255,7 +261,7 @@ public class MyPostsActivity extends AppCompatActivity {
             inboxBackgroundScrollView.setVisibility(View.VISIBLE);
         }
         postsList.removeAllViews();
-        
+
         loadStories();
 
     }
