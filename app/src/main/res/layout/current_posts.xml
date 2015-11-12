@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -35,9 +34,35 @@
             android:id="@+id/inboxlayout"
             android:visibility="invisible"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
         </com.zzt.inbox.widget.InboxLayoutListView>
 
+        <LinearLayout
+            android:id="@+id/no_posts"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <org.codeforafrica.storycheck.view.AvenirTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_posts"
+                android:textColor="@color/colorAccent"
+                android:textSize="32sp"
+                android:id="@+id/view" />
+
+            <org.codeforafrica.storycheck.view.AvenirTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_posts_description"
+                android:textColor="@color/colorPrimary"
+                android:textSize="23sp"
+                android:layout_margin="10dp"
+                android:gravity="center"/>
+
+        </LinearLayout>
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/addFab"
             android:layout_width="wrap_content"

@@ -105,4 +105,7 @@
     <string name="welcom_content_03">Create stories without internet connection and upload later</string>
     <string name="welcom_head_04">Media rich stories</string>
     <string name="welcom_content_04">Add pictures, video and audio</string>
+
+    <string name="no_posts">No posts yet!</string>
+    <string name="no_posts_description">Click the add button to start.</string>
 </resources>

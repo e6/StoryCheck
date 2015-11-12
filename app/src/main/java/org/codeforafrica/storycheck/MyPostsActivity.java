@@ -37,9 +37,6 @@ public class MyPostsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.current_posts);
 
-        //show app tour
-        //startTour();
-
         //set up toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbarTitle = (AvenirTextView) toolbar.findViewById(R.id.toolbar_title);
