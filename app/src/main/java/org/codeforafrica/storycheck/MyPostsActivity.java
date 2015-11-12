@@ -106,6 +106,7 @@ public class MyPostsActivity extends AppCompatActivity {
                 return view;
             }
         });
+
         addFab = (FloatingActionButton) findViewById(R.id.addFab);
         addFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -253,7 +254,8 @@ public class MyPostsActivity extends AppCompatActivity {
             (findViewById(R.id.no_posts)).setVisibility(View.GONE);
             inboxBackgroundScrollView.setVisibility(View.VISIBLE);
         }
-
+        postsList.removeAllViews();
+        
         loadStories();
 
     }
