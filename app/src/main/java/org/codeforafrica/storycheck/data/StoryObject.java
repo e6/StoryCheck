@@ -12,7 +12,7 @@ public class StoryObject {
     private String title;
     private String description;
     private String checklist;
-    private String id;
+    private long id;
 
     private int checklist_count;
     private int checklist_count_filled;
@@ -24,14 +24,14 @@ public class StoryObject {
     private DBHelper dbHelper;
     private SQLiteDatabase db;
 
-    public StoryObject(Context ctx, String _id){
+    public StoryObject(Context ctx, long _id){
         this.mContext = ctx;
         dbHelper = new DBHelper(mContext);
         db = dbHelper.getWritableDatabase();
         id = _id;
     }
 
-    public StoryObject(String _id){
+    public StoryObject(long _id){
         id = _id;
     }
     //Database operations//
@@ -44,7 +44,7 @@ public class StoryObject {
 
         long insertId = -1;
 
-        if(id == null){
+        if(!(id > 0) ){
             insertId = insertNew();
         }else{
             insertId = update();
@@ -91,7 +91,7 @@ public class StoryObject {
     
     //get/set attributes
     
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -119,7 +119,7 @@ public class StoryObject {
         this.checklist = checklist;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 

@@ -1,6 +1,5 @@
 package org.codeforafrica.storycheck;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -29,6 +28,7 @@ import org.codeforafrica.storycheck.MaterialEditTextExtend.MinLengthValidator;
 import org.codeforafrica.storycheck.adapters.QuestionsListAdapter;
 import org.codeforafrica.storycheck.data.CheckListObject;
 import org.codeforafrica.storycheck.data.DBHelper;
+import org.codeforafrica.storycheck.data.StoryObject;
 import org.codeforafrica.storycheck.helpers.OnSwipeTouchListener;
 import org.codeforafrica.storycheck.view.AvenirTextView;
 
@@ -310,13 +310,18 @@ public class CreatePostActivity extends AppCompatActivity {
         //which checklist: selected_checklist_id
 
         //save story
-        ContentValues storyValues = new ContentValues();
-        storyValues.put(DBHelper.COLUMN_STORY_CHECKLIST, selected_checklist_id);
-        storyValues.put(DBHelper.COLUMN_STORY_TITLE, title);
-        storyValues.put(DBHelper.COLUMN_STORY_DESCRIPTION, description);
 
+        StoryObject storyObject = new StoryObject(getApplicationContext(), 0);
+        storyObject.setTitle(title);
+        storyObject.setDescription(description);
+        storyObject.setChecklist(selected_checklist_id);
+        storyObject.setChecklist_count(questionsList.getCount());
+
+        long storyId = storyObject.commit();
 
         //what answers: loop through checklist items and find what's checked?
+
+        int totalFilled = 0;
 
         for (int i = 0; i < questionsList.getCount(); i++) {
             View v = questionsList.getChildAt(i - questionsList.getFirstVisiblePosition());
@@ -324,10 +329,18 @@ public class CreatePostActivity extends AppCompatActivity {
             CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
             if(checkBox.isChecked()){
                 String question_id = currentQuestionsAdapter.getQuestion(i).getId();
-                //save
+
+                totalFilled++;
+                //save question
+
 
             }
         }
+
+        //update with total filled
+        StoryObject newStoryObject = new StoryObject(getApplicationContext(), storyId);
+        newStoryObject.setChecklist_count_filled(totalFilled);
+        newStoryObject.commit();
 
         //toast
 
