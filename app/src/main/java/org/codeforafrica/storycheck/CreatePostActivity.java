@@ -9,7 +9,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -17,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.mingle.entity.MenuEntity;
 import com.mingle.sweetpick.DimEffect;
@@ -328,10 +328,9 @@ public class CreatePostActivity extends AppCompatActivity {
                 String question_id = currentQuestionsAdapter.getQuestion(i).getId();
 
                 //save question
-                Log.d("answer", "answer:" + newStoryObject.saveAnswer(question_id));
+                newStoryObject.saveAnswer(question_id);
 
                 totalFilled++;
-
 
             }
         }
@@ -340,11 +339,12 @@ public class CreatePostActivity extends AppCompatActivity {
         newStoryObject.setChecklist_count_filled(totalFilled);
         newStoryObject.commit();
 
+        String count = " : " + totalFilled + " / " + storyObject.getChecklist_count();
+
         //toast
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.filled) + count, Toast.LENGTH_LONG).show();
 
-        //what's pending
-
-        //finish()
+        finish();
 
     }
 
