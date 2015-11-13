@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import org.codeforafrica.storycheck.data.DBHelper;
@@ -129,8 +130,7 @@ public class PageViewActivity extends AppCompatActivity {
             storyObject.setDescription(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_STORY_DESCRIPTION)));
             storyObject.setChecklist_count(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST_COUNT)));
             storyObject.setChecklist_count_filled(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST_COUNT_FILLED)));
-
-
+            storyObject.setDate(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_STORY_DATE)));
             //check if completed
             if(storyObject.getChecklist_count() > storyObject.getChecklist_count_filled()){
                 stories_incomplete.add(storyObject);

@@ -4,6 +4,5 @@ public class GlobalConstants {
 
     public static String TAG = "StoryCheck";
 
-    public static String CHECKLISTS_API = "https://f9637f21522185f0ad69fcbd2c395c82fd76e82c.googledrive.com/secure/AH8CU7Fit9Jvyaw06vjyE2fn4ihzS_i3wmvMY2VGTjnVPiE3jfyMnWpyyBjlllwfcM_afIJXrXwVCWGq9_n0zvXnyZU78o6d3w_8Hhp8TQrds4E6JeZyImyE9kskvX1RO_SFdn6V2vBSu1Mez_17wd8AoQunLIL5Y5BFP-lV0FuoEgRg75smrlqrWfH022BtezkpAjEXI3RdiBq91clYRJk0mp6P5a8HPJwvKmpSrC2boFTclYHy2hn35fWtGhBwJ0Qp23UReaHHqTC7mygaMH_kVmgUqAoFsWscQXKJQZnzW_N3jH1pEDWCGiOpgbp-38RT4t33pnIwfpWFloER3AOCisq8mD38NwEvr9aqfiEE8zKdoceTNQnAZa09YCTM2hOaaglcDOUXXmvpORp5BEnHADkcBm9GPOGAjgu61214L3dwoYPSNAGEU5WD8-1St4rnE3G0OXcfDqMHSDl8WX5SO_3QOwpBTu7I8OWLZCQPfF4r6bF05Q2rC-WyPmC8NQTyjNvMXWUGBLrl-3BQuUQG1tKBwZMPRf4azXBoGAM2BhYywI0PJfQWhWgsoXDrQExLxXq6JUkF/host/0B3A9AvgQXoQwbXB3QmsxOGF0OWc/checklists.json";
-
+    public static String CHECKLISTS_API = "http://nomr.mobi.ke/random/checklists.json";
 }

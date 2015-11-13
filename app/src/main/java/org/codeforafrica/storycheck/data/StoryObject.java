@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class StoryObject {
 
+    private String date;
     private String title;
     private String description;
     private String checklist;
@@ -75,6 +76,7 @@ public class StoryObject {
         contentValues.put(DBHelper.COLUMN_STORY_DESCRIPTION, description);
         contentValues.put(DBHelper.COLUMN_STORY_CHECKLIST_COUNT, checklist_count);
         contentValues.put(DBHelper.COLUMN_STORY_CHECKLIST_COUNT_FILLED, checklist_count_filled);
+        contentValues.put(DBHelper.COLUMN_STORY_DATE, date);
         //contentValues.put(DBHelper.COLUMN_STORY_CHECKLIST, checklist);
 
         return db.update(stories_table, contentValues, DBHelper.COLUMN_STORY_ID + "=" + id, null);
@@ -93,6 +95,7 @@ public class StoryObject {
         contentValues.put(DBHelper.COLUMN_STORY_CHECKLIST, checklist);
         contentValues.put(DBHelper.COLUMN_STORY_CHECKLIST_COUNT, checklist_count);
         contentValues.put(DBHelper.COLUMN_STORY_CHECKLIST_COUNT_FILLED, checklist_count_filled);
+        contentValues.put(DBHelper.COLUMN_STORY_DATE, date);
 
         return db.insert(stories_table, null, contentValues);
     }
@@ -119,6 +122,7 @@ public class StoryObject {
             setChecklist(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST)));
             setChecklist_count(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST_COUNT)));
             setChecklist_count_filled(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST_COUNT_FILLED)));
+            setDate(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_STORY_DATE)));
 
         }
 
@@ -174,5 +178,13 @@ public class StoryObject {
 
     public void setChecklist_count_filled(int checklist_count_filled) {
         this.checklist_count_filled = checklist_count_filled;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

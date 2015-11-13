@@ -34,7 +34,9 @@ import org.codeforafrica.storycheck.data.StoryObject;
 import org.codeforafrica.storycheck.helpers.OnSwipeTouchListener;
 import org.codeforafrica.storycheck.view.AvenirTextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CreatePostActivity extends AppCompatActivity {
@@ -330,6 +332,12 @@ public class CreatePostActivity extends AppCompatActivity {
         storyObject.setDescription(description);
         storyObject.setChecklist(selected_checklist_id);
         storyObject.setChecklist_count(questionsList.getCount());
+
+        //get todays's date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yy");
+        String captureDate = dateFormat.format(new Date());
+
+        storyObject.setDate(captureDate);
 
         long storyId = storyObject.commit();
 
