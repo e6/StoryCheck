@@ -1,5 +1,8 @@
 package org.codeforafrica.storycheck;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -9,7 +12,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
+import org.codeforafrica.storycheck.data.DBHelper;
+import org.codeforafrica.storycheck.data.LoadContentService;
 import org.codeforafrica.storycheck.data.StoryObject;
 import org.codeforafrica.storycheck.view.AvenirTextView;
 
@@ -22,7 +28,7 @@ public class PageViewActivity extends AppCompatActivity {
     FloatingActionButton addFab;
     private AvenirTextView toolbarTitle;
     List<StoryObject> stories;
-
+    ViewPager pager;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,18 +48,24 @@ public class PageViewActivity extends AppCompatActivity {
         }
         toolbarTitle.setText(getResources().getString(R.string.my_posts));
 
+        addFab = (FloatingActionButton) findViewById(R.id.addFab);
+        addFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
-        List<Fragment> fragments = getFragments();
-        pageAdapter = new MyPageAdapter(getSupportFragmentManager(), fragments);
+                Intent i = new Intent(PageViewActivity.this, CreatePostActivity.class);
+                startActivity(i);
 
-        ViewPager pager = (ViewPager)findViewById(R.id.viewpager);
+            }
+        });
+        pager = (ViewPager)findViewById(R.id.viewpager);
 
-        pager.setAdapter(pageAdapter);
+        startService(new Intent(PageViewActivity.this, LoadContentService.class));
+
     }
     private List<Fragment> getFragments() {
         List<Fragment> fList = new ArrayList<Fragment>();
-        fList.add(MyFragment.newInstance("Fragment 1"));
-        fList.add(MyFragment.newInstance("Fragment 2"));
+        fList.add(MyFragment.newInstance(getApplicationContext(),"Fragment 1", toolbarTitle, addFab, this, stories));
+        fList.add(MyFragment.newInstance(getApplicationContext(),"Fragment 2", toolbarTitle, addFab, this, stories));
         return fList;
     }
 
@@ -80,5 +92,46 @@ public class PageViewActivity extends AppCompatActivity {
                 return getResources().getString(R.string.pending_posts);
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //check if has posts
+        stories = getStories();
+        
+        List<Fragment> fragments = getFragments();
+        pageAdapter = new MyPageAdapter(getSupportFragmentManager(), fragments);
+        pager.setAdapter(pageAdapter);
+    }
+
+    public List<StoryObject> getStories(){
+
+        List<StoryObject> storyObjects = new ArrayList<>();
+
+        String queryString = "SELECT * FROM " + DBHelper.TABLE_STORIES + " ORDER BY " + DBHelper.COLUMN_STORY_ID + " DESC";
+
+        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, new String[]{});
+
+        while (cursor.moveToNext()) {
+
+            StoryObject storyObject = new StoryObject(0);
+
+            storyObject.setId(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_ID)));
+            storyObject.setTitle(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_STORY_TITLE)));
+            storyObject.setDescription(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_STORY_DESCRIPTION)));
+            storyObject.setChecklist_count(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST_COUNT)));
+            storyObject.setChecklist_count_filled(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST_COUNT_FILLED)));
+
+            storyObjects.add(storyObject);
+
+        }
+
+        cursor.close();
+
+        return storyObjects;
     }
 }
