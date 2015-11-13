@@ -108,4 +108,7 @@
 
     <string name="no_posts">No posts yet!</string>
     <string name="no_posts_description">Click the add button to start.</string>
+
+    <string name="completed_posts">Completed</string>
+    <string name="pending_posts">Incomplete</string>
 </resources>
