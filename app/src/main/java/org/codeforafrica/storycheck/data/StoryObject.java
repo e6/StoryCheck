@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by nickhargreaves on 11/11/15.
  */
@@ -128,6 +131,35 @@ public class StoryObject {
 
         cursor.close();
 
+    }
+
+    public List<AnswerObject> getAnswers(){
+        List<AnswerObject> answerObjects = new ArrayList<>();
+
+        String queryString = "SELECT * FROM " + DBHelper.TABLE_ANSWERS + " WHERE " + DBHelper.COLUMN_ANSWER_STORY + "=?";
+
+        DBHelper dbHelper = new DBHelper(mContext);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, new String[]{String.valueOf(id)});
+
+        while (cursor.moveToNext()) {
+
+            AnswerObject answerObject = new AnswerObject();
+
+            String question_id = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ANSWER_QUESTION));
+
+            QuestionObject questionObject = new QuestionObject(mContext, question_id);
+
+            answerObject.setQuestion(questionObject.getText());
+
+            answerObjects.add(answerObject);
+
+        }
+
+        cursor.close();
+
+        return answerObjects;
     }
     
     //get/set attributes

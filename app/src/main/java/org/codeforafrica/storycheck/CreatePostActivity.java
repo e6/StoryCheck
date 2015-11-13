@@ -34,6 +34,7 @@ import com.rey.material.widget.CheckBox;
 
 import org.codeforafrica.storycheck.MaterialEditTextExtend.MinLengthValidator;
 import org.codeforafrica.storycheck.adapters.QuestionsListAdapter;
+import org.codeforafrica.storycheck.data.AnswerObject;
 import org.codeforafrica.storycheck.data.CheckListObject;
 import org.codeforafrica.storycheck.data.DBHelper;
 import org.codeforafrica.storycheck.data.QuestionObject;
@@ -68,6 +69,7 @@ public class CreatePostActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private long storyId = 0;
     private StoryObject storyObject;
+    private List<AnswerObject> answersList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,6 +180,13 @@ public class CreatePostActivity extends AppCompatActivity {
             editDescription.setText(storyObject.getDescription());
 
             toolbarTitle.setText(getResources().getString(R.string.edit_post));
+
+            //load the checklist selected
+            selected_checklist_id = storyObject.getChecklist();
+            setUpCheckListQuestions(Integer.parseInt(selected_checklist_id));
+
+            //get answers for this story
+            answersList = storyObject.getAnswers();
 
         }else{
 
