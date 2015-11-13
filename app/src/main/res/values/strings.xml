@@ -106,8 +106,8 @@
     <string name="welcom_head_04">Media rich stories</string>
     <string name="welcom_content_04">Add pictures, video and audio</string>
 
-    <string name="no_posts">No posts yet!</string>
-    <string name="no_posts_description">Click the add button to start.</string>
+    <string name="no_posts">Nothing here</string>
+    <string name="no_posts_description">Use the add button to create</string>
 
     <string name="completed_posts">Completed</string>
     <string name="pending_posts">Incomplete</string>

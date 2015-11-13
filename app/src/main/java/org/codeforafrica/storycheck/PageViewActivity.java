@@ -17,6 +17,8 @@ import android.view.View;
 import org.codeforafrica.storycheck.data.DBHelper;
 import org.codeforafrica.storycheck.data.LoadContentService;
 import org.codeforafrica.storycheck.data.StoryObject;
+import org.codeforafrica.storycheck.fragments.CompletedPosts;
+import org.codeforafrica.storycheck.fragments.InCompletePosts;
 import org.codeforafrica.storycheck.view.AvenirTextView;
 
 import java.util.ArrayList;
@@ -27,8 +29,10 @@ public class PageViewActivity extends AppCompatActivity {
 
     FloatingActionButton addFab;
     private AvenirTextView toolbarTitle;
-    List<StoryObject> stories;
+    List<StoryObject> stories_finished = new ArrayList<>();
+    List<StoryObject> stories_incomplete = new ArrayList<>();
     ViewPager pager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +68,8 @@ public class PageViewActivity extends AppCompatActivity {
     }
     private List<Fragment> getFragments() {
         List<Fragment> fList = new ArrayList<Fragment>();
-        fList.add(MyFragment.newInstance(getApplicationContext(),"Fragment 1", toolbarTitle, addFab, this, stories));
-        fList.add(MyFragment.newInstance(getApplicationContext(),"Fragment 2", toolbarTitle, addFab, this, stories));
+        fList.add(InCompletePosts.newInstance(getApplicationContext(), "Fragment 1", toolbarTitle, addFab, this, stories_incomplete));
+        fList.add(CompletedPosts.newInstance(getApplicationContext(), "Fragment 2", toolbarTitle, addFab, this, stories_finished));
         return fList;
     }
 
@@ -98,14 +102,14 @@ public class PageViewActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         //check if has posts
-        stories = getStories();
-        
+        getStories();
+
         List<Fragment> fragments = getFragments();
         pageAdapter = new MyPageAdapter(getSupportFragmentManager(), fragments);
         pager.setAdapter(pageAdapter);
     }
 
-    public List<StoryObject> getStories(){
+    public void getStories(){
 
         List<StoryObject> storyObjects = new ArrayList<>();
 
@@ -126,12 +130,16 @@ public class PageViewActivity extends AppCompatActivity {
             storyObject.setChecklist_count(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST_COUNT)));
             storyObject.setChecklist_count_filled(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_STORY_CHECKLIST_COUNT_FILLED)));
 
-            storyObjects.add(storyObject);
+
+            //check if completed
+            if(storyObject.getChecklist_count() > storyObject.getChecklist_count_filled()){
+                stories_incomplete.add(storyObject);
+            }else{
+                stories_finished.add(storyObject);
+            }
+
 
         }
-
         cursor.close();
-
-        return storyObjects;
     }
 }

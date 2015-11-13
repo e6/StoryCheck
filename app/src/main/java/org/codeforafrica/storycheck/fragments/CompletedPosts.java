@@ -1,4 +1,4 @@
-package org.codeforafrica.storycheck;
+package org.codeforafrica.storycheck.fragments;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -25,6 +25,8 @@ import com.zzt.inbox.widget.InboxBackgroundScrollView;
 import com.zzt.inbox.widget.InboxLayoutBase;
 import com.zzt.inbox.widget.InboxLayoutListView;
 
+import org.codeforafrica.storycheck.PageViewActivity;
+import org.codeforafrica.storycheck.R;
 import org.codeforafrica.storycheck.adapters.AnswersAdapter;
 import org.codeforafrica.storycheck.data.AnswerObject;
 import org.codeforafrica.storycheck.data.DBHelper;
@@ -35,7 +37,7 @@ import org.codeforafrica.storycheck.view.AvenirTextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyFragment extends Fragment {
+public class CompletedPosts extends Fragment {
     public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
     static AvenirTextView toolbarTitle;
     static FloatingActionButton addFab;
@@ -54,7 +56,7 @@ public class MyFragment extends Fragment {
         stories = _stories;
         mContext = context;
 
-        MyFragment f = new MyFragment();
+        CompletedPosts f = new CompletedPosts();
         Bundle bdl = new Bundle(1);
         bdl.putString(EXTRA_MESSAGE, message);
         f.setArguments(bdl);
