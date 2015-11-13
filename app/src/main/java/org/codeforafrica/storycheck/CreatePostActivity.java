@@ -66,6 +66,8 @@ public class CreatePostActivity extends AppCompatActivity {
     private QuestionsListAdapter currentQuestionsAdapter;
     private CircleProgress progressBar;
     private ProgressDialog progressDialog;
+    private long storyId = 0;
+    private StoryObject storyObject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +89,6 @@ public class CreatePostActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        toolbarTitle.setText(getResources().getString(R.string.create_post));
 
         //progressbar
         progressBar = (CircleProgress)toolbar.findViewById(R.id.circle_progress);
@@ -167,6 +168,21 @@ public class CreatePostActivity extends AppCompatActivity {
             requestContent();
         }
 
+        //check if updating story
+        if(getIntent().hasExtra("story_id")){
+            storyId = getIntent().getLongExtra("story_id", 0);
+
+            //load existing
+            storyObject = new StoryObject(getApplicationContext(), storyId);
+            editTitle.setText(storyObject.getTitle());
+            editDescription.setText(storyObject.getDescription());
+
+            toolbarTitle.setText(getResources().getString(R.string.edit_post));
+
+        }else{
+
+            toolbarTitle.setText(getResources().getString(R.string.create_post));
+        }
 
     }
 
@@ -348,23 +364,27 @@ public class CreatePostActivity extends AppCompatActivity {
         String description = editDescription.getText().toString().trim();
 
         //save story
-        StoryObject storyObject = new StoryObject(getApplicationContext(), 0);
+        storyObject = new StoryObject(getApplicationContext(), storyId);
         storyObject.setTitle(title);
         storyObject.setDescription(description);
         storyObject.setChecklist(selected_checklist_id);
         storyObject.setChecklist_count(questionsList.getCount());
 
-        //get todays's date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yy");
-        String captureDate = dateFormat.format(new Date());
+        if(storyId < 1) {
+            //save date if added for the first time
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yy");
+            String captureDate = dateFormat.format(new Date());
 
-        storyObject.setDate(captureDate);
+            storyObject.setDate(captureDate);
 
-        long storyId = storyObject.commit();
+        }
+        storyId = storyObject.commit();
 
-        StoryObject newStoryObject = new StoryObject(getApplicationContext(), storyId);
 
-        //what answers: loop through checklist items and find what's checked?
+        //update with answers
+        storyObject = new StoryObject(getApplicationContext(), storyId);
+
+        //loop through checklist items and find what's checked?
         int totalFilled = 0;
 
         for (int i = 0; i < questionsList.getCount(); i++) {
@@ -375,7 +395,7 @@ public class CreatePostActivity extends AppCompatActivity {
                 String question_id = currentQuestionsAdapter.getQuestion(i).getId();
 
                 //save question
-                newStoryObject.saveAnswer(question_id);
+                storyObject.saveAnswer(question_id);
 
                 totalFilled++;
 
@@ -383,8 +403,8 @@ public class CreatePostActivity extends AppCompatActivity {
         }
 
         //update with total filled
-        newStoryObject.setChecklist_count_filled(totalFilled);
-        newStoryObject.commit();
+        storyObject.setChecklist_count_filled(totalFilled);
+        storyObject.commit();
 
         String count = "Saved with : " + totalFilled + " / " + storyObject.getChecklist_count() + " filled!";
 

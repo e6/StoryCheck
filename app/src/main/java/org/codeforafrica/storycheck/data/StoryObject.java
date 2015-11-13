@@ -59,7 +59,7 @@ public class StoryObject {
             insertId = update();
         }
 
-        db.close();
+        //db.close();
 
         return insertId;
 

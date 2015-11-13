@@ -1,6 +1,7 @@
 package org.codeforafrica.storycheck.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -25,6 +26,7 @@ import com.zzt.inbox.widget.InboxBackgroundScrollView;
 import com.zzt.inbox.widget.InboxLayoutBase;
 import com.zzt.inbox.widget.InboxLayoutListView;
 
+import org.codeforafrica.storycheck.CreatePostActivity;
 import org.codeforafrica.storycheck.PageViewActivity;
 import org.codeforafrica.storycheck.R;
 import org.codeforafrica.storycheck.adapters.AnswersAdapter;
@@ -49,6 +51,7 @@ public class InCompletePosts extends Fragment {
     static List<StoryObject> stories;
     LinearLayout noPosts;
     FloatingActionButton editFab;
+    long edit_story_id;
 
     public static Fragment newInstance(Context context, String message, AvenirTextView _toolbarTitle, FloatingActionButton _addFab, PageViewActivity _pageViewActivity, List<StoryObject> _stories) {
         toolbarTitle = _toolbarTitle;
@@ -93,6 +96,15 @@ public class InCompletePosts extends Fragment {
 
         //show the edit fab
         editFab = (FloatingActionButton) v.findViewById(R.id.edit_fab);
+        //on click take to edit screen
+        editFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), CreatePostActivity.class);
+                i.putExtra("story_id", edit_story_id);
+                startActivity(i);
+            }
+        });
 
         noPosts = (LinearLayout)v.findViewById(R.id.no_posts);
         //posts list
@@ -246,6 +258,8 @@ public class InCompletePosts extends Fragment {
                 toolbarTitle.setText(storyTitle);
 
                 editFab.setVisibility(View.VISIBLE);
+
+                edit_story_id = story_id;
             }
         });
 
