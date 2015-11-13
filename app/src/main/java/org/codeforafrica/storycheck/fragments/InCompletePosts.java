@@ -125,14 +125,14 @@ public class InCompletePosts extends Fragment {
 
             Log.d("story: ", thisStory.getTitle() + ":" + thisStory.getDescription());
 
-            addPosts(category_drawables.getResourceId(i, -1), thisStory.getTitle(), thisStory.getId(), thisStory.getChecklist_count(), thisStory.getChecklist_count_filled());
+            addPosts(category_drawables.getResourceId(i, -1), thisStory.getTitle(), thisStory.getId(), thisStory.getChecklist_count(), thisStory.getChecklist_count_filled(), thisStory.getDate());
         }
 
         category_drawables.recycle();
         category_strings.recycle();
     }
 
-    public void addPosts(int iconResource, final String storyTitle, final long story_id, int checkListCount, int checkListCountFilled){
+    public void addPosts(int iconResource, final String storyTitle, final long story_id, int checkListCount, int checkListCountFilled, final String storyDate){
         // Creating a new RelativeLayout
         final RelativeLayout relativeLayout = new RelativeLayout(parentActivity);
 
@@ -181,6 +181,7 @@ public class InCompletePosts extends Fragment {
         tv.setText(storyTitle);
         tv.setGravity(Gravity.LEFT);
         tv.setTextSize(23);
+        tv.setId(View.generateViewId());
 
         // Setting the parameters on the TextView
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
@@ -195,6 +196,24 @@ public class InCompletePosts extends Fragment {
         // Adding the TextView to the RelativeLayout as a child
         relativeLayout.addView(tv);
 
+
+        // Creating a date TextView
+        AvenirTextView dateTV = new AvenirTextView(parentActivity);
+        dateTV.setTextColor(ContextCompat.getColor(mContext, R.color.grey));
+        dateTV.setText(storyDate);
+        dateTV.setGravity(Gravity.LEFT);
+        dateTV.setTextSize(14);
+
+        // Setting the parameters on the TextView
+        RelativeLayout.LayoutParams lpDate = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lpDate.setMargins(0, 15, 0, 0);
+        lpDate.addRule(RelativeLayout.BELOW, tv.getId());
+        lpDate.addRule(RelativeLayout.ALIGN_PARENT_START);
+        dateTV.setLayoutParams(lpDate);
+
+        relativeLayout.addView(dateTV);
         //add click listener
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
