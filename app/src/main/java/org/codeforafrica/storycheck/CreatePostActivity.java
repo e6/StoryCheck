@@ -1,5 +1,6 @@
 package org.codeforafrica.storycheck;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,6 +19,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.lzyzsd.circleprogress.CircleProgress;
 import com.mingle.entity.MenuEntity;
 import com.mingle.sweetpick.DimEffect;
@@ -30,9 +36,13 @@ import org.codeforafrica.storycheck.MaterialEditTextExtend.MinLengthValidator;
 import org.codeforafrica.storycheck.adapters.QuestionsListAdapter;
 import org.codeforafrica.storycheck.data.CheckListObject;
 import org.codeforafrica.storycheck.data.DBHelper;
+import org.codeforafrica.storycheck.data.QuestionObject;
 import org.codeforafrica.storycheck.data.StoryObject;
 import org.codeforafrica.storycheck.helpers.OnSwipeTouchListener;
 import org.codeforafrica.storycheck.view.AvenirTextView;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,7 +65,7 @@ public class CreatePostActivity extends AppCompatActivity {
     private FloatingActionButton doneButton;
     private QuestionsListAdapter currentQuestionsAdapter;
     private CircleProgress progressBar;
-
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,16 +123,13 @@ public class CreatePostActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkBox);
-                if(!checkBox.isChecked()){
+                if (!checkBox.isChecked()) {
                     checkButton(position, true);
-                }else{
+                } else {
                     checkButton(position, false);
                 }
             }
         });
-
-
-        setupViewpager();
 
         categoryPicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,8 +148,25 @@ public class CreatePostActivity extends AppCompatActivity {
             }
         });
 
-        //show animation while uploading
+
         attachListeners();
+
+        //first check if has checklists
+            //get all checklists from db
+            checkLists = getCheckLists();
+        if(checkLists.size() > 0){
+            setupViewpager();
+        }else{
+            rl.setVisibility(View.GONE);
+            progressDialog = new ProgressDialog(CreatePostActivity.this);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setTitle("You have no checklists");
+            progressDialog.setMessage("Getting checklists...");
+            progressDialog.show();
+
+            requestContent();
+        }
+
 
     }
 
@@ -224,9 +248,6 @@ public class CreatePostActivity extends AppCompatActivity {
 
     public List<MenuEntity> questionsListMenu(){
         List<MenuEntity> menuEntities = new ArrayList<>();
-
-        //get all checklists from db
-        checkLists = getCheckLists();
 
         for(CheckListObject checkListObject_: checkLists){
 
@@ -371,6 +392,88 @@ public class CreatePostActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), count, Toast.LENGTH_LONG).show();
 
         finish();
+
+    }
+
+    public void requestContent(){
+
+        // Tag used to cancel the request
+        String tag_json_obj = "retrieve_checklists_oncreate";
+
+        String url = GlobalConstants.CHECKLISTS_API;
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                url, null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+
+                            JSONArray checklistsArray = response.getJSONArray("checklists");
+
+                            //loop through array and load to db
+                            for(int j = 0; j < checklistsArray.length(); j++){
+                                JSONObject thisChecklist = checklistsArray.getJSONObject(j);
+
+                                JSONArray thisChecklistItems = thisChecklist.getJSONArray("items");
+                                int checkListCount = thisChecklistItems.length();
+
+                                //add checklist to db
+                                CheckListObject checkListObject = new CheckListObject(getApplicationContext());
+                                checkListObject.setTitle(thisChecklist.getString("name"));
+                                checkListObject.setCount(checkListCount);
+                                checkListObject.setRemote_id(thisChecklist.getString("id"));
+
+                                //commit and return id
+                                long checkListId = checkListObject.commit();
+
+                                //add each checklist item
+                                for(int k = 0; k<thisChecklistItems.length(); k++){
+                                    JSONObject thisItem = thisChecklistItems.getJSONObject(k);
+
+                                    QuestionObject questionObject = new QuestionObject(getApplicationContext());
+                                    questionObject.setRemote_id(thisItem.getString("id"));
+                                    questionObject.setText(thisItem.getString("text"));
+                                    questionObject.setCheckListId(checkListId);
+                                    questionObject.commit();
+
+                                }
+
+                            }
+
+                            checkLists = getCheckLists();
+
+                            if(checkLists.size() > 0) {
+                                rl.setVisibility(View.VISIBLE);
+                                setupViewpager();
+                                progressDialog.dismiss();
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Could not get checklists.", Toast.LENGTH_LONG).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("Service", "Error: " + error.getMessage());
+
+                progressDialog.dismiss();
+
+                Toast.makeText(getApplicationContext(), "Could not get checklists. Check connection!", Toast.LENGTH_LONG).show();
+
+                finish();
+            }
+        });
+
+        // Adding request to request queue
+        App.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
 
     }
 
