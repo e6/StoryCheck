@@ -253,7 +253,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
             MenuEntity menuEntity = new MenuEntity();
             menuEntity.title = checkListObject_.getTitle();
-            menuEntity.icon = getResources().getDrawable(R.drawable.ic_launcher);
+            menuEntity.icon = getResources().getDrawable(R.mipmap.ic_crime);
             menuEntities.add(menuEntity);
         }
 

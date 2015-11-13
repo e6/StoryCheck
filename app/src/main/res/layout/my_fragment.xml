@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
         <com.zzt.inbox.widget.InboxBackgroundScrollView
             android:overScrollMode="always"
             android:scrollbars="none"
@@ -55,4 +55,16 @@
                 android:layout_margin="10dp"
                 android:gravity="center"/>
         </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/edit_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_create_black_24dp"
+        app:elevation="@dimen/raiseFab"
+        android:layout_margin="5dp"
+        android:layout_gravity="bottom|right"
+        app:backgroundTint="@color/colorPrimaryLight"
+        android:visibility="gone"
+        />
     </FrameLayout>

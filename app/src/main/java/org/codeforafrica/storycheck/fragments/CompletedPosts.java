@@ -48,6 +48,7 @@ public class CompletedPosts extends Fragment {
     LinearLayout postsList;
     static List<StoryObject> stories;
     LinearLayout noPosts;
+    FloatingActionButton editFab;
 
     public static Fragment newInstance(Context context, String message, AvenirTextView _toolbarTitle, FloatingActionButton _addFab, PageViewActivity _pageViewActivity, List<StoryObject> _stories) {
         toolbarTitle = _toolbarTitle;
@@ -84,18 +85,34 @@ public class CompletedPosts extends Fragment {
                         parentActivity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
                         toolbarTitle.setText(getResources().getString(R.string.my_posts));
                         addFab.setVisibility(View.VISIBLE);
+                        editFab.setVisibility(View.GONE);
                         break;
                 }
             }
         });
 
+        //show the edit fab
+        editFab = (FloatingActionButton) v.findViewById(R.id.edit_fab);
+
         noPosts = (LinearLayout)v.findViewById(R.id.no_posts);
         //posts list
         postsList = (LinearLayout)v.findViewById(R.id.postsList);
 
+        if(stories.size() < 1){
+            noPosts.setVisibility(View.VISIBLE);
+            inboxBackgroundScrollView.setVisibility(View.INVISIBLE);
+        }else{
+            noPosts.setVisibility(View.GONE);
+            inboxBackgroundScrollView.setVisibility(View.VISIBLE);
+        }
+        postsList.removeAllViews();
+
+        loadStories();
+                
         return v;
     }
 
+/*
     @Override
     public void onResume(){
         super.onResume();
@@ -112,7 +129,7 @@ public class CompletedPosts extends Fragment {
         loadStories();
 
     }
-
+*/
     public void loadStories(){
 
         //add some post items
@@ -226,6 +243,10 @@ public class CompletedPosts extends Fragment {
 
                 inboxLayoutListView.setAdapter(new AnswersAdapter(mContext, answersList));
                 toolbarTitle.setText(storyTitle);
+
+                //show edit icon
+                editFab.setVisibility(View.VISIBLE);
+
             }
         });
 
