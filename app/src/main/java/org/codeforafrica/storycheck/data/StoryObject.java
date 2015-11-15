@@ -133,6 +133,25 @@ public class StoryObject {
 
     }
 
+    public String getChecklistName(){
+        String queryString = "SELECT * FROM " + DBHelper.TABLE_CHECKLISTS + " WHERE " + DBHelper.COLUMN_CHECKLIST_ID + "=?";
+
+        DBHelper dbHelper = new DBHelper(mContext);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, new String[]{String.valueOf(checklist)});
+
+        String checklist_name = "";
+        while (cursor.moveToNext()) {
+
+            checklist_name = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_CHECKLIST_TITLE));
+
+        }
+        cursor.close();
+
+        return  checklist_name;
+    }
+
     public List<AnswerObject> getAnswers(){
         List<AnswerObject> answerObjects = new ArrayList<>();
 

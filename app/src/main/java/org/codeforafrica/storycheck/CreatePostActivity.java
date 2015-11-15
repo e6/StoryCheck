@@ -187,6 +187,9 @@ public class CreatePostActivity extends AppCompatActivity {
             selected_checklist_id = storyObject.getChecklist();
             setUpCheckListQuestions();
 
+            //category name
+           categoryName.setText(checkListName());
+
             //get answers for this story
             answersList = storyObject.getAnswers();
 
@@ -205,6 +208,11 @@ public class CreatePostActivity extends AppCompatActivity {
 
     }
 
+    public String checkListName(){
+
+        return storyObject.getChecklistName();
+
+    }
 
     public void setUpAnswers(){
 
