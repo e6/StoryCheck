@@ -102,7 +102,7 @@ public class PageViewActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        
+
         stories_finished.clear();
         stories_incomplete.clear();
 

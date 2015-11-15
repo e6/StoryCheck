@@ -2,9 +2,9 @@ package org.codeforafrica.storycheck.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-import android.util.Log;
 
 public class CheckListObject {
     
@@ -69,12 +69,11 @@ public class CheckListObject {
 
         if(insertId > 0){
             //update
-            Log.d("insert log", "update" + insertId);
             update();
+
         }else{
             //insert
             insertId = insertNew();
-            Log.d("insert log", "insert" + insertId);
         }
 
         db.close();
@@ -119,7 +118,24 @@ public class CheckListObject {
 
         SQLiteStatement s = db.compileStatement(select_string );
 
-        return s.simpleQueryForLong();
+        long isAdded = s.simpleQueryForLong();
+
+        if(isAdded > 0){
+            String queryString = "SELECT * FROM " + DBHelper.TABLE_CHECKLISTS + " WHERE " + DBHelper.COLUMN_CHECKLIST_REMOTE_ID + "=?";
+
+            DBHelper dbHelper = new DBHelper(mContext);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            Cursor cursor = db.rawQuery(queryString, new String[]{remote_id});
+
+            while (cursor.moveToNext()) {
+                isAdded = cursor.getLong(cursor.getColumnIndex(DBHelper.COLUMN_CHECKLIST_ID));
+            }
+
+            cursor.close();
+        }
+
+        return isAdded;
     }
 
     public void setId(String id) {

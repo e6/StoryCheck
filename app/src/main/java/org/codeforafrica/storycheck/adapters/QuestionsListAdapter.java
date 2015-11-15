@@ -3,6 +3,7 @@ package org.codeforafrica.storycheck.adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class QuestionsListAdapter extends BaseAdapter{
 
         //get all questions for the checklist
         questions = getQuestions(checklist_id);
+
     }
 
     public QuestionObject getQuestion(int i) {
@@ -61,6 +63,7 @@ public class QuestionsListAdapter extends BaseAdapter{
         ViewHolder holder = (ViewHolder)mView.getTag();
 
         QuestionObject questionObject = questions.get(position);
+
         holder.questionText.setText(questionObject.getText());
 
         return mView;
@@ -96,6 +99,9 @@ public class QuestionsListAdapter extends BaseAdapter{
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(queryString, new String[]{checklist_id});
+
+        Log.d("selected", "selected: " + cursor.getCount());
+
 
         while (cursor.moveToNext()) {
 

@@ -157,6 +157,7 @@ public class CreatePostActivity extends AppCompatActivity {
         //first check if has checklists
             //get all checklists from db
             checkLists = getCheckLists();
+
         if(checkLists.size() > 0){
             setupViewpager();
         }else{
@@ -183,7 +184,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
             //load the checklist selected
             selected_checklist_id = storyObject.getChecklist();
-            setUpCheckListQuestions(Integer.parseInt(selected_checklist_id));
+            setUpCheckListQuestions();
 
             //get answers for this story
             answersList = storyObject.getAnswers();
@@ -224,8 +225,9 @@ public class CreatePostActivity extends AppCompatActivity {
         mReportCategoriesSheet.setOnMenuItemClickListener(new SweetSheet.OnMenuItemClickListener() {
             @Override
             public boolean onItemClick(int position, MenuEntity menuEntity1) {
-
-                setUpCheckListQuestions(position);
+                //First get db id of the selected checklist
+                selected_checklist_id = checkLists.get(position).getId();
+                setUpCheckListQuestions();
 
                 //restore color if in error mode
                 categoryName.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
@@ -241,13 +243,9 @@ public class CreatePostActivity extends AppCompatActivity {
 
     /**
      * Function to load checklist items based on selection
-     * @param checklist
      * @return void
      */
-    public void setUpCheckListQuestions(int checklist){
-
-        //First get db id of the selected checklist
-        selected_checklist_id = checkLists.get(checklist).getId();
+    public void setUpCheckListQuestions(){
 
         //Then use the id to load adapter
         currentQuestionsAdapter = new QuestionsListAdapter(getApplicationContext(), selected_checklist_id);
@@ -300,6 +298,7 @@ public class CreatePostActivity extends AppCompatActivity {
             CheckListObject checkList = new CheckListObject();
             checkList.setTitle(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_CHECKLIST_TITLE)));
             checkList.setId(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_CHECKLIST_ID)));
+            checkList.setCount(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_CHECKLIST_COUNT)));
             checkListObjects.add(checkList);
 
         }

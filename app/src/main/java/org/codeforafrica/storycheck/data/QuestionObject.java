@@ -117,7 +117,7 @@ public class QuestionObject {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(DBHelper.COLUMN_QUESTION_TEXT, text);
-        contentValues.put(DBHelper.COLUMN_QUESTION_CHECKLIST, checkListId);
+        //contentValues.put(DBHelper.COLUMN_QUESTION_CHECKLIST, checkListId);
 
         db.update(DBHelper.TABLE_QUESTIONS, contentValues, DBHelper.COLUMN_QUESTION_REMOTE_ID + "=" + remote_id, null);
 
