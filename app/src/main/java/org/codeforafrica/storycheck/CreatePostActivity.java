@@ -189,7 +189,6 @@ public class CreatePostActivity extends AppCompatActivity {
             answersList = storyObject.getAnswers();
 
         }else{
-
             toolbarTitle.setText(getResources().getString(R.string.create_post));
         }
 

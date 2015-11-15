@@ -33,13 +33,14 @@ public class PageViewActivity extends AppCompatActivity {
     List<StoryObject> stories_incomplete = new ArrayList<>();
     ViewPager pager;
 
+    private Toolbar toolbar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_view);
 
         //set up toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbarTitle = (AvenirTextView) toolbar.findViewById(R.id.toolbar_title);
 
         toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_launcher));
@@ -74,8 +75,8 @@ public class PageViewActivity extends AppCompatActivity {
     }
     private List<Fragment> getFragments() {
         List<Fragment> fList = new ArrayList<Fragment>();
-        fList.add(InCompletePosts.newInstance(getApplicationContext(), "Fragment 1", toolbarTitle, addFab, this, stories_incomplete));
-        fList.add(CompletedPosts.newInstance(getApplicationContext(), "Fragment 2", toolbarTitle, addFab, this, stories_finished));
+        fList.add(InCompletePosts.newInstance(toolbar, getApplicationContext(), "Fragment 1", toolbarTitle, addFab, this, stories_incomplete));
+        fList.add(CompletedPosts.newInstance(toolbar, getApplicationContext(), "Fragment 2", toolbarTitle, addFab, this, stories_finished));
         return fList;
     }
 
@@ -108,6 +109,11 @@ public class PageViewActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     public void getStories(){

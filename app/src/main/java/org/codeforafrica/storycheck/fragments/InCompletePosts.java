@@ -11,9 +11,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -52,13 +54,15 @@ public class InCompletePosts extends Fragment {
     LinearLayout noPosts;
     FloatingActionButton editFab;
     long edit_story_id;
+    static Toolbar toolbar;
 
-    public static Fragment newInstance(Context context, String message, AvenirTextView _toolbarTitle, FloatingActionButton _addFab, PageViewActivity _pageViewActivity, List<StoryObject> _stories) {
+    public static Fragment newInstance(Toolbar _toolbar, Context context, String message, AvenirTextView _toolbarTitle, FloatingActionButton _addFab, PageViewActivity _pageViewActivity, List<StoryObject> _stories) {
         toolbarTitle = _toolbarTitle;
         addFab = _addFab;
         parentActivity = _pageViewActivity;
         stories = _stories;
         mContext = context;
+        toolbar = _toolbar;
 
         InCompletePosts f = new InCompletePosts();
         Bundle bdl = new Bundle(1);
@@ -69,6 +73,9 @@ public class InCompletePosts extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        setHasOptionsMenu(true);
+
         String message = getArguments().getString(EXTRA_MESSAGE);
         View v = inflater.inflate(R.layout.my_fragment, container, false);
 
@@ -81,11 +88,16 @@ public class InCompletePosts extends Fragment {
             public void dragStateChange(InboxLayoutBase.DragState state) {
                 switch (state) {
                     case CANCLOSE:
-                        parentActivity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xff5e5e5e));
                         toolbarTitle.setText(getResources().getString(R.string.back));
+                        if(parentActivity.getSupportActionBar() != null) {
+                            parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                            parentActivity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xff5e5e5e));
+                        }
                         break;
                     case CANNOTCLOSE:
-                        parentActivity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+                        toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_launcher));
+                        if(parentActivity.getSupportActionBar() != null)
+                            parentActivity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
                         toolbarTitle.setText(getResources().getString(R.string.my_posts));
                         addFab.setVisibility(View.VISIBLE);
                         editFab.setVisibility(View.GONE);
@@ -257,6 +269,10 @@ public class InCompletePosts extends Fragment {
                 inboxLayoutListView.setAdapter(new AnswersAdapter(mContext, answersList));
                 toolbarTitle.setText(storyTitle);
 
+                toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_back));
+
+                if(parentActivity.getSupportActionBar() != null)
+                    parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 editFab.setVisibility(View.VISIBLE);
 
                 edit_story_id = story_id;
@@ -294,6 +310,14 @@ public class InCompletePosts extends Fragment {
 
         return answerObjects;
     }
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem){
+        if(menuItem.getItemId() == android.R.id.home){
+            if(inboxLayoutListView.isShown()){
+                inboxLayoutListView.closeWithAnim();
+                inboxLayoutListView.setVisibility(View.INVISIBLE);
+            }
+        }
+        return true;
+    }
 }
