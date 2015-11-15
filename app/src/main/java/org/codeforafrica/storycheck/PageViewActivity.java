@@ -63,12 +63,6 @@ public class PageViewActivity extends AppCompatActivity {
             }
         });
         pager = (ViewPager)findViewById(R.id.viewpager);
-        //check if has posts
-        getStories();
-
-        List<Fragment> fragments = getFragments();
-        pageAdapter = new MyPageAdapter(getSupportFragmentManager(), fragments);
-        pager.setAdapter(pageAdapter);
 
         startService(new Intent(PageViewActivity.this, LoadContentService.class));
 
@@ -108,6 +102,16 @@ public class PageViewActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        
+        stories_finished.clear();
+        stories_incomplete.clear();
+
+        //check if has posts
+        getStories();
+
+        List<Fragment> fragments = getFragments();
+        pageAdapter = new MyPageAdapter(getSupportFragmentManager(), fragments);
+        pager.setAdapter(pageAdapter);
 
     }
 

@@ -70,6 +70,7 @@ public class CompletedPosts extends Fragment {
         f.setArguments(bdl);
         return f;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
