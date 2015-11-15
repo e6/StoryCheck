@@ -3,7 +3,6 @@ package org.codeforafrica.storycheck.adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,9 +98,6 @@ public class QuestionsListAdapter extends BaseAdapter{
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(queryString, new String[]{checklist_id});
-
-        Log.d("selected", "selected: " + cursor.getCount());
-
 
         while (cursor.moveToNext()) {
 

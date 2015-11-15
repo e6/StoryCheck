@@ -149,9 +149,9 @@ public class StoryObject {
 
             String question_id = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ANSWER_QUESTION));
 
-            QuestionObject questionObject = new QuestionObject(mContext, question_id);
+            //QuestionObject questionObject = new QuestionObject(mContext, question_id);
 
-            answerObject.setQuestion(questionObject.getText());
+            answerObject.setQuestion(question_id);
 
             answerObjects.add(answerObject);
 

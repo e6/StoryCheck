@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -189,10 +190,50 @@ public class CreatePostActivity extends AppCompatActivity {
             //get answers for this story
             answersList = storyObject.getAnswers();
 
+            //TODO: make it work without handler
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    setUpAnswers();
+                }
+            }, 500);
+
         }else{
             toolbarTitle.setText(getResources().getString(R.string.create_post));
         }
 
+    }
+
+
+    public void setUpAnswers(){
+
+        for (int i = 0; i < questionsList.getCount(); i++) {
+
+            QuestionObject question = currentQuestionsAdapter.getQuestion(i);
+
+            for (int j = 0; j < answersList.size(); j++) {
+                AnswerObject answerObject = answersList.get(j);
+
+                if((answerObject.getQuestion()).equals(question.getId())){
+                    checkButton(i, true);
+                }
+            }
+
+            /*if()
+
+            if(checkBox.isChecked()){
+                String question_id = currentQuestionsAdapter.getQuestion(i).getId();
+
+                //save question
+                storyObject.saveAnswer(question_id);
+
+                totalFilled++;
+
+            }*/
+
+
+        }
     }
 
     int position;
