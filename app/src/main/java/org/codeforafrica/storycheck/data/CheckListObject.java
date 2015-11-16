@@ -12,6 +12,7 @@ public class CheckListObject {
     private String remote_id;
     private int count;
     private String id;
+    private String thumbnail;
 
     private Context mContext;
 
@@ -91,6 +92,7 @@ public class CheckListObject {
 
         contentValues.put(DBHelper.COLUMN_CHECKLIST_TITLE, title);
         contentValues.put(DBHelper.COLUMN_CHECKLIST_COUNT, count);
+        contentValues.put(DBHelper.COLUMN_CHECKLIST_THUMBNAIL, thumbnail);
 
         db.update(DBHelper.TABLE_CHECKLISTS, contentValues, DBHelper.COLUMN_CHECKLIST_REMOTE_ID + "=" + remote_id, null);
 
@@ -105,6 +107,7 @@ public class CheckListObject {
         contentValues.put(DBHelper.COLUMN_CHECKLIST_TITLE, title);
         contentValues.put(DBHelper.COLUMN_CHECKLIST_COUNT, count);
         contentValues.put(DBHelper.COLUMN_CHECKLIST_REMOTE_ID, remote_id);
+        contentValues.put(DBHelper.COLUMN_CHECKLIST_THUMBNAIL, thumbnail);
 
         return db.insert(DBHelper.TABLE_CHECKLISTS, null, contentValues);
     }
@@ -140,5 +143,13 @@ public class CheckListObject {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }
