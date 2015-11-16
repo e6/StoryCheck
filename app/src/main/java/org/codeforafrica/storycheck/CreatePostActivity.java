@@ -325,6 +325,7 @@ public class CreatePostActivity extends AppCompatActivity {
             MenuEntity menuEntity = new MenuEntity();
             menuEntity.title = checkListObject_.getTitle();
             menuEntity.icon = getResources().getDrawable(R.mipmap.ic_crime);
+
             menuEntities.add(menuEntity);
         }
 
@@ -499,6 +500,7 @@ public class CreatePostActivity extends AppCompatActivity {
                                 //add checklist to db
                                 CheckListObject checkListObject = new CheckListObject(getApplicationContext());
                                 checkListObject.setTitle(thisChecklist.getString("name"));
+                                checkListObject.setThumbnail(thisChecklist.getString("thumbnail"));
                                 checkListObject.setCount(checkListCount);
                                 checkListObject.setRemote_id(thisChecklist.getString("id"));
 
