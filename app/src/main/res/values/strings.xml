@@ -86,13 +86,13 @@
 
     <string name="uploaded">Uploaded</string>
 
-    <string name="create_post">Create Post</string>
-    <string name="edit_post">Edit Post</string>
+    <string name="create_post">Create Story</string>
+    <string name="edit_post">Edit Story</string>
     <string name="create_post_description">Use the add button to start a new checklist</string>
-    <string name="upload_post">Upload post</string>
-    <string name="upload_post_description">Use this button to start upload of your created post</string>
+    <string name="upload_post">Upload story</string>
+    <string name="upload_post_description">Use this button to start upload of your created story</string>
 
-    <string name="my_posts">My Posts</string>
+    <string name="my_posts">StoryCheck</string>
     <string name="back">Back</string>
 
     <!-- Tour activity -->
@@ -111,5 +111,5 @@
     <string name="no_posts_description">Use the add button to create</string>
 
     <string name="completed_posts">Completed</string>
-    <string name="pending_posts">Incomplete</string>
+    <string name="pending_posts">Current</string>
 </resources>

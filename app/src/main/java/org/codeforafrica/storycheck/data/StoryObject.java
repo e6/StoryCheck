@@ -142,6 +142,7 @@ public class StoryObject {
         Cursor cursor = db.rawQuery(queryString, new String[]{String.valueOf(checklist)});
 
         String checklist_name = "";
+
         while (cursor.moveToNext()) {
 
             checklist_name = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_CHECKLIST_TITLE));
