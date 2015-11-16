@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -55,14 +56,16 @@ public class InCompletePosts extends Fragment {
     FloatingActionButton editFab;
     long edit_story_id;
     static Toolbar toolbar;
+    static PagerTabStrip pagerTabStrip;
 
-    public static Fragment newInstance(Toolbar _toolbar, Context context, String message, AvenirTextView _toolbarTitle, FloatingActionButton _addFab, PageViewActivity _pageViewActivity, List<StoryObject> _stories) {
+    public static Fragment newInstance(Toolbar _toolbar, Context context, String message, AvenirTextView _toolbarTitle, FloatingActionButton _addFab, PageViewActivity _pageViewActivity, List<StoryObject> _stories, PagerTabStrip _pagerTabStrip) {
         toolbarTitle = _toolbarTitle;
         addFab = _addFab;
         parentActivity = _pageViewActivity;
         stories = _stories;
         mContext = context;
         toolbar = _toolbar;
+        pagerTabStrip = _pagerTabStrip;
 
         InCompletePosts f = new InCompletePosts();
         Bundle bdl = new Bundle(1);
@@ -101,6 +104,8 @@ public class InCompletePosts extends Fragment {
                         toolbarTitle.setText(getResources().getString(R.string.my_posts));
                         addFab.setVisibility(View.VISIBLE);
                         editFab.setVisibility(View.GONE);
+                        pagerTabStrip.setVisibility(View.VISIBLE);
+
                         break;
                 }
             }
@@ -260,6 +265,10 @@ public class InCompletePosts extends Fragment {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //hide tab strip
+                pagerTabStrip.setVisibility(View.INVISIBLE);
+                
                 addFab.setVisibility(View.GONE);
                 inboxLayoutListView.openWithAnim(relativeLayout);
 
@@ -274,6 +283,7 @@ public class InCompletePosts extends Fragment {
                 if(parentActivity.getSupportActionBar() != null)
                     parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 editFab.setVisibility(View.VISIBLE);
+
 
                 edit_story_id = story_id;
             }
