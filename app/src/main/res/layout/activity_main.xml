@@ -45,31 +45,35 @@
     <RelativeLayout
         android:id="@+id/category"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="15dp"
+        android:paddingRight="0dp"
+        android:paddingLeft="15dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/edit_description">
 
         <ImageView
             android:id="@+id/categoryThumb"
             android:layout_width="24dp"
-            android:src="@drawable/ic_arrow_drop_down_circle_black_24dp"
+            android:src="@drawable/ic_settings_black_24dp"
             android:layout_height="24dp"
             android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:tint="@color/colorPrimaryDark"/>
-
-        <org.codeforafrica.storycheck.view.AvenirTextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/choose_category"
-            android:id="@+id/categoryName"
             android:layout_alignParentStart="true"
+            android:layout_marginRight="10dp"
+            android:tint="@color/text_selected"/>
+
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/choose_category"
+            app:met_floatingLabel="normal"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/categoryThumb"
             android:textColor="@color/colorPrimaryDark"
             android:gravity="center_vertical"
-            android:textSize="25sp"/>
+            android:textSize="25sp" />
     </RelativeLayout>
 
     <ListView
@@ -77,7 +81,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/category"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_margin="5dp"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/done_button"

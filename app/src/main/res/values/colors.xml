@@ -46,6 +46,6 @@
     <color name="bg_swipe_group_item_dismiss">#ff295db3</color>
 
     <color name="snackbar_action_color_done">#ffccccff</color>
-    <color name="text_selected">#888</color>
+    <color name="text_selected">#6b6b6b</color>
 
 </resources>

@@ -1,7 +1,6 @@
 package org.codeforafrica.storycheck;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
@@ -14,8 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -29,6 +28,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.lzyzsd.circleprogress.CircleProgress;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rey.material.widget.CheckBox;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import org.codeforafrica.storycheck.MaterialEditTextExtend.MinLengthValidator;
 import org.codeforafrica.storycheck.adapters.QuestionsListAdapter;
@@ -53,12 +53,12 @@ public class CreatePostActivity extends AppCompatActivity {
     private RelativeLayout rl;
     private MaterialEditText editTitle;
     private MaterialEditText editDescription;
-    private RelativeLayout categoryPicker;
+    private MaterialBetterSpinner categoryPicker;
     private ListView questionsList;
-    private AvenirTextView categoryName;
     private ImageView categoryThumb;
     private AvenirTextView toolbarTitle;
     private List<CheckListObject> checkLists;
+    private List<String>checkListTitles = new ArrayList<>();
     private String selected_checklist_id;
     private FloatingActionButton doneButton;
     private QuestionsListAdapter currentQuestionsAdapter;
@@ -94,11 +94,12 @@ public class CreatePostActivity extends AppCompatActivity {
         progressBar.setSuffixText("");
 
         rl = (RelativeLayout) findViewById(R.id.rl);
+
         editTitle = (MaterialEditText) findViewById(R.id.edit_title);
+        editTitle.addValidator(new MinLengthValidator(getResources().getString(R.string.minimum_chars) + 5, 5));
+
         editDescription = (MaterialEditText) findViewById(R.id.edit_description);
-        categoryPicker = (RelativeLayout) findViewById(R.id.category);
         questionsList = (ListView) findViewById(R.id.questions_list);
-        categoryName = (AvenirTextView) findViewById(R.id.categoryName);
         categoryThumb = (ImageView) findViewById(R.id.categoryThumb);
         doneButton = (FloatingActionButton)findViewById(R.id.done_button);
         //set ontouch listener
@@ -131,21 +132,15 @@ public class CreatePostActivity extends AppCompatActivity {
             }
         });
 
-        categoryPicker.setOnClickListener(new View.OnClickListener() {
+        categoryPicker = (MaterialBetterSpinner) findViewById(R.id.spinner);
+        categoryPicker.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-
-                editTitle.addValidator(new MinLengthValidator(getResources().getString(R.string.minimum_chars) + 5, 5));
-
-                if (editTitle.validate()) {
-                    //hide keyboard
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(editTitle.getWindowToken(), 0);
-
-                }
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //First get db id of the selected checklist
+                selected_checklist_id = checkLists.get(position).getId();
+                setUpCheckListQuestions();
             }
         });
-
 
         attachListeners();
 
@@ -155,6 +150,10 @@ public class CreatePostActivity extends AppCompatActivity {
 
         if(checkLists.size() > 0){
 
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, checkListTitles);
+
+            categoryPicker.setAdapter(adapter);
         }else{
             rl.setVisibility(View.GONE);
             progressDialog = new ProgressDialog(CreatePostActivity.this);
@@ -180,9 +179,6 @@ public class CreatePostActivity extends AppCompatActivity {
             //load the checklist selected
             selected_checklist_id = storyObject.getChecklist();
             setUpCheckListQuestions();
-
-            //category name
-           categoryName.setText(checkListName());
 
             //get answers for this story
             answersList = storyObject.getAnswers();
@@ -309,8 +305,10 @@ public class CreatePostActivity extends AppCompatActivity {
             checkList.setTitle(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_CHECKLIST_TITLE)));
             checkList.setId(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_CHECKLIST_ID)));
             checkList.setCount(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_CHECKLIST_COUNT)));
+
             checkListObjects.add(checkList);
 
+            checkListTitles.add(checkList.getTitle());
         }
 
         cursor.close();
@@ -349,17 +347,16 @@ public class CreatePostActivity extends AppCompatActivity {
 
                 if (editTitle.validate()) {
 
-                    if (categoryName.getText().toString().equals(getResources().getString(R.string.choose_category))) {
+                    /*if (categoryName.getText().toString().equals(getResources().getString(R.string.choose_category))) {
                         categoryName.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red));
                     } else {
                         save_checkList();
-                    }
+                    }*/
 
                 }
             }
         });
     }
-
 
     public void save_checkList(){
         //save checklist to database
