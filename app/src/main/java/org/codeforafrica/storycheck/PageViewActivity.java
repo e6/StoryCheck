@@ -154,8 +154,14 @@ public class PageViewActivity extends AppCompatActivity {
                 stories_finished.add(storyObject);
             }
 
-
         }
+
+        if((stories_finished.size() + stories_incomplete.size()) > 0){
+            tabLayout.setVisibility(View.VISIBLE);
+        }else{
+            tabLayout.setVisibility(View.GONE);
+        }
+
         cursor.close();
     }
 }
