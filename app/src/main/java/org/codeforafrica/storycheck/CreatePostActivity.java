@@ -53,9 +53,12 @@ public class CreatePostActivity extends AppCompatActivity {
     private RelativeLayout rl;
     private MaterialEditText editTitle;
     private MaterialEditText editDescription;
+
     private MaterialBetterSpinner categoryPicker;
-    private ListView questionsList;
+    private RelativeLayout categorySection;
     private ImageView categoryThumb;
+
+    private ListView questionsList;
     private AvenirTextView toolbarTitle;
     private List<CheckListObject> checkLists;
     private List<String>checkListTitles = new ArrayList<>();
@@ -101,6 +104,8 @@ public class CreatePostActivity extends AppCompatActivity {
         editDescription = (MaterialEditText) findViewById(R.id.edit_description);
         questionsList = (ListView) findViewById(R.id.questions_list);
         categoryThumb = (ImageView) findViewById(R.id.categoryThumb);
+        categorySection = (RelativeLayout) findViewById(R.id.category);
+
         doneButton = (FloatingActionButton)findViewById(R.id.done_button);
         //set ontouch listener
         questionsList.setOnTouchListener(new OnSwipeTouchListener(this, questionsList) {
@@ -182,6 +187,9 @@ public class CreatePostActivity extends AppCompatActivity {
 
             //get answers for this story
             answersList = storyObject.getAnswers();
+
+            //hide category picker in edit mode
+            categorySection.setVisibility(View.GONE);
 
             //TODO: make it work without handler
             new Handler().postDelayed(new Runnable() {
