@@ -65,7 +65,7 @@ public class LoadContentService extends Service {
                                 //add checklist to db
                                 CheckListObject checkListObject = new CheckListObject(getApplicationContext());
                                 checkListObject.setTitle(thisChecklist.getString("name"));
-                                checkListObject.setThumbnail(thisChecklist.getString("thumbnail"));
+                                checkListObject.setThumbnail(thisChecklist.optString("thumbnail", ""));
                                 checkListObject.setCount(checkListCount);
                                 checkListObject.setRemote_id(thisChecklist.getString("id"));
 

@@ -23,10 +23,8 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':libs:library')
-    compile project(':libs:sweetsheet')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.0'
-    //compile 'com.github.zzz40500:AndroidSweetSheet:1.1.0'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.8.3@aar') {
         transitive = true

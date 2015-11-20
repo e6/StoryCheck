@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -324,12 +325,18 @@ public class CreatePostActivity extends AppCompatActivity {
 
             MenuEntity menuEntity = new MenuEntity();
             menuEntity.title = checkListObject_.getTitle();
-            menuEntity.icon = getResources().getDrawable(R.mipmap.ic_crime);
-
+            menuEntity.icon = drawableFromFile(checkListObject_.getThumbnail());
             menuEntities.add(menuEntity);
         }
 
         return menuEntities;
+    }
+
+    public Drawable drawableFromFile(String pathName){
+        Drawable d = Drawable.createFromPath(pathName);
+        if(d == null)
+            d = getResources().getDrawable(R.mipmap.ic_featured);
+        return d;
     }
 
     public List<CheckListObject> getCheckLists(){
