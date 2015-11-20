@@ -112,4 +112,6 @@
 
     <string name="completed_posts">Completed</string>
     <string name="pending_posts">Current</string>
+
+    <string name="no_checklist_selected">No checklist selected!</string>
 </resources>

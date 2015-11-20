@@ -347,12 +347,11 @@ public class CreatePostActivity extends AppCompatActivity {
 
                 if (editTitle.validate()) {
 
-                    /*if (categoryName.getText().toString().equals(getResources().getString(R.string.choose_category))) {
-                        categoryName.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red));
-                    } else {
+                    if(selected_checklist_id != null && currentQuestionsAdapter !=null){
                         save_checkList();
-                    }*/
-
+                    }else{
+                        categoryThumb.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.red));
+                    }
                 }
             }
         });
