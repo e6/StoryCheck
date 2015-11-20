@@ -147,23 +147,25 @@ public class NewStoryActivity extends AppCompatActivity {
     }
     public void save_checkList(){
         //save checklist to database
-
         String title = editTitle.getText().toString().trim();
 
         String description = editDescription.getText().toString().trim();
+
+        //find questions
+        currentQuestionsAdapter = new QuestionsListAdapter(getApplicationContext(), selected_checklist_id);
 
         //save story
         storyObject = new StoryObject(getApplicationContext(), storyId);
         storyObject.setTitle(title);
         storyObject.setDescription(description);
         storyObject.setChecklist(selected_checklist_id);
-        storyObject.setChecklist_count(questionsList.getCount());
+        storyObject.setChecklist_count(currentQuestionsAdapter.getCount());
 
-            //save date if added for the first time
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yy");
-            String captureDate = dateFormat.format(new Date());
+        //save date if added for the first time
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yy");
+        String captureDate = dateFormat.format(new Date());
 
-            storyObject.setDate(captureDate);
+        storyObject.setDate(captureDate);
 
 
         storyId = storyObject.commit();
@@ -210,7 +212,7 @@ public class NewStoryActivity extends AppCompatActivity {
                                 //add checklist to db
                                 CheckListObject checkListObject = new CheckListObject(getApplicationContext());
                                 checkListObject.setTitle(thisChecklist.getString("name"));
-                                checkListObject.setThumbnail(thisChecklist.getString("thumbnail"));
+                                //checkListObject.setThumbnail(thisChecklist.getString("thumbnail"));
                                 checkListObject.setCount(checkListCount);
                                 checkListObject.setRemote_id(thisChecklist.getString("id"));
 
