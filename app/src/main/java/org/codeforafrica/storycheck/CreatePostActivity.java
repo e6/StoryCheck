@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -63,13 +62,20 @@ public class CreatePostActivity extends AppCompatActivity {
     private List<CheckListObject> checkLists;
     private List<String>checkListTitles = new ArrayList<>();
     private String selected_checklist_id;
-    private FloatingActionButton doneButton;
+    private ImageView doneButton;
     private QuestionsListAdapter currentQuestionsAdapter;
     private CircleProgress progressBar;
     private ProgressDialog progressDialog;
     private long storyId = 0;
     private StoryObject storyObject;
     private List<AnswerObject> answersList;
+
+    private int mode;
+
+    private static final int CREATE_MODE = 0;
+    private static final int CHECKLIST_MODE = 1;
+    private static final int EDIT_MODE = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +88,7 @@ public class CreatePostActivity extends AppCompatActivity {
         //set up toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbarTitle = (AvenirTextView) toolbar.findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getResources().getString(R.string.my_posts));
 
         toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_back));
         setSupportActionBar(toolbar);
@@ -93,7 +100,7 @@ public class CreatePostActivity extends AppCompatActivity {
         }
 
         //progressbar
-        progressBar = (CircleProgress)toolbar.findViewById(R.id.circle_progress);
+        progressBar = (CircleProgress) findViewById(R.id.circle_progress);
         progressBar.setSuffixText("");
 
         rl = (RelativeLayout) findViewById(R.id.rl);
@@ -106,7 +113,7 @@ public class CreatePostActivity extends AppCompatActivity {
         categoryThumb = (ImageView) findViewById(R.id.categoryThumb);
         categorySection = (RelativeLayout) findViewById(R.id.category);
 
-        doneButton = (FloatingActionButton)findViewById(R.id.done_button);
+        doneButton = (ImageView)toolbar.findViewById(R.id.done_button);
         //set ontouch listener
         questionsList.setOnTouchListener(new OnSwipeTouchListener(this, questionsList) {
 
@@ -174,12 +181,18 @@ public class CreatePostActivity extends AppCompatActivity {
         if(getIntent().hasExtra("story_id")){
             storyId = getIntent().getLongExtra("story_id", 0);
 
+            //check mode
+            if(getIntent().hasExtra("checkListMode")){
+                mode = CHECKLIST_MODE;
+                doneButton.setVisibility(View.GONE);
+            }else{
+                mode = EDIT_MODE;
+            }
+
             //load existing
             storyObject = new StoryObject(getApplicationContext(), storyId);
             editTitle.setText(storyObject.getTitle());
             editDescription.setText(storyObject.getDescription());
-
-            toolbarTitle.setText(getResources().getString(R.string.edit_post));
 
             //load the checklist selected
             selected_checklist_id = storyObject.getChecklist();
@@ -201,7 +214,7 @@ public class CreatePostActivity extends AppCompatActivity {
             }, 500);
 
         }else{
-            toolbarTitle.setText(getResources().getString(R.string.create_post));
+            mode = CREATE_MODE;
         }
 
     }
@@ -268,17 +281,19 @@ public class CreatePostActivity extends AppCompatActivity {
      */
     public void setUpCheckListQuestions(){
 
-        //Then use the id to load adapter
-        currentQuestionsAdapter = new QuestionsListAdapter(getApplicationContext(), selected_checklist_id);
-        questionsList.setAdapter(currentQuestionsAdapter);
 
-        questionsList.setVisibility(View.VISIBLE);
 
-        //show done button
-        doneButton.setVisibility(View.VISIBLE);
+            //Then use the id to load adapter
+            currentQuestionsAdapter = new QuestionsListAdapter(getApplicationContext(), selected_checklist_id);
+            questionsList.setAdapter(currentQuestionsAdapter);
 
         //show progress bar
-        showProgressBar();
+        if(mode == CHECKLIST_MODE) {
+
+            questionsList.setVisibility(View.VISIBLE);
+
+            showProgressBar();
+        }
     }
 
     public void showProgressBar(){
@@ -389,28 +404,30 @@ public class CreatePostActivity extends AppCompatActivity {
         }
         storyId = storyObject.commit();
 
-
-        //update with answers
-        storyObject = new StoryObject(getApplicationContext(), storyId);
-
-        //loop through checklist items and find what's checked?
         int totalFilled = 0;
 
-        for (int i = 0; i < questionsList.getCount(); i++) {
-            View v = questionsList.getChildAt(i - questionsList.getFirstVisiblePosition());
+        if(mode == CHECKLIST_MODE) {
 
-            CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
-            if(checkBox.isChecked()){
-                String question_id = currentQuestionsAdapter.getQuestion(i).getId();
+            //update with answers
+            storyObject = new StoryObject(getApplicationContext(), storyId);
 
-                //save question
-                storyObject.saveAnswer(question_id);
+            //loop through checklist items and find what's checked?
 
-                totalFilled++;
+            for (int i = 0; i < questionsList.getCount(); i++) {
+                View v = questionsList.getChildAt(i - questionsList.getFirstVisiblePosition());
 
+                CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
+                if (checkBox.isChecked()) {
+                    String question_id = currentQuestionsAdapter.getQuestion(i).getId();
+
+                    //save question
+                    storyObject.saveAnswer(question_id);
+
+                    totalFilled++;
+
+                }
             }
         }
-
         //update with total filled
         storyObject.setChecklist_count_filled(totalFilled);
         storyObject.commit();

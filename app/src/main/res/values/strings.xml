@@ -114,4 +114,6 @@
     <string name="pending_posts">Current</string>
 
     <string name="no_checklist_selected">No checklist selected!</string>
+    <string name="error_getting_checklists">Error getting checklists</string>
+    <string name="saved">Saved!</string>
 </resources>

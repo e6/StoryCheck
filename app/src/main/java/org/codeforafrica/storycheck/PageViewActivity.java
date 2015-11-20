@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import org.codeforafrica.storycheck.activities.NewStoryActivity;
 import org.codeforafrica.storycheck.data.DBHelper;
 import org.codeforafrica.storycheck.data.LoadContentService;
 import org.codeforafrica.storycheck.data.StoryObject;
@@ -59,7 +60,7 @@ public class PageViewActivity extends AppCompatActivity {
         addFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent i = new Intent(PageViewActivity.this, CreatePostActivity.class);
+                Intent i = new Intent(PageViewActivity.this, NewStoryActivity.class);
                 startActivity(i);
 
             }

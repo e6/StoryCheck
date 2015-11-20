@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -32,7 +31,6 @@ import com.zzt.inbox.widget.InboxLayoutListView;
 import org.codeforafrica.storycheck.CreatePostActivity;
 import org.codeforafrica.storycheck.PageViewActivity;
 import org.codeforafrica.storycheck.R;
-import org.codeforafrica.storycheck.adapters.AnswersAdapter;
 import org.codeforafrica.storycheck.data.AnswerObject;
 import org.codeforafrica.storycheck.data.DBHelper;
 import org.codeforafrica.storycheck.data.QuestionObject;
@@ -94,13 +92,10 @@ public class InCompletePosts extends Fragment {
                         toolbarTitle.setText(getResources().getString(R.string.back));
                         if(parentActivity.getSupportActionBar() != null) {
                             parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                            parentActivity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xff5e5e5e));
                         }
                         break;
                     case CANNOTCLOSE:
                         toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_launcher));
-                        if(parentActivity.getSupportActionBar() != null)
-                            parentActivity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
                         toolbarTitle.setText(getResources().getString(R.string.my_posts));
                         addFab.setVisibility(View.VISIBLE);
                         editFab.setVisibility(View.GONE);
@@ -265,7 +260,7 @@ public class InCompletePosts extends Fragment {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                /*
                 //hide tab strip
                 tabLayout.setVisibility(View.INVISIBLE);
                 
@@ -286,6 +281,11 @@ public class InCompletePosts extends Fragment {
 
 
                 edit_story_id = story_id;
+                */
+                Intent i = new Intent(getActivity(), CreatePostActivity.class);
+                i.putExtra("story_id", story_id);
+                i.putExtra("checkListMode", true);
+                startActivity(i);
             }
         });
 
