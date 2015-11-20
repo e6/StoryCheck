@@ -5,10 +5,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +33,7 @@ public class PageViewActivity extends AppCompatActivity {
     List<StoryObject> stories_finished = new ArrayList<>();
     List<StoryObject> stories_incomplete = new ArrayList<>();
     ViewPager pager;
-    PagerTabStrip pagerTabStrip;
+    private TabLayout tabLayout;
 
     private Toolbar toolbar;
     @Override
@@ -65,15 +65,16 @@ public class PageViewActivity extends AppCompatActivity {
             }
         });
         pager = (ViewPager)findViewById(R.id.viewpager);
-        pagerTabStrip = (PagerTabStrip)findViewById(R.id.pager_header);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
 
         startService(new Intent(PageViewActivity.this, LoadContentService.class));
 
     }
     private List<Fragment> getFragments() {
         List<Fragment> fList = new ArrayList<Fragment>();
-        fList.add(InCompletePosts.newInstance(toolbar, getApplicationContext(), "Fragment 1", toolbarTitle, addFab, this, stories_incomplete, pagerTabStrip));
-        fList.add(CompletedPosts.newInstance(toolbar, getApplicationContext(), "Fragment 2", toolbarTitle, addFab, this, stories_finished, pagerTabStrip));
+        fList.add(InCompletePosts.newInstance(toolbar, getApplicationContext(), "Fragment 1", toolbarTitle, addFab, this, stories_incomplete, tabLayout));
+        fList.add(CompletedPosts.newInstance(toolbar, getApplicationContext(), "Fragment 2", toolbarTitle, addFab, this, stories_finished, tabLayout));
         return fList;
     }
 
@@ -115,6 +116,8 @@ public class PageViewActivity extends AppCompatActivity {
         List<Fragment> fragments = getFragments();
         pageAdapter = new MyPageAdapter(getSupportFragmentManager(), fragments);
         pager.setAdapter(pageAdapter);
+
+        tabLayout.setupWithViewPager(pager);
 
     }
 
