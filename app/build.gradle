@@ -35,4 +35,8 @@ dependencies {
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     compile 'com.github.rey5137:material:1.2.1'
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
+    //because Default spinners suck
+    compile ('com.weiwangcn.betterspinner:library-material:1.1.0') {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
 }

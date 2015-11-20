@@ -27,10 +27,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.lzyzsd.circleprogress.CircleProgress;
-import com.mingle.entity.MenuEntity;
-import com.mingle.sweetpick.DimEffect;
-import com.mingle.sweetpick.SweetSheet;
-import com.mingle.sweetpick.ViewPagerDelegate;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rey.material.widget.CheckBox;
 
@@ -54,7 +50,6 @@ import java.util.List;
 
 public class CreatePostActivity extends AppCompatActivity {
 
-    private SweetSheet mReportCategoriesSheet;
     private RelativeLayout rl;
     private MaterialEditText editTitle;
     private MaterialEditText editDescription;
@@ -147,8 +142,6 @@ public class CreatePostActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(editTitle.getWindowToken(), 0);
 
-                    mReportCategoriesSheet.toggle();
-
                 }
             }
         });
@@ -161,7 +154,7 @@ public class CreatePostActivity extends AppCompatActivity {
             checkLists = getCheckLists();
 
         if(checkLists.size() > 0){
-            setupViewpager();
+
         }else{
             rl.setVisibility(View.GONE);
             progressDialog = new ProgressDialog(CreatePostActivity.this);
@@ -265,32 +258,6 @@ public class CreatePostActivity extends AppCompatActivity {
         }
     }
 
-    private void setupViewpager() {
-
-        mReportCategoriesSheet = new SweetSheet(rl);
-
-        mReportCategoriesSheet.setMenuList(questionsListMenu());
-        mReportCategoriesSheet.setDelegate(new ViewPagerDelegate());
-        mReportCategoriesSheet.setBackgroundEffect(new DimEffect(0.5f));
-        mReportCategoriesSheet.setOnMenuItemClickListener(new SweetSheet.OnMenuItemClickListener() {
-            @Override
-            public boolean onItemClick(int position, MenuEntity menuEntity1) {
-                //First get db id of the selected checklist
-                selected_checklist_id = checkLists.get(position).getId();
-                setUpCheckListQuestions();
-
-                //restore color if in error mode
-                categoryName.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
-
-                categoryName.setText(menuEntity1.title);
-                categoryThumb.setImageDrawable(menuEntity1.icon);
-
-                return true;
-            }
-        });
-
-    }
-
     /**
      * Function to load checklist items based on selection
      * @return void
@@ -316,20 +283,6 @@ public class CreatePostActivity extends AppCompatActivity {
         progressBar.setFinishedColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
 
         progressBar.setVisibility(View.VISIBLE);
-    }
-
-    public List<MenuEntity> questionsListMenu(){
-        List<MenuEntity> menuEntities = new ArrayList<>();
-
-        for(CheckListObject checkListObject_: checkLists){
-
-            MenuEntity menuEntity = new MenuEntity();
-            menuEntity.title = checkListObject_.getTitle();
-            menuEntity.icon = drawableFromFile(checkListObject_.getThumbnail());
-            menuEntities.add(menuEntity);
-        }
-
-        return menuEntities;
     }
 
     public Drawable drawableFromFile(String pathName){
@@ -363,18 +316,6 @@ public class CreatePostActivity extends AppCompatActivity {
         cursor.close();
 
         return checkListObjects;
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        if (mReportCategoriesSheet.isShow()) {
-                mReportCategoriesSheet.dismiss();
-        } else {
-            closeCreateStory();
-        }
-
-
     }
 
     @Override
@@ -532,7 +473,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
                             if(checkLists.size() > 0) {
                                 rl.setVisibility(View.VISIBLE);
-                                setupViewpager();
+
                                 progressDialog.dismiss();
                             }else{
                                 Toast.makeText(getApplicationContext(), "Could not get checklists.", Toast.LENGTH_LONG).show();
