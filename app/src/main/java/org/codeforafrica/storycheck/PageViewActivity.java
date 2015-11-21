@@ -3,6 +3,7 @@ package org.codeforafrica.storycheck;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -88,6 +89,9 @@ public class PageViewActivity extends AppCompatActivity {
         switch (menuItem.getItemId()){
             case R.id.action_new:
                 addFab.performClick();
+                return true;
+            case R.id.action_feedback:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
                 return true;
         }
 
