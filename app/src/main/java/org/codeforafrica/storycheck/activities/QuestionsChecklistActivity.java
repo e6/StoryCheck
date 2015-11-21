@@ -78,6 +78,7 @@ public class QuestionsChecklistActivity extends AppCompatActivity {
         descriptionView = (AvenirTextView) findViewById(R.id.description_view);
         dateView = (AvenirTextView) findViewById(R.id.date_view);
 
+
         editButton = (ImageView)toolbar.findViewById(R.id.edit_button);
         //set ontouch listener
         questionsList.setOnTouchListener(new OnSwipeTouchListener(this, questionsList) {
@@ -115,6 +116,7 @@ public class QuestionsChecklistActivity extends AppCompatActivity {
                 Intent i = new Intent(QuestionsChecklistActivity.this, NewStoryActivity.class);
                 i.putExtra("story_id", storyId);
                 startActivity(i);
+                finish();
             }
         });
 

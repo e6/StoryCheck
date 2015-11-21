@@ -74,10 +74,22 @@
             app:met_floatingLabel="normal"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/categoryThumb"
+            android:layout_toEndOf="@id/categoryThumb"
             android:textColor="@color/colorPrimaryDark"
             android:gravity="center_vertical"
             android:textSize="16sp" />
+        <org.codeforafrica.storycheck.view.AvenirTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/categoryTV"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@id/categoryThumb"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

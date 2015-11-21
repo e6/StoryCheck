@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -21,7 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.github.lzyzsd.circleprogress.CircleProgress;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -30,7 +27,6 @@ import org.codeforafrica.storycheck.GlobalConstants;
 import org.codeforafrica.storycheck.MaterialEditTextExtend.MinLengthValidator;
 import org.codeforafrica.storycheck.R;
 import org.codeforafrica.storycheck.adapters.QuestionsListAdapter;
-import org.codeforafrica.storycheck.data.AnswerObject;
 import org.codeforafrica.storycheck.data.CheckListObject;
 import org.codeforafrica.storycheck.data.DBHelper;
 import org.codeforafrica.storycheck.data.QuestionObject;
@@ -54,27 +50,16 @@ public class NewStoryActivity extends AppCompatActivity {
     private MaterialEditText editDescription;
 
     private MaterialBetterSpinner categoryPicker;
-    private RelativeLayout categorySection;
-    private ImageView categoryThumb;
-
-    private ListView questionsList;
     private AvenirTextView toolbarTitle;
     private List<CheckListObject> checkLists;
     private List<String>checkListTitles = new ArrayList<>();
     private String selected_checklist_id;
     private ImageView doneButton;
     private QuestionsListAdapter currentQuestionsAdapter;
-    private CircleProgress progressBar;
     private ProgressDialog progressDialog;
     private long storyId = 0;
     private StoryObject storyObject;
-    private List<AnswerObject> answersList;
-
-    private int mode;
-
-    private static final int CREATE_MODE = 0;
-    private static final int CHECKLIST_MODE = 1;
-    private static final int EDIT_MODE = 2;
+    private AvenirTextView categoryView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +111,7 @@ public class NewStoryActivity extends AppCompatActivity {
                 selected_checklist_id = checkLists.get(position).getId();
             }
         });
+        categoryView = (AvenirTextView)findViewById(R.id.categoryTV);
 
         checkLists = getCheckLists();
 
@@ -145,6 +131,33 @@ public class NewStoryActivity extends AppCompatActivity {
             requestContent();
         }
 
+        //check if updating story
+        if(getIntent().hasExtra("story_id")){
+            storyId = getIntent().getLongExtra("story_id", 0);
+
+            storyObject = new StoryObject(getApplicationContext(), storyId);
+            editTitle.setText(storyObject.getTitle());
+            editDescription.setText(storyObject.getDescription());
+
+            //load the checklist selected
+            selected_checklist_id = storyObject.getChecklist();
+
+
+            //set category
+            for (int i = 0; i < checkLists.size(); i++){
+
+                if(selected_checklist_id.equals(checkLists.get(i).getId())){
+                    categoryView.setText(checkLists.get(i).getTitle());
+                }
+            }
+            categoryPicker.setVisibility(View.GONE);
+            categoryView.setVisibility(View.VISIBLE);
+
+        }else {
+            storyObject = new StoryObject(getApplicationContext(), storyId);
+        }
+
+
     }
     public void save_checkList(){
         //save checklist to database
@@ -156,7 +169,6 @@ public class NewStoryActivity extends AppCompatActivity {
         currentQuestionsAdapter = new QuestionsListAdapter(getApplicationContext(), selected_checklist_id);
 
         //save story
-        storyObject = new StoryObject(getApplicationContext(), storyId);
         storyObject.setTitle(title);
         storyObject.setDescription(description);
         storyObject.setChecklist(selected_checklist_id);
@@ -182,6 +194,7 @@ public class NewStoryActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.saved), Toast.LENGTH_LONG).show();
 
         //start checklist
+
         Intent i = new Intent(NewStoryActivity.this, QuestionsChecklistActivity.class);
         i.putExtra("story_id", storyId);
         startActivity(i);
