@@ -123,13 +123,10 @@
     <!--Menu -->
     <string name="new_story">New Story</string>
     <string name="help">Help</string>
-    <string name="about">About StoryCheck</string>
+    <string name="about">StoryCheck helps ensure you have all the necessary bits of your story.</string>
     <string name="feedback">Give Feedback</string>
 
-    <!--Feedback-->
-    <string name="rate_title">Give us your feedback</string>
-    <string name="rate_message">We always value feedback to help us improve the application</string>
-    <string name="rate_positive">Rate now</string>
-    <string name="rate_remind_later">Remind me later</string>
-    <string name="rate_never"></string>
+    <string name="view_website">Visit website</string>
+    <string name="built_by">Built by</string>
+    <string name="built_for">Built for</string>
 </resources>

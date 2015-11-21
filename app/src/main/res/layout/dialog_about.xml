@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:padding="10dp"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tvAbout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <View
+        android:id="@+id/vAbout"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/grey"
+        android:layout_below="@+id/tvAbout" />
+
+    <RelativeLayout
+        android:id="@+id/rlWebsite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:padding="2dp"
+        android:layout_below="@+id/vAbout" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_public_blue_grey_200_24dp" />
+
+        <org.codeforafrica.storycheck.view.AvenirTextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/view_website"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/vWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/grey"
+        android:layout_below="@+id/rlWebsite" />
+
+    <TextView
+        android:id="@+id/tvBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vWebsite"
+        android:layout_centerHorizontal="true"
+        android:text="@string/built_by"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="fill_parent"
+        android:layout_height="89dp"
+        android:layout_below="@+id/tvBy"
+        android:background="@color/white"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="10dp"
+
+        android:paddingTop="5dp"
+        android:src="@drawable/c4a" />
+
+</RelativeLayout>

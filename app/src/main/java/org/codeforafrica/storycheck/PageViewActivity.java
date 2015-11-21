@@ -1,5 +1,6 @@
 package org.codeforafrica.storycheck;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -93,9 +94,43 @@ public class PageViewActivity extends AppCompatActivity {
             case R.id.action_feedback:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
                 return true;
+            case R.id.action_about:
+                showAbout();
+                return true;
         }
 
         return true;
+    }
+
+    private void showAbout(){
+        Dialog dialog_about = new Dialog(this);
+        dialog_about.setTitle("About " + GlobalConstants.TAG);
+        dialog_about.setContentView(R.layout.dialog_about);
+        dialog_about.findViewById(R.id.imageView2).setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                openURL("http://codeforafrica.org");
+            }
+
+        });
+        dialog_about.findViewById(R.id.rlWebsite).setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                openURL("http://nqabile.co.za/");
+            }
+
+        });
+        dialog_about.show();
+    }
+
+    public void openURL(String url){
+
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+
     }
 
     private List<Fragment> getFragments() {
