@@ -9,7 +9,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -141,8 +140,6 @@ public class QuestionsChecklistActivity extends AppCompatActivity {
         progressBar.setMax(questionsList.getCount());
         progressBar.setSuffixText("/" + questionsList.getCount());
         progressBar.setProgress(storyObject.getChecklist_count_filled());
-
-        Log.d("checklist count", storyObject.getChecklist_count_filled() + ": checklist count");
 
         //get answers for this story
         answersList = storyObject.getAnswers();
