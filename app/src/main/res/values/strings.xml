@@ -119,4 +119,10 @@
     <string name="getting_checklists">Getting checklists...</string>
 
     <string name="saved">Saved!</string>
+
+    <!--Menu -->
+    <string name="new_story">New Story</string>
+    <string name="help">Help</string>
+    <string name="about">About StoryCheck</string>
+    <string name="feedback">Send Feedback</string>
 </resources>

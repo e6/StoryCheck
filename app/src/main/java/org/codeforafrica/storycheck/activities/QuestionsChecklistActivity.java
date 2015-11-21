@@ -242,7 +242,7 @@ public class QuestionsChecklistActivity extends AppCompatActivity {
         storyObject.setChecklist(selected_checklist_id);
         storyObject.setChecklist_count(questionsList.getCount());
 
-        storyId = storyObject.commit();
+        storyObject.commit();
 
         int totalFilled = 0;
 

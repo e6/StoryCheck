@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 
 import org.codeforafrica.storycheck.activities.NewStoryActivity;
@@ -47,6 +48,7 @@ public class PageViewActivity extends AppCompatActivity {
         toolbarTitle = (AvenirTextView) toolbar.findViewById(R.id.toolbar_title);
 
         toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_launcher));
+
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -72,6 +74,13 @@ public class PageViewActivity extends AppCompatActivity {
         startService(new Intent(PageViewActivity.this, LoadContentService.class));
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
     private List<Fragment> getFragments() {
         List<Fragment> fList = new ArrayList<Fragment>();
         fList.add(InCompletePosts.newInstance(toolbar, getApplicationContext(), "Fragment 1", toolbarTitle, addFab, this, stories_incomplete, tabLayout));

@@ -194,7 +194,6 @@ public class NewStoryActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.saved), Toast.LENGTH_LONG).show();
 
         //start checklist
-
         Intent i = new Intent(NewStoryActivity.this, QuestionsChecklistActivity.class);
         i.putExtra("story_id", storyId);
         startActivity(i);
