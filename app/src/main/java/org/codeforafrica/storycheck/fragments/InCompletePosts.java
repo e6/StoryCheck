@@ -18,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -189,6 +188,7 @@ public class InCompletePosts extends Fragment {
         relativeLayout.setPadding(10, 30, 10, 30);
         relativeLayout.setVerticalGravity(Gravity.CENTER_VERTICAL);
 
+        /*
         //Create an icon view
         RelativeLayout.LayoutParams ivl = new RelativeLayout.LayoutParams(35, 35);
         ivl.addRule(RelativeLayout.ALIGN_PARENT_START);
@@ -200,7 +200,7 @@ public class InCompletePosts extends Fragment {
         iV.setId(View.generateViewId());
         //iV.setPadding(5, 5, 5, 5);
         relativeLayout.addView(iV);
-
+        */
 
         //create circle progress bar
         RelativeLayout.LayoutParams crl = new RelativeLayout.LayoutParams(60, 60);
@@ -230,8 +230,7 @@ public class InCompletePosts extends Fragment {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(10, 0, 0, 0);
-        lp.addRule(RelativeLayout.RIGHT_OF, iV.getId());
+        lp.addRule(RelativeLayout.ALIGN_PARENT_START);
         lp.addRule(RelativeLayout.LEFT_OF, circleProgress.getId());
         lp.addRule(RelativeLayout.CENTER_VERTICAL);
         tv.setLayoutParams(lp);
