@@ -115,5 +115,8 @@
 
     <string name="no_checklist_selected">No checklist selected!</string>
     <string name="error_getting_checklists">Error getting checklists</string>
+    <string name="no_checklists">No checklists</string>
+    <string name="getting_checklists">Getting checklists...</string>
+
     <string name="saved">Saved!</string>
 </resources>

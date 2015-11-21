@@ -31,6 +31,7 @@ import com.zzt.inbox.widget.InboxLayoutListView;
 import org.codeforafrica.storycheck.CreatePostActivity;
 import org.codeforafrica.storycheck.PageViewActivity;
 import org.codeforafrica.storycheck.R;
+import org.codeforafrica.storycheck.activities.QuestionsChecklistActivity;
 import org.codeforafrica.storycheck.data.AnswerObject;
 import org.codeforafrica.storycheck.data.DBHelper;
 import org.codeforafrica.storycheck.data.QuestionObject;
@@ -282,7 +283,7 @@ public class InCompletePosts extends Fragment {
 
                 edit_story_id = story_id;
                 */
-                Intent i = new Intent(getActivity(), CreatePostActivity.class);
+                Intent i = new Intent(getActivity(), QuestionsChecklistActivity.class);
                 i.putExtra("story_id", story_id);
                 i.putExtra("checkListMode", true);
                 startActivity(i);

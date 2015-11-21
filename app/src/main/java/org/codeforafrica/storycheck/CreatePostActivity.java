@@ -281,11 +281,9 @@ public class CreatePostActivity extends AppCompatActivity {
      */
     public void setUpCheckListQuestions(){
 
-
-
-            //Then use the id to load adapter
-            currentQuestionsAdapter = new QuestionsListAdapter(getApplicationContext(), selected_checklist_id);
-            questionsList.setAdapter(currentQuestionsAdapter);
+        //Then use the id to load adapter
+        currentQuestionsAdapter = new QuestionsListAdapter(getApplicationContext(), selected_checklist_id);
+        questionsList.setAdapter(currentQuestionsAdapter);
 
         //show progress bar
         if(mode == CHECKLIST_MODE) {

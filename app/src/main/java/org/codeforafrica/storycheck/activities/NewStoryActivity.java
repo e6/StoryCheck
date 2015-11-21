@@ -1,6 +1,7 @@
 package org.codeforafrica.storycheck.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -179,6 +180,11 @@ public class NewStoryActivity extends AppCompatActivity {
 
         //toast
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.saved), Toast.LENGTH_LONG).show();
+
+        //start checklist
+        Intent i = new Intent(NewStoryActivity.this, QuestionsChecklistActivity.class);
+        i.putExtra("story_id", storyId);
+        startActivity(i);
 
         finish();
 
