@@ -6,11 +6,11 @@
     android:padding="10dp"
     android:background="@color/white">
 
-    <TextView
+    <org.codeforafrica.storycheck.view.AvenirTextView
         android:id="@+id/tvAbout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/about"
+        android:text="@string/about_desc"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark" />
 
@@ -59,7 +59,7 @@
         android:background="@color/grey"
         android:layout_below="@+id/rlWebsite" />
 
-    <TextView
+    <org.codeforafrica.storycheck.view.AvenirTextView
         android:id="@+id/tvBy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

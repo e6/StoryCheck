@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 import org.codeforafrica.storycheck.activities.NewStoryActivity;
 import org.codeforafrica.storycheck.data.DBHelper;
@@ -104,6 +105,7 @@ public class PageViewActivity extends AppCompatActivity {
 
     private void showAbout(){
         Dialog dialog_about = new Dialog(this);
+        dialog_about.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_about.setTitle("About " + GlobalConstants.TAG);
         dialog_about.setContentView(R.layout.dialog_about);
         dialog_about.findViewById(R.id.imageView2).setOnClickListener(new View.OnClickListener(){
